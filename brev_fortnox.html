@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sofia Sjöqvist — Personligt brev (DORA Compliance Manager)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0f172a;       /* Slate 900 */
-            --primary-light: #1e293b; /* Slate 800 */
-            --accent: #2563eb;        /* Fortnox-inspired Blue */
-            --text-dark: #1e293b;     /* Slate 800 */
-            --text-muted: #64748b;    /* Slate 500 */
-            --bg-light: #f8fafc;      /* Slate 50 */
-            --border: #e2e8f0;        /* Slate 200 */
+            --bg-page: #faf9f6;         /* Warm premium paper background */
+            --primary: #1e1b4b;         /* Deep midnight indigo */
+            --accent: #f97316;           /* Energetic coral/orange */
+            --text-dark: #1e293b;        /* Slate 800 */
+            --text-muted: #64748b;       /* Slate 500 */
+            --card-bg: #ffffff;          /* Pure white cards */
+            --border: #e2e8f0;           /* Slate 200 */
         }
 
         * {
@@ -23,143 +23,149 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #ffffff;
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-page);
             color: var(--text-dark);
             line-height: 1.6;
             padding: 40px;
-            font-size: 15px;
         }
 
-        .letter-wrapper {
+        .letter-container {
             max-width: 800px;
             margin: 0 auto;
-            background: #ffffff;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 50px 60px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border-top: 8px solid var(--primary);
         }
 
         /* Top Header Design */
         header {
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 25px;
-            margin-bottom: 30px;
-        }
-
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
         }
 
-        .name-title h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 38px;
-            font-weight: 800;
+        .header-left h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--primary);
-            letter-spacing: -0.5px;
             line-height: 1.1;
         }
 
-        .name-title .role-tag {
-            display: inline-block;
-            margin-top: 8px;
-            font-family: 'Outfit', sans-serif;
-            font-size: 15px;
-            font-weight: 600;
+        .header-left .role-tag {
+            font-size: 13px;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             color: var(--accent);
+            font-weight: 700;
+            margin-top: 5px;
+            display: inline-block;
         }
 
-        .contact-details {
+        .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            font-size: 13.5px;
+            gap: 5px;
+            font-size: 13px;
             color: var(--text-muted);
             align-items: flex-end;
+            text-align: right;
         }
 
-        .contact-details a {
+        .contact-info a {
             color: var(--text-dark);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.2s ease;
         }
 
-        .contact-details a:hover {
+        .contact-info a:hover {
             color: var(--accent);
         }
 
         .metadata {
-            margin-bottom: 30px;
-            font-size: 13.5px;
+            margin-bottom: 25px;
+            font-size: 13px;
             color: var(--text-muted);
             font-style: italic;
         }
 
         h2 {
-            font-family: 'Outfit', sans-serif;
+            font-family: 'Playfair Display', serif;
             font-size: 22px;
             color: var(--primary);
             margin-bottom: 20px;
             font-weight: 700;
-            letter-spacing: -0.3px;
+            position: relative;
         }
 
         p {
             margin-bottom: 18px;
             text-align: justify;
             color: #334155;
+            font-size: 14.5px;
         }
 
-        .key-highlights {
-            margin: 25px 0;
-            padding: 5px 0 5px 20px;
-            border-left: 3px solid var(--accent);
+        /* Highlight List */
+        .key-points {
             list-style: none;
+            margin: 25px 0;
+            padding-left: 20px;
+            border-left: 3px solid var(--accent);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .key-highlights li {
-            margin-bottom: 12px;
+        .key-points li {
+            position: relative;
             font-size: 14.5px;
             color: #334155;
-            position: relative;
         }
 
-        .key-highlights li strong {
+        .key-points li strong {
             color: var(--primary);
         }
 
         .signature {
             margin-top: 40px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
         }
 
         @media print {
             body {
                 padding: 0;
-                font-size: 14px;
+                background-color: #ffffff;
+            }
+            .letter-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="letter-wrapper">
+    <div class="letter-container">
         <header>
-            <div class="header-content">
-                <div class="name-title">
-                    <h1>Sofia Sjöqvist</h1>
-                    <span class="role-tag">DORA Compliance Manager</span>
-                </div>
-                <div class="contact-details">
-                    <span>Stockholm / Malmö</span>
-                    <span>+46 70 000 00 00</span>
-                    <span><a href="mailto:sofia.sjoqvist@email.com">sofia.sjoqvist@email.com</a></span>
-                    <span><a href="https://linkedin.com/in/sofia-sjoqvist" target="_blank">linkedin.com/in/sofia-sjoqvist</a></span>
-                </div>
+            <div class="header-left">
+                <h1>Sofia Sjöqvist</h1>
+                <span class="role-tag">DORA Compliance Manager</span>
+            </div>
+            <div class="contact-info">
+                <span>📍 Stockholm / Malmö</span>
+                <span>📞 +46 70 000 00 00</span>
+                <span>✉️ <a href="mailto:sofia.sjoqvist@email.com">sofia.sjoqvist@email.com</a></span>
+                <span>🔗 <a href="https://linkedin.com/in/sofia-sjoqvist" target="_blank">linkedin.com/in/sofia-sjoqvist</a></span>
             </div>
         </header>
 
@@ -169,7 +175,7 @@
             Datum: 6 juni 2026
         </div>
 
-        <h2>Hur DORA skapar affärsvärde – och hur jag kan hjälpa Fortnox att nå dit</h2>
+        <h2>Hur DORA skapar affärsvärde — och hur jag kan hjälpa Fortnox att nå dit</h2>
 
         <p>Hej,</p>
 
@@ -179,7 +185,7 @@
 
         <p>För att lyckas i den här rollen krävs det någon som kan tala både teknikens och regelverkens språk. Min bakgrund utmärker sig på tre områden som matchar er kravprofil perfekt:</p>
 
-        <ul class="key-highlights">
+        <ul class="key-points">
             <li><strong>Den operativa förståelsen:</strong> Som IT-avdelningschef under sju år förstår jag systemarkitektur, utvecklingsteamens processer och vad som krävs för att integrera säkerhetskrav utan att sakta ner er tekniska utvecklingstakt.</li>
             <li><strong>Den regulatoriska tyngden:</strong> Med mångårig erfarenhet som compliance-expert och internrevisor (Folksam, Riksbanken) är jag trygg i att rapportera risker och ge rekommendationer direkt till VD, ledning och styrelse.</li>
             <li><strong>Tillsynsinsikten:</strong> Genom att tidigare ha varit med och byggt upp den nya internrevisionsfunktionen hos Finansinspektionen samt samarbetat med ECB i Frankfurt, har jag en klar bild av hur myndigheterna granskar IKT-resiliens.</li>
