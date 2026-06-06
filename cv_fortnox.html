@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia Sjöqvist — CV (DORA Compliance Manager)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;       /* Slate 900 */
+            --primary-light: #1e293b; /* Slate 800 */
+            --accent: #2563eb;        /* Fortnox-inspired Blue */
+            --accent-glow: rgba(37, 99, 241, 0.15);
+            --text-dark: #1e293b;     /* Slate 800 */
+            --text-muted: #64748b;    /* Slate 500 */
+            --bg-light: #f8fafc;      /* Slate 50 */
+            --border: #e2e8f0;        /* Slate 200 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding: 40px;
+        }
+
+        .cv-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+
+        /* Top Header Design */
+        header {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .name-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .name-title .role-tag {
+            display: inline-block;
+            margin-top: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13.5px;
+            color: var(--text-muted);
+            align-items: flex-end;
+        }
+
+        .contact-details a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--accent);
+        }
+
+        /* High-impact Executive Summary Card */
+        .summary-card {
+            background: var(--bg-light);
+            border-left: 5px solid var(--accent);
+            border-radius: 4px 12px 12px 4px;
+            padding: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .summary-card p {
+            font-size: 14.5px;
+            color: #334155;
+            font-weight: 450;
+        }
+
+        /* Structural Layout */
+        section {
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 2px;
+        }
+
+        .section-header .line-extension {
+            flex-grow: 1;
+            height: 1px;
+            background-color: var(--border);
+            margin-left: 20px;
+        }
+
+        /* Competencies section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .skill-card {
+            padding: 4px 0;
+        }
+
+        .skill-title {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 3px;
+        }
+
+        .skill-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+        }
+
+        /* Professional Experience Timeline */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+
+        .job-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .job-company {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .job-date {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .job-bullets {
+            list-style: none;
+            padding-left: 18px;
+        }
+
+        .job-bullets li {
+            position: relative;
+            margin-bottom: 6px;
+            font-size: 13.5px;
+            color: #334155;
+        }
+
+        .job-bullets li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: -18px;
+            top: 0px;
+        }
+
+        .job-bullets li strong {
+            color: var(--primary);
+        }
+
+        /* Education & Qualifications */
+        .edu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 14px;
+        }
+
+        .edu-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .edu-desc {
+            color: var(--text-muted);
+        }
+
+        /* Print formatting */
+        @media print {
+            body {
+                padding: 0;
+                font-size: 13px;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .summary-card {
+                box-shadow: none;
+                background: #f8fafc !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-wrapper">
+        <header>
+            <div class="header-content">
+                <div class="name-title">
+                    <h1>Sofia Sjöqvist</h1>
+                    <span class="role-tag">DORA Compliance Manager</span>
+                </div>
+                <div class="contact-details">
+                    <span>Stockholm / Malmö</span>
+                    <span>+46 70 000 00 00</span>
+                    <span><a href="mailto:sofia.sjoqvist@email.com">sofia.sjoqvist@email.com</a></span>
+                    <span><a href="https://linkedin.com/in/sofia-sjoqvist" target="_blank">linkedin.com/in/sofia-sjoqvist</a></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="summary-card">
+            <h2>Ledarskapsprofil</h2>
+            <p>
+                Erfaren, affärsorienterad och trygg ledare inom compliance, riskhantering och IKT-styrning med över 20 års erfarenhet från finansiella och regulatoriskt tillsynade verksamheter. Genom att ha arbetat i samtliga tre försvarslinjer – som extern/internrevisor, IT-avdelningschef samt Compliance Officer – har jag en unik förmåga att brygga gapet mellan strikta regulatoriska IKT-krav och den bredare praktiska IKT-styrningen. Jag drivs av att bygga starka relationer och tvärfunktionellt samarbete för att transformera regelkrav till ökad driftsäkerhet, starkare tredjepartskontroll och affärsmässigt förtroende.
+            </p>
+        </div>
+
+        <section>
+            <div class="section-header">
+                <h2>Nyckelkompetenser för DORA-ramverket</h2>
+                <div class="line-extension"></div>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-title">Implementering av DORA & IKT-Riskstyrning</div>
+                    <div class="skill-desc">Praktisk erfarenhet av att kartlägga informationsflöden, klassificera risker och implementera säkerhetsåtgärder. Expertis i att översätta DORA:s pelare till konkreta rutiner för IT-avdelningar och affärsverksamheten.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-title">Tredjepartshantering, Outsourcing & Avtalsreglering</div>
+                    <div class="skill-desc">Specialistkompetens inom revision av IKT-leverantörer. Stor erfarenhet av riskbedömning, koncentrationsanalyser samt avtalsskrivning för kritiska moln- och IT-tjänster i enlighet med gällande myndighetskrav.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-title">Incidentrapportering & Tillsynskontakt</div>
+                    <div class="skill-desc">Erfarenhet av incidentklassificering samt upprättande av processer för snabb och strukturerad rapportering till Finansinspektionen. Vana vid en kontinuerlig och öppen dialog med tillsynsmyndigheter.</div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-title">Tvärfunktionell Stakeholder Management</div>
+                    <div class="skill-desc">Pedagogisk specialist som är van att föra dialoger med både tekniker, inköpare, jurister, VD och styrelse för att förankra riskmedvetenhet och säkerställa samstämmighet i IKT-strategin.</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-break">
+            <div class="section-header">
+                <h2>Arbetslivserfarenhet</h2>
+                <div class="line-extension"></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Compliance Officer — <span class="job-company">Folksam</span></span>
+                        <span class="job-date">Maj 2025 – Pågående</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Ansvarar för oberoende granskning, riskbaserad uppföljning och rådgivning avseende regelefterlevnad för Folksams försäkringsenheter.</li>
+                        <li><strong>DORA-fokus:</strong> Leder granskningen och kravställningen av **IKT-tredjepartsrisker** och outsourcingavtal. Har drivit arbetet med riskklassificering av externa molnleverantörer och analyserat koncentrationsrisker inför ikraftträdandet.</li>
+                        <li>Rapporterar regelbundet granskningsresultat och rekommendationer direkt till VD, koncernledning samt styrelse.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Avdelningschef IT — <span class="job-company">Folksam</span></span>
+                        <span class="job-date">2018 – 2025</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Personal-, system- och budgetansvar för tvärfunktionella team (10–15 medarbetare) inom boksluts- och myndighetsrapportering till FI och EIOPA.</li>
+                        <li><strong>DORA-anpassning:</strong> Ansvarade för att operativt anpassa IT-avdelningens rutiner, stärka sårbarhetstester samt upprätta processer för incidenthantering och digital återställningsförmåga under 2024.</li>
+                        <li>Utvecklade Folksams RPA-team (robotisering) vilket minskade manuella operationella risker och ökade processtabiliteten.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Verksamhetsutvecklare (Ekonomi & Finans) — <span class="job-company">Folksam</span></span>
+                        <span class="job-date">2013 – 2018</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Drev implementeringen av intern styrning och kontroll (pelare 2) i det bolagsövergripande **Solvens II**-programmet.</li>
+                        <li>Ansvarade för riskhanterings- och kontinuitetsplaneringsprocesser (BCP/DRP) för ekonomi- och finansfunktionen i nära samverkan med centrala riskfunktioner.</li>
+                        <li>Kravställde och upphandlade IT-systemstöd samt externa revisions- och konsulttjänster.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Internrevisor — <span class="job-company">Folksam</span></span>
+                        <span class="job-date">2012 – 2013</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Utförde självständiga granskningar av Folksams kapitalförvaltning, riskhanteringsfunktioner och regelefterlevnad.</li>
+                        <li>Huvudansvarig för att uppdatera och kvalitetssäkra revisionsmetodiken enligt internationella standards.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Internrevisor — <span class="job-company">Sveriges Riksbank</span></span>
+                        <span class="job-date">2008 – 2012</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Utvecklade Riksbankens revisionsmetodik och representerade banken i Europeiska Centralbankens (ECB) revisionsforum i Frankfurt.</li>
+                        <li><strong>Finansinspektionen:</strong> Var drivande och rådgivande i uppbyggnaden av en modern internrevisionsfunktion hos Finansinspektionen.</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="job-title-row">
+                        <span class="job-title">Externrevisor och Riskkonsult — <span class="job-company">Deloitte</span></span>
+                        <span class="job-date">2000 – 2008</span>
+                    </div>
+                    <ul class="job-bullets">
+                        <li>Genomförde revisioner och rådgivningsuppdrag med fokus på risk, regelefterlevnad och intern kontroll hos banker och försäkringsbolag.</li>
+                        <li>Agerade under en längre period tillförordnad gruppchef för internrevisionen hos ett ledande livförsäkringsbolag.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-header">
+                <h2>Utbildning, kurser & Certifikat</h2>
+                <div class="line-extension"></div>
+            </div>
+            <div class="edu-grid">
+                <div class="edu-item">
+                    <span class="edu-name">Magisterexamen i företagsekonomi</span>
+                    <span class="edu-desc">Handelshögskolan vid Göteborgs universitet, 2000</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-name">Certifierad Internrevisor (CIA)</span>
+                    <span class="edu-desc">Institute of Internal Auditors (IIA), 2008–2013</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-name">Outsourcing inom försäkringsbranschen</span>
+                    <span class="edu-desc">Utbildningscertifikat via Svensk Försäkringsförening, 2025</span>
+                </div>
+                <div class="edu-item">
+                    <span class="edu-name">Praktiskt Ledarskap & The Human Element</span>
+                    <span class="edu-desc">Tuff Ledarskapsutbildning, 2022–2024</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
