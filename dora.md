@@ -1,4 +1,4 @@
-Inom försäkring är DORA (Digital Operational Resilience Act) inte bara ett regelkrav utan kan också skapa tydigt affärsvärde för verksamheten. DORA gäller bland annat försäkringsbolag inom EU och syftar till att stärka motståndskraften mot IT-störningar, cyberattacker och leverantörsrisker.
+Inom försäkring är DORA (Digital Operational Resilience Act) inte bara ett regelkrav utan kan också skapa tydligt affärsvärde för verksamheten. DORA gäller bland annat försäkringsbolag inom EU och syftar till att stärka motståndskraften mot IT-störningar, cyberattacker och leverantörsrisker.
 
 Hur DORA är bra för verksamheten
 
