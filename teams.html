@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Topologies - Engineering Director's Reorganization Guide</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Design System - Anthropic-inspired warm editorial palette */
+        :root {
+            --bg-color: #FBF9F6;
+            --card-bg: #FFFFFF;
+            --text-primary: #191919;
+            --text-secondary: #6B6A67;
+            --accent-color: #8C5E58; /* Warm terracotta brown accent */
+            --accent-hover: #754E49;
+            --border-color: #E6E4E0;
+            --progress-bg: #EAE8E3;
+            --card-shadow: 0 4px 20px rgba(27, 26, 24, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout Grid */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        aside {
+            background-color: #FAF7F2;
+            border-right: 1px solid var(--border-color);
+            padding: 2.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo h1 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+            padding-right: 0.5rem;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            width: 4px;
+        }
+        .nav-links::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+            background-color: #EFECE6;
+        }
+
+        .sidebar-progress {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .progress-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-percent {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+        }
+
+        .progress-bar-container {
+            background-color: var(--progress-bg);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-color);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 4rem 5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 4rem;
+        }
+
+        header h2 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+        }
+
+        /* Chapter Card */
+        .chapter-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--card-shadow);
+            scroll-margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(27, 26, 24, 0.06);
+        }
+
+        .chapter-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .chapter-summary {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border-color);
+            font-style: italic;
+        }
+
+        /* Interactive Checklist */
+        .checklist-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #FAF8F5;
+            cursor: pointer;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Stylized Checkboxes */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 32px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            user-select: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 2px solid #C8C5C0;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent-color);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-container input:checked ~ .text-content {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .text-content {
+            display: block;
+            transition: var(--transition);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: relative;
+                height: auto;
+                padding: 2rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                overflow-y: visible;
+                margin-bottom: 1.5rem;
+            }
+
+            .nav-links li {
+                margin-bottom: 0;
+            }
+
+            main {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation & Progress -->
+        <aside>
+            <div class="sidebar-logo">
+                <h1>Team Topologies</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#ch1" class="active">1. Org Chart Limits</a></li>
+                <li><a href="#ch2">2. Conway's Law</a></li>
+                <li><a href="#ch3">3. Team-First Thinking</a></li>
+                <li><a href="#ch4">4. Static Topologies</a></li>
+                <li><a href="#ch5">5. The 4 Team Types</a></li>
+                <li><a href="#ch6">6. Decoupling Boundaries</a></li>
+                <li><a href="#ch7">7. 3 Interaction Modes</a></li>
+                <li><a href="#ch8">8. Sensing & Evolution</a></li>
+            </ul>
+            
+            <div class="sidebar-progress">
+                <div class="progress-title">Reorg Audit</div>
+                <div class="progress-stats">
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);" id="progressFraction">0/21</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <header>
+                <h2>Director's Reorganization Playbook</h2>
+                <p>An interactive, chapter-by-chapter organizational audit for Engineering Directors redesigning teams. Based on the insights of <em>Team Topologies: Organizing Business and Technology Teams for Fast Flow</em>. Use this to guide your strategy when structuring your four teams.</p>
+                <div class="source-reference" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-secondary);">
+                    Want to read the source material? Access <a href="file:///Users/hbakesson/Coding/sofia/teams_top.md" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">teams_top.md</a>.
+                </div>
+            </header>
+
+            <!-- Chapter 1 -->
+            <section id="ch1" class="chapter-card">
+                <div class="chapter-meta">Chapter 1</div>
+                <h3 class="chapter-title">The Problem with Org Charts</h3>
+                <div class="chapter-summary">
+                    Static org charts fail to represent the actual lines of communication and flow of value in a company. Rigid, hierarchical lines create operational silos and coordination bottlenecks that stall the flow of changes.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-1-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we structuring our 4 teams based on the actual flow of delivery (value stream) rather than functional reporting reporting structures?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-1-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we have hidden informal networks or communication lines that act as bottlenecks or bypass the official structure?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 2 -->
+            <section id="ch2" class="chapter-card">
+                <div class="chapter-meta">Chapter 2</div>
+                <h3 class="chapter-title">Conway's Law & Architectural Flow</h3>
+                <div class="chapter-summary">
+                    Systems architecture matches the communication paths of the organization. To achieve a loosely coupled, scalable architecture, directors must intentionally design team communication structures (the Reverse Conway Maneuver).
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-2-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does the desired software architecture mirror our proposed 4-team organizational structure to prevent architectural friction?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-2-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we intentionally restricting unnecessary, high-bandwidth communication lines between teams to protect system boundaries?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 3 -->
+            <section id="ch3" class="chapter-card">
+                <div class="chapter-meta">Chapter 3</div>
+                <h3 class="chapter-title">Team-First Thinking & Cognitive Load</h3>
+                <div class="chapter-summary">
+                    Teams should be small (5-9 people), stable, and long-lived. Directors must assess and limit team cognitive load (intrinsic, extraneous, germane) to keep the system manageable and prevent burnout.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checkbox-container">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-3-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Is the cognitive scope of our systems divided so that no single team owns more than one complex domain?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-3-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we keeping our team sizes optimized (within Dunbar's trust numbers, e.g., 5-9 individuals per team)?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-3-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does each of the 4 teams have a clearly defined "Team API" (wiki docs, Slack protocols, version controls, support agreements)?</span>
+                        </label>
+                    </li>
+                </ul>
+                <div style="margin-top: 1.5rem; background-color: #FAF8F5; border: 1px dashed var(--border-color); border-radius: 8px; padding: 1.2rem; font-size: 0.875rem;">
+                    <strong style="color: var(--accent-color); display: block; margin-bottom: 0.5rem;">Core Elements of a Team API:</strong>
+                    <ul style="list-style: disc; padding-left: 1.2rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.4rem;">
+                        <li><strong>Code & Interfaces:</strong> Code repositories, APIs, library packages, and data schemas owned by the team.</li>
+                        <li><strong>Documentation:</strong> Up-to-date wikis, getting-started guides, runbooks, and design documentation.</li>
+                        <li><strong>User Personas & Scenarios:</strong> Clarity on who uses their services (e.g., developers, operations, end-users) and how they consume them.</li>
+                        <li><strong>Communication Protocols:</strong> Guidelines on how other teams should get in touch (e.g., Slack channels, email, office hours vs asynchronous updates).</li>
+                        <li><strong>Service Agreements & Support:</strong> Standard on-call rotations, SLA limits, ticket guidelines, and response-time expectations.</li>
+                        <li><strong>Future Roadmap:</strong> Current WIP, future milestones, and feature plans to give dependent teams early visibility.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Chapter 4 -->
+            <section id="ch4" class="chapter-card">
+                <div class="chapter-meta">Chapter 4</div>
+                <h3 class="chapter-title">Static Team Topologies</h3>
+                <div class="chapter-summary">
+                    Avoid chaotic organization charts by adopting clear, structured team templates optimized for fast flow. Siloed DevOps or SRE teams can act as anti-patterns if they introduce handoffs.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-4-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we mapped our current team structures to recognize anti-patterns (e.g., throwing operations work 'over the wall')?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-4-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Is the relationship between our application developers and operations/SRE designed to optimize the overall flow of changes?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 5 -->
+            <section id="ch5" class="chapter-card">
+                <div class="chapter-meta">Chapter 5</div>
+                <h3 class="chapter-title">The Four Fundamental Team Topologies</h3>
+                <div class="chapter-summary">
+                    Organize your engineering department using only four fundamental team types: Stream-Aligned, Enabling, Complicated-Subsystem, and Platform teams. Stream-aligned teams are the primary value delivery drivers.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-5-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are the majority of our 4 teams designated as Stream-Aligned teams, directly delivering product streams to users?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-5-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">If we have platform capabilities, is our platform team treating their services as a product to support the stream teams?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-5-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are enabling capabilities (coaching, tool adoption) clearly defined rather than handled as ad-hoc, distracting tasks?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 6 -->
+            <section id="ch6" class="chapter-card">
+                <div class="chapter-meta">Chapter 6</div>
+                <h3 class="chapter-title">Choose Team-First Boundaries</h3>
+                <div class="chapter-summary">
+                    Divide software monoliths into manageable pieces using clear "fracture planes"—such as business domains, compliance boundaries, change cadence, or user personas.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-6-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we identified the natural fracture planes in our current system to cleanly segment our 4 teams' responsibilities?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-6-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we avoiding monoliths where multiple teams must continuously modify the same databases or shared codebases?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 7 -->
+            <section id="ch7" class="chapter-card">
+                <div class="chapter-meta">Chapter 7</div>
+                <h3 class="chapter-title">Three Essential Team Interaction Modes</h3>
+                <div class="chapter-summary">
+                    Teams must interact only via three well-defined modes: Collaboration (joint discovery), X-as-a-Service (consumption of a service), and Facilitating (helping/teaching).
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-7-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we explicitly define when teams should use Collaboration (discovery phase) versus X-as-a-Service (execution phase)?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-7-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we protecting teams from "collaboration overhead" by ensuring they don't default to collaboration for stable services?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 8 -->
+            <section id="ch8" class="chapter-card">
+                <div class="chapter-meta">Chapter 8</div>
+                <h3 class="chapter-title">Organizational Sensing & Evolution</h3>
+                <div class="chapter-summary">
+                    Team topologies must continuously evolve in response to technological advances, strategic pivots, or operational growth. Reorgs should be continuous and sensing, not static five-year mandates.
+                </div>
+                <div class="checklist-title">Director Reflections (Auditing 4 Teams)</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-8-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we identified the triggers (e.g., system scale, product lifecycle shifts) that will signal our 4 teams need to evolve their structure?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-8-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we actively tracking how much cross-team dependency is blocking daily releases, using this as a sensing signal to adapt?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="reorg-8-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do the team members understand that organizational structure is evolutionary rather than static?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Interactive Progress Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            const totalCount = checkboxes.length;
+            const progressPercentEl = document.getElementById('progressPercent');
+            const progressFractionEl = document.getElementById('progressFraction');
+            const progressBarEl = document.getElementById('progressBar');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('section');
+
+            // Load saved state from LocalStorage
+            checkboxes.forEach(checkbox => {
+                const checked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.checked = checked;
+                checkbox.addEventListener('change', () => {
+                    localStorage.setItem(checkbox.id, checkbox.checked);
+                    updateProgress();
+                });
+            });
+
+            function updateProgress() {
+                const checkedCount = document.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
+                const percent = Math.round((checkedCount / totalCount) * 100);
+                
+                progressPercentEl.textContent = `${percent}%`;
+                progressFractionEl.textContent = `${checkedCount}/${totalCount}`;
+                progressBarEl.style.width = `${percent}%`;
+            }
+
+            updateProgress();
+
+            // Simple Scroll Spy & Active Nav Highlight
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
