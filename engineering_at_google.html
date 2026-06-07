@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering at Google - Interactive Playbook</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Modern Editorial Design System */
+        :root {
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-primary: #1F2937;
+            --text-secondary: #4B5563;
+            --accent-google-blue: #1A73E8;
+            --accent-google-red: #EA4335;
+            --accent-google-yellow: #FBBC05;
+            --accent-google-green: #34A853;
+            --border-color: #E5E7EB;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.03);
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --educator-bg: #F0F4F9;
+            --educator-accent: #0B57D0;
+            --sidebar-width: 300px;
+            --code-bg: #F3F4F6;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #0F172A;
+            --card-bg: #1E293B;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --border-color: #334155;
+            --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --educator-bg: #172554;
+            --educator-accent: #38BDF8;
+            --code-bg: #0F172A;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition-smooth);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--card-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, var(--accent-google-blue), var(--accent-google-green));
+            border-radius: 6px;
+        }
+
+        .logo-text {
+            font-family: 'Lora', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-google-blue), var(--accent-google-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-sections {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+            padding-right: 0.25rem;
+        }
+
+        .nav-sections::-webkit-scrollbar {
+            width: 4px;
+        }
+        .nav-sections::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .nav-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-group-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-item button {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-item button:hover {
+            color: var(--text-primary);
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+
+        .nav-item.active button {
+            color: var(--accent-google-blue);
+            background-color: rgba(26, 115, 232, 0.1);
+            font-weight: 600;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+            color: var(--text-primary);
+            transition: var(--transition-smooth);
+        }
+
+        .btn:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        [data-theme="dark"] .btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-google-blue);
+            color: white;
+            border-color: var(--accent-google-blue);
+        }
+
+        .btn-primary:hover {
+            background-color: #1557b0;
+        }
+
+        .btn-active {
+            background-color: var(--educator-accent);
+            color: white;
+            border-color: var(--educator-accent);
+        }
+
+        /* Main Content Layout */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 2.5rem 3.5rem;
+            max-width: 1200px;
+        }
+
+        .section-view {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-secondary);
+        }
+
+        /* Content Blocks */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+            background-color: rgba(26, 115, 232, 0.1);
+            color: var(--accent-google-blue);
+        }
+
+        /* Interactive Widgets */
+        .interactive-panel {
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.03), rgba(52, 168, 83, 0.03));
+            border: 2px dashed var(--accent-google-blue);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Educator Notes */
+        .educator-note {
+            background-color: var(--educator-bg);
+            border-left: 4px solid var(--educator-accent);
+            border-radius: 0 8px 8px 0;
+            padding: 1.25rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        body.educator-mode-active .educator-note {
+            display: block;
+        }
+
+        /* Grid elements */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-area">
+            <div class="logo-icon"></div>
+            <div class="logo-text">SWE at Google</div>
+        </div>
+
+        <nav class="nav-sections">
+            <div class="nav-group">
+                <div class="nav-group-title">Home</div>
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-target="dashboard"><button>Dashboard</button></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Part I: Thesis</div>
+                <ul class="nav-menu">
+                    <li class="nav-item" data-target="thesis"><button>1. What Is Software Engineering?</button></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Part II: Culture</div>
+                <ul class="nav-menu">
+                    <li class="nav-item" data-target="culture-teams"><button>2. Teams & Genius Myth</button></li>
+                    <li class="nav-item" data-target="culture-sharing"><button>3. Knowledge Sharing</button></li>
+                    <li class="nav-item" data-target="culture-equity"><button>4. Engineering for Equity</button></li>
+                    <li class="nav-item" data-target="culture-leadership"><button>5 & 6. Leading Teams at Scale</button></li>
+                    <li class="nav-item" data-target="culture-productivity"><button>7. Measuring Productivity</button></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Part III: Processes</div>
+                <ul class="nav-menu">
+                    <li class="nav-item" data-target="proc-styleguides"><button>8. Style Guides & Rules</button></li>
+                    <li class="nav-item" data-target="proc-codereview"><button>9. Code Review</button></li>
+                    <li class="nav-item" data-target="proc-doc"><button>10. Documentation</button></li>
+                    <li class="nav-item" data-target="proc-testing"><button>11-14. Testing & Doubles</button></li>
+                    <li class="nav-item" data-target="proc-deprecation"><button>15. Deprecation</button></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Part IV: Tools</div>
+                <ul class="nav-menu">
+                    <li class="nav-item" data-target="tools-overview"><button>16-25. Infrastructure & Tools</button></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Interactive Arena</div>
+                <ul class="nav-menu">
+                    <li class="nav-item" data-target="interactive-simulators"><button>Simulators Hub</button></li>
+                    <li class="nav-item" data-target="quiz-arena"><button>Knowledge Assessment</button></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button class="btn" id="theme-toggle">🌓 Toggle Dark Mode</button>
+            <button class="btn" id="edu-toggle">🎓 Toggle Educator Mode</button>
+        </div>
+    </aside>
+
+    <!-- Main Workspace -->
+    <main class="main-wrapper">
+        <!-- Dashboard View -->
+        <section id="dashboard" class="section-view active">
+            <h1>Software Engineering at Google</h1>
+            <p class="subtitle">An Interactive Playbook & Educational Resource</p>
+            <div class="card">
+                <h2>The Central Thesis</h2>
+                <p>Google defines <strong>Software Engineering</strong> as: <em>"Programming integrated with the constraints of Time, Scale, and Trade-offs."</em></p>
+                <p>This playbook captures the organizational practices, cultural pillars, processes, and tools that enable Google to build and maintain software running for decades, worked on by tens of thousands of engineers, spanning a monorepo containing billions of lines of code.</p>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Time & Change</h3>
+                    <p>Programming is about writing code. Software Engineering is about maintaining that code over its lifetime. How will a piece of code behave 10 or 20 years from now when libraries, compilers, operating systems, and personnel change?</p>
+                </div>
+                <div class="card">
+                    <h3>Scale & Efficiency</h3>
+                    <p>Google's systems must scale not just in traffic, but in human organization. Policies must scale sub-linearly: if doubling the size of your codebase or engineering staff requires doubling your build times or manually rewriting client code, the organization will fail.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thesis View -->
+        <section id="thesis" class="section-view">
+            <h1>Part I: Thesis</h1>
+            <div class="card">
+                <h2>Chapter 1: What Is Software Engineering?</h2>
+                <p>Google draws a stark line between <strong>programming</strong> (the act of producing code) and <strong>software engineering</strong> (programming plus time and team scale). If you are writing a script that will be run once and discarded, you are programming. If you are writing code that will survive upgrade cycles, new maintainers, and library updates, you are doing software engineering.</p>
+                
+                <h3>The Three Key Dimensions</h3>
+                <ul>
+                    <li><strong>Time:</strong> Codebases must survive changes in compilers, operating systems, dependencies, and business needs. Upgrading a compiler should be a routine, automated process.</li>
+                    <li><strong>Scale:</strong> Organization scale (number of engineers, repositories) and execution scale (servers, database sizes) demand automation. Policies that require manual work from every developer do not scale.</li>
+                    <li><strong>Trade-offs:</strong> Every technical decision carries costs (compute, developer hours, maintenance). Google prioritizes making decisions based on data rather than developer emotion.</li>
+                </ul>
+
+                <div class="educator-note">
+                    <strong>🎓 Educator Discussion Prompt:</strong>
+                    <p>Ask students: If you write a piece of code that runs in production for 10 years without modifications, did you write programming code or software engineering code? Discuss the role of maintenance, automated updates, and external API dependency shifts during those 10 years.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture - Teams View -->
+        <section id="culture-teams" class="section-view">
+            <h1>Part II: Culture — Working on Teams</h1>
+            <div class="card">
+                <h2>Chapter 2: How to Work Well on Teams</h2>
+                <p>Software development is a team sport. Google actively rejects the "Genius Myth"—the idea that great software is written by brilliant lone wolves in dark rooms. Hiding your code out of fear of judgment or mistake slows down innovation, creates single points of failure (low Bus Factor), and prevents early feedback.</p>
+                
+                <h3>The Three Pillars of Social Interaction</h3>
+                <ol>
+                    <li><strong>Humility:</strong> You are not the center of the universe. You do not know everything. You are open to self-improvement and learning from others.</li>
+                    <li><strong>Respect:</strong> Treat others with kindness and value their abilities and contributions. Assume positive intent.</li>
+                    <li><strong>Trust:</strong> Believe that others are competent and want to do a good job. Give them the autonomy to succeed.</li>
+                </ol>
+
+                <h3>Blameless Post-Mortems</h3>
+                <p>When an outage or mistake occurs, the focus must be on **fixing the system and process**, not assigning blame to individuals. If engineers fear being blamed, they will hide mistakes, leading to catastrophic systemic failures later.</p>
+
+                <div class="educator-note">
+                    <strong>🎓 Class Exercise:</strong>
+                    <p>Conduct a mock "Blameless Post-Mortem" session. Present a scenario where an engineer accidentally drops a production database table. Guide the team to focus on why the system allowed a single developer to run a destructive query without guardrails rather than blaming the developer.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture - Sharing View -->
+        <section id="culture-sharing" class="section-view">
+            <h1>Part II: Culture — Knowledge Sharing</h1>
+            <div class="card">
+                <h2>Chapter 3: Knowledge Sharing</h2>
+                <p>An engineering organization must scale its collective knowledge to survive. Google fosters psychological safety so developers feel comfortable asking "stupid" questions. It uses several structures to scale knowledge:</p>
+                <ul>
+                    <li><strong>YAQS (Yet Another Q&A Service):</strong> An internal StackOverflow-like system where engineers can ask questions and vote on canonical answers.</li>
+                    <li><strong>Readability process:</strong> A standardized mentorship system where developers submit code reviews to "Readability Arbiters" to earn credentials in specific languages (Java, C++, Go, Python). This enforces consistency and idiomatic style across the entire monorepo.</li>
+                    <li><strong>Tech Talks & Office Hours:</strong> Informal channels where domain experts share updates and mentor other teams.</li>
+                </ul>
+                <div class="educator-note">
+                    <strong>🎓 Discussion:</strong>
+                    <p>Discuss the pros and cons of Google's Readability process. Does it slow down feature velocity? How does it impact code quality and long-term maintainability when engineers switch teams?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture - Equity View -->
+        <section id="culture-equity" class="section-view">
+            <h1>Part II: Culture — Engineering for Equity</h1>
+            <div class="card">
+                <h2>Chapter 4: Engineering for Equity</h2>
+                <p>Google emphasizes that bias is the default in systems if diversity and inclusion are not actively designed. Software engineers must consciously build multicultural capacity, reject singular approaches (e.g. designing only for high-bandwidth fiber connections), and actively challenge established processes to ensure products work equitably for everyone.</p>
+                <div class="educator-note">
+                    <strong>🎓 Seminar Topic:</strong>
+                    <p>How do design choices (like default camera exposure algorithms or voice recognition accents) reflect systemic biases? How can teams systematically audit their products for equitable outcomes?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture - Leadership View -->
+        <section id="culture-leadership" class="section-view">
+            <h1>Part II: Culture — Leading Teams at Scale</h1>
+            <div class="card">
+                <h2>Chapters 5 & 6: How to Lead a Team & Leading at Scale</h2>
+                <p>Google distinguishes between Managers (who focus on people and career development) and Tech Leads (who focus on technical direction). Key leadership patterns include:</p>
+                <ul>
+                    <li><strong>Servant Leadership:</strong> Leaders exist to serve their team by removing roadblocks, mentoring, and protecting team energy.</li>
+                    <li><strong>Always Be Deciding:</strong> Avoid analysis paralysis. In times of uncertainty, outline the trade-offs, make a decision, and iterate.</li>
+                    <li><strong>Always Be Leaving:</strong> Design your team to be "self-driving". If a leader's presence is required for daily decisions, they have failed to scale the team.</li>
+                </ul>
+                <div class="educator-note">
+                    <strong>🎓 Scenario Roleplay:</strong>
+                    <p>Assign one student as a Tech Lead and another as a manager. Simulate resolving a conflict where a senior developer wants to rebuild a core service using a new language, but the business requires stabilizing the existing codebase.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Culture - Productivity View -->
+        <section id="culture-productivity" class="section-view">
+            <h1>Part II: Culture — Measuring Productivity</h1>
+            <div class="card">
+                <h2>Chapter 7: Measuring Engineering Productivity</h2>
+                <p>Measuring developer productivity is notoriously difficult. Metrics like "lines of code" or "number of commits" are harmful counter-indicators. Google uses the **GSM (Goals, Signals, Metrics)** framework:</p>
+                <ul>
+                    <li><strong>Goal:</strong> The qualitative outcome you want to achieve (e.g., "Developers get fast feedback on code reviews").</li>
+                    <li><strong>Signal:</strong> The observable behavior indicating whether you are meeting the goal (e.g., "Review response times are low").</li>
+                    <li><strong>Metric:</strong> The quantitative data point you measure (e.g., "Median hours between PR submission and first review comment").</li>
+                </ul>
+                <div class="educator-note">
+                    <strong>🎓 Team Activity:</strong>
+                    <p>Have students define a GSM matrix for improving the quality of their university team projects. What goals matter, and how will they track signals without creating toxic metrics?</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Processes - Style Guides View -->
+        <section id="culture-productivity" class="section-view">
+            <!-- Handled above or in next tabs -->
+        </section>
+
+        <section id="proc-styleguides" class="section-view">
+            <h1>Part III: Processes — Style Guides & Rules</h1>
+            <div class="card">
+                <h2>Chapter 8: Style Guides and Rules</h2>
+                <p>Google enforces strict, standardized style guides across all languages. These rules aim to ensure that **any engineer can read any file in the monorepo and understand it easily**.</p>
+                <h3>Guiding Principles for Rules</h3>
+                <ul>
+                    <li>Avoid rules that are purely aesthetic preferences. Rules must have tangible benefits (safety, readability, tooling compatibility).</li>
+                    <li>Enforce consistency using automated formatters (like `clang-format` or `gofmt`) rather than arguing during code reviews.</li>
+                    <li>Limit features that are prone to bugs or hard for novices to understand (e.g., C++ template metaprogramming or complex operator overloading).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Processes - Code Review View -->
+        <section id="proc-codereview" class="section-view">
+            <h1>Part III: Processes — Code Review</h1>
+            <div class="card">
+                <h2>Chapter 9: Code Review</h2>
+                <p>Every single line of code checked into Google's monorepo must be reviewed by at least one other engineer. Google's review system enforces three conditions before submission:</p>
+                <ol>
+                    <li><strong>Owner approval:</strong> An owner of the directory (listed in a `OWNERS` file) must approve.</li>
+                    <li><strong>LGTM (Looks Good To Me):</strong> A technical reviewer must agree that the code is correct and clean.</li>
+                    <li><strong>Readability:</strong> The code must conform to language style guidelines, approved by someone with "readability" credentials.</li>
+                </ol>
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Keep changes small (less than 200 lines). Small reviews are faster and catch significantly more bugs.</li>
+                    <li>Be polite and professional. Offer constructive alternatives, not just criticisms.</li>
+                    <li>Automate linting and testing checks before the reviewer sees the code.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Processes - Documentation View -->
+        <section id="proc-doc" class="section-view">
+            <h1>Part III: Processes — Documentation</h1>
+            <div class="card">
+                <h2>Chapter 10: Documentation</h2>
+                <p>Google treats **documentation like code**. It is stored in version control alongside the source files, undergoes code reviews, and has clear ownership. The book covers:</p>
+                <ul>
+                    <li><strong>Design Docs:</strong> Written before coding major features to align the team and solicit architecture feedback.</li>
+                    <li><strong>Reference Docs & Tutorials:</strong> Tailored specifically to the reader's needs (internal developers, API consumers, operations).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Processes - Testing View -->
+        <section id="proc-testing" class="section-view">
+            <h1>Part III: Processes — Testing & Test Doubles</h1>
+            <div class="card">
+                <h2>Chapters 11-14: Automated Testing at Scale</h2>
+                <p>Google maintains a massive automated testing pipeline. They classify tests not by boundaries, but by **size** (Small, Medium, Large) and **scope** (Unit, Integration, End-to-End).</p>
+                
+                <h3>Small, Medium, and Large Tests</h3>
+                <ul>
+                    <li><strong>Small Tests (Unit):</strong> Must run in a single process, cannot access network or disk, and must be fast. They must be completely hermetic.</li>
+                    <li><strong>Medium Tests (Integration):</strong> Can access disk and database, but cannot access external networks.</li>
+                    <li><strong>Large Tests (End-to-End):</strong> Can access networks, databases, and cross multiple systems to validate user journeys.</li>
+                </ul>
+
+                <h3>Test Doubles & Mocking</h3>
+                <p>Google recommends using **Real Implementations** where possible. Mocks should only be used when the real dependency is too slow, non-deterministic, or accesses external networks. Overusing mocks leads to fragile tests that pass even when the system is broken (mock drift).</p>
+            </div>
+        </section>
+
+        <!-- Processes - Deprecation View -->
+        <section id="proc-deprecation" class="section-view">
+            <h1>Part III: Processes — Deprecation</h1>
+            <div class="card">
+                <h2>Chapter 15: Deprecation</h2>
+                <p>Maintaining obsolete systems is a hidden tax on engineering organizations. However, deprecation is difficult. Google holds that **the author of a change is responsible for migrating downstream users**, not the downstream users themselves. If you want to deprecate an API, you must write the tool or manually rewrite the client code to migrate them off your system.</p>
+            </div>
+        </section>
+
+        <!-- Tools Overview View -->
+        <section id="tools-overview" class="section-view">
+            <h1>Part IV: Tools & Infrastructure</h1>
+            <div class="card">
+                <h2>Chapters 16-25: Infrastructure</h2>
+                <p>Google uses a unified developer toolchain integrated with their monorepo. Key components include:</p>
+                <ul>
+                    <li><strong>Version Control (Piper):</strong> A custom, centralized version control system designed to scale to billions of files. Everyone works on the head (trunk-based development).</li>
+                    <li><strong>Code Search:</strong> A lightning-fast web search index for all code in Piper, allowing developers to search symbols, cross-references, and history instantly.</li>
+                    <li><strong>Critique:</strong> The web-based code review interface, highly integrated with Code Search and automated testing.</li>
+                    <li><strong>Bazel / Blaze:</strong> A hermetic, declarative build system that caches compilation artifacts globally, allowing incremental builds in seconds.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Simulators Hub View -->
+        <section id="interactive-simulators" class="section-view">
+            <h1>Interactive Simulators Hub</h1>
+            <p>Experiment with visual simulations illustrating core principles from the book.</p>
+            
+            <!-- Hyrum's Law Simulator -->
+            <div class="card">
+                <h2>1. Hyrum's Law Simulator</h2>
+                <p><em>"With a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody."</em></p>
+                <div class="interactive-panel">
+                    <div style="margin-bottom:1rem;">
+                        <label><strong>API Behavior Change:</strong></label>
+                        <select id="hyrum-change-type" style="padding:0.4rem; border-radius:6px; border:1px solid var(--border-color); background:var(--card-bg); color:inherit;">
+                            <option value="none">No change (Strictly follows API contract)</option>
+                            <option value="hash-order">Change JSON map/hash ordering dynamically</option>
+                            <option value="error-type">Change internal error message text slightly</option>
+                            <option value="timing">Improve speed of API response by 40ms</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="run-hyrum-sim">Run API Update Test</button>
+                    <div id="hyrum-results" style="margin-top:1.5rem; font-family:'JetBrains Mono', monospace; font-size:0.9rem;"></div>
+                </div>
+            </div>
+
+            <!-- Testing Pyramid Simulator -->
+            <div class="card">
+                <h2>2. Testing Portfolio Calculator</h2>
+                <p>Configure your test mix proportions (Unit vs. Integration vs. Large) and calculate cost/speed trade-offs.</p>
+                <div class="interactive-panel">
+                    <div style="display:flex; flex-direction:column; gap:1rem;">
+                        <div>
+                            <label>Unit Tests: <span id="unit-val">70</span>%</label>
+                            <input type="range" id="unit-range" min="10" max="90" value="70" style="width:100%;">
+                        </div>
+                        <div>
+                            <label>Integration Tests: <span id="int-val">20</span>%</label>
+                            <input type="range" id="int-range" min="5" max="50" value="20" style="width:100%;">
+                        </div>
+                        <div>
+                            <label>Large/End-to-End Tests: <span id="large-val">10</span>%</label>
+                            <input type="range" id="large-range" min="0" max="40" value="10" style="width:100%;">
+                        </div>
+                    </div>
+                    <div id="test-calc-results" style="margin-top:1.5rem; font-family:'JetBrains Mono', monospace; font-size:0.9rem;"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Quiz Arena View -->
+        <section id="quiz-arena" class="section-view">
+            <h1>Knowledge Assessment</h1>
+            <p>Test your understanding of software engineering scaling policies, culture, and processes.</p>
+            <div class="card" id="quiz-card">
+                <h3 id="quiz-question">Question will load here...</h3>
+                <div id="quiz-options" style="display:flex; flex-direction:column; gap:0.75rem; margin:1.5rem 0;"></div>
+                <button class="btn btn-primary" id="submit-quiz-btn">Submit Answer</button>
+                <div id="quiz-feedback" style="margin-top:1.5rem; font-weight:600;"></div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        });
+
+        // Educator Mode Toggle Logic
+        const eduToggleBtn = document.getElementById('edu-toggle');
+        eduToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('educator-mode-active');
+            eduToggleBtn.classList.toggle('btn-active');
+        });
+
+        // Navigation Controller
+        const navItems = document.querySelectorAll('.nav-item');
+        const sectionViews = document.querySelectorAll('.section-view');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const target = item.getAttribute('data-target');
+                
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                sectionViews.forEach(view => {
+                    if (view.id === target) {
+                        view.classList.add('active');
+                    } else {
+                        view.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Hyrum's Law Simulator
+        const runHyrumSimBtn = document.getElementById('run-hyrum-sim');
+        runHyrumSimBtn.addEventListener('click', () => {
+            const changeType = document.getElementById('hyrum-change-type').value;
+            const resultsDiv = document.getElementById('hyrum-results');
+            
+            resultsDiv.innerHTML = "Sending updates to production clusters...\nRunning compliance audits...";
+            
+            setTimeout(() => {
+                if (changeType === 'none') {
+                    resultsDiv.innerHTML = "✅ API Updated successfully. 0 broken integrations out of 1,250 client teams.";
+                } else if (changeType === 'hash-order') {
+                    resultsDiv.innerHTML = "❌ CRITICAL FAILURE: 412 client integrations broken!\nReason: Clients parsed JSON properties by matching regex position instead of decoding key-value pairs correctly.";
+                } else if (changeType === 'error-type') {
+                    resultsDiv.innerHTML = "⚠️ WARNING: 67 alerts triggered across 12 services.\nReason: Client test suites parsed the exact string mismatch in the error payload for regression testing.";
+                } else if (changeType === 'timing') {
+                    resultsDiv.innerHTML = "❌ FAILURE: 14 downstream microservices failed with timeouts!\nReason: Faster API responses exposed a race condition in client-side threading locks.";
+                }
+            }, 600);
+        });
+
+        // Testing Portfolio Calculator
+        const unitSlider = document.getElementById('unit-range');
+        const intSlider = document.getElementById('int-range');
+        const largeSlider = document.getElementById('large-range');
+
+        const unitVal = document.getElementById('unit-val');
+        const intVal = document.getElementById('int-val');
+        const largeVal = document.getElementById('large-val');
+        const calcResults = document.getElementById('test-calc-results');
+
+        function updateSliders() {
+            unitVal.textContent = unitSlider.value;
+            intVal.textContent = intSlider.value;
+            largeVal.textContent = largeSlider.value;
+
+            const u = parseFloat(unitSlider.value);
+            const i = parseFloat(intSlider.value);
+            const l = parseFloat(largeSlider.value);
+            const total = u + i + l;
+
+            // Re-normalize to 100% display
+            const normalizedU = ((u / total) * 100).toFixed(1);
+            const normalizedI = ((i / total) * 100).toFixed(1);
+            const normalizedL = ((l / total) * 100).toFixed(1);
+
+            // Calculate portfolio stats
+            const runSpeed = (normalizedU * 0.01 + normalizedI * 0.2 + normalizedL * 5.0).toFixed(1);
+            const computeCost = (normalizedU * 1 + normalizedI * 5 + normalizedL * 50).toFixed(0);
+            const reliability = (normalizedU * 0.99 + normalizedI * 0.9 + normalizedL * 0.7).toFixed(1);
+
+            calcResults.innerHTML = `
+Normalized Mix: Unit (${normalizedU}%) | Integration (${normalizedI}%) | Large (${normalizedL}%)
+------------------------------------------------------------
+Avg Test Cycle Duration: ~${runSpeed} mins
+Relative Compute Cost index: ${computeCost} units
+Estimated Portfolio Reliability (Flakiness rate): ${(100 - reliability * 100).toFixed(1)}%
+            `;
+        }
+
+        [unitSlider, intSlider, largeSlider].forEach(slider => {
+            slider.addEventListener('input', updateSliders);
+        });
+        updateSliders();
+
+        // Quiz State Management
+        const questions = [
+            {
+                q: "What is Google's definition of Software Engineering?",
+                o: [
+                    "Writing code as fast as possible to meet client specs",
+                    "Programming integrated with the constraints of Time, Scale, and Trade-offs",
+                    "Designing complex microservices architectures",
+                    "Developing proprietary AI systems"
+                ],
+                a: 1,
+                f: "Correct! Software engineering is defined by Google as programming over time, adjusting for team and system scale, and evaluating trade-offs."
+            },
+            {
+                q: "What does Hyrum's Law state?",
+                o: [
+                    "A compiler upgrade will always fail on its first run",
+                    "All APIs should have explicit documentation",
+                    "With a sufficient number of users, all observable behaviors of a system will be depended on by someone",
+                    "The efficiency of a team is inversely proportional to its communication overhead"
+                ],
+                a: 2,
+                f: "Correct! Hyrum's Law highlights that even undocumented behaviors will be relied upon once scale is large enough."
+            },
+            {
+                q: "Under Google's deprecation policy, who is responsible for updating downstream code?",
+                o: [
+                    "The downstream client teams using the deprecated API",
+                    "No one, clients are expected to fail until they fix it",
+                    "The team deprecating the API (the authors of the change)",
+                    "A central 'clean-up' team that handles all migrations"
+                ],
+                a: 2,
+                f: "Correct! Google holds that the team deprecating the API is responsible for performing the migration or providing automated tools for downstream clients."
+            },
+            {
+                q: "What does the GSM framework stand for in measuring developer productivity?",
+                o: [
+                    "Git, Subversion, Mercurial",
+                    "Goals, Signals, Metrics",
+                    "Growth, Scale, Momentum",
+                    "Google Software Maintenance"
+                ],
+                a: 1,
+                f: "Correct! Goals (what you want to achieve), Signals (how you know you're getting there), and Metrics (what you can actually measure)."
+            },
+            {
+                q: "How does Google define a 'Small' automated test?",
+                o: [
+                    "A test with less than 50 lines of code",
+                    "A test that runs in a single process, cannot access network/disk, and is hermetic",
+                    "A test written in Go or C++",
+                    "A manual test executed by a single QA engineer"
+                ],
+                a: 1,
+                f: "Correct! Small tests are unit tests that must run in a single process without network or disk access to prevent flakiness and run extremely fast."
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        const qText = document.getElementById('quiz-question');
+        const qOptions = document.getElementById('quiz-options');
+        const qFeedback = document.getElementById('quiz-feedback');
+        const submitBtn = document.getElementById('submit-quiz-btn');
+
+        function loadQuestion() {
+            if (currentQ >= questions.length) {
+                qText.textContent = `Quiz Complete! You scored ${score}/${questions.length}.`;
+                qOptions.innerHTML = '';
+                qFeedback.textContent = '';
+                submitBtn.textContent = "Restart Quiz";
+                return;
+            }
+
+            const data = questions[currentQ];
+            qText.textContent = `${currentQ + 1}. ${data.q}`;
+            qOptions.innerHTML = '';
+            qFeedback.textContent = '';
+            submitBtn.textContent = "Submit Answer";
+            
+            data.o.forEach((opt, idx) => {
+                const label = document.createElement('label');
+                label.style.display = 'flex';
+                label.style.alignItems = 'center';
+                label.style.gap = '0.5rem';
+                label.style.cursor = 'pointer';
+                label.style.padding = '0.5rem';
+                label.style.borderRadius = '6px';
+                label.style.border = '1px solid var(--border-color)';
+                label.innerHTML = `
+                    <input type="radio" name="quiz-opt" value="${idx}">
+                    <span>${opt}</span>
+                `;
+                qOptions.appendChild(label);
+            });
+        }
+
+        submitBtn.addEventListener('click', () => {
+            if (currentQ >= questions.length) {
+                currentQ = 0;
+                score = 0;
+                loadQuestion();
+                return;
+            }
+
+            if (submitBtn.textContent === "Next Question") {
+                currentQ++;
+                loadQuestion();
+                return;
+            }
+
+            const selected = document.querySelector('input[name="quiz-opt"]:checked');
+            if (!selected) {
+                alert("Please select an option!");
+                return;
+            }
+            const data = questions[currentQ];
+            const isCorrect = parseInt(selected.value) === data.a;
+
+            if (isCorrect) {
+                score++;
+                qFeedback.textContent = "🎉 " + data.f;
+                qFeedback.style.color = "var(--accent-google-green)";
+            } else {
+                qFeedback.textContent = "❌ Incorrect. The correct answer was: " + data.o[data.a];
+                qFeedback.style.color = "var(--accent-google-red)";
+            }
+
+            submitBtn.textContent = "Next Question";
+        });
+
+        loadQuestion();
+    </script>
+</body>
+</html>
