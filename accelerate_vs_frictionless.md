@@ -27,7 +27,34 @@ Because both books are co-authored by Dr. Nicole Forsgren, they share a fundamen
 
 ---
 
+## The Core 4 (DORA) Metrics
+
+Introduced in *Accelerate*, the Core 4 metrics measure the speed (velocity) and safety (stability) of software delivery at the system level. They are designed to act as balancing counterweights to prevent teams from sacrificing quality for speed.
+
+1.  **Deployment Frequency (DF):** Measures how often the organization successfully deploys code to production. High performers target daily or on-demand deployments.
+2.  **Lead Time for Changes (LT):** Measures the latency from a code commit being pushed to the master branch to that code successfully running in production. High performers target under one hour.
+3.  **Change Fail Rate (CFR):** Measures the percentage of deployments that result in service impairment, requiring immediate rollbacks, hotfixes, or patches. High performers keep this between 0-15%.
+4.  **Time to Restore Service (MTTR):** Measures the duration it takes to resolve a service disruption in production. High performers target under one hour to recover.
+
+*   **Anti-Gaming Guardrail:** Speed (DF and LT) is balanced by stability (CFR and MTTR). If developers attempt to game velocity by pushing untested features, the CFR and MTTR metrics immediately spike, revealing the instability.
+
+---
+
+## The SPACE Framework
+
+Designed to capture a multi-dimensional view of developer productivity and experience, the SPACE framework prevents organizations from relying on simplistic, single-factor metrics (like line counts or commits) that trigger developer gaming behaviors.
+
+*   **S - Satisfaction & Well-being:** Measures developer happiness, tooling satisfaction, and burnout risk. Healthy, satisfied teams consistently produce higher-quality code.
+*   **P - Performance:** Measures the actual outcomes of work (e.g. system reliability, feature adoption, customer impact) rather than raw inputs.
+*   **A - Activity:** Tracks the count of technical actions (PRs merged, commits pushed, documents written). *Warning: This is the most dangerous dimension to measure in isolation, as it is trivial to game.*
+*   **C - Communication & Collaboration:** Focuses on code integration frequency, quality of code review feedback, onboarding times, and documentation quality.
+*   **E - Efficiency & Flow:** Focuses on the presence of uninterrupted deep focus blocks, build pipeline speeds, wait states, and transaction costs.
+
+*   **Anti-Gaming Guardrail:** Using SPACE prevents Goodhart's Law by requiring that any productivity analysis span at least **three distinct dimensions**. For example, measuring raw code output (Activity) must be balanced by code review quality (Communication) and developer tool satisfaction (Satisfaction).
+
+---
+
 ## Summary of the Transition
 
 *   **Accelerate** answers the question: *“What systemic capabilities make a high-performing software organization?”*
-*   **Frictionless** answers the question: *“What does it actually feel like to build software here, and how do we remove the daily, invisible friction keeping developers from doing their best work?”*
+*   **Frictionless** answers the question: *“What does it actually feel like to build software here, and how do we remove the daily, invisible friction keeping developers from focusing on deep-work value?”*
