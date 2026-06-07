@@ -1033,6 +1033,37 @@
                 </div>
             </div>
 
+            <!-- New Section: DORA Core 4 -->
+            <div class="content-card">
+                <h2 class="card-title">The Core 4 (DORA) Metrics Detailed</h2>
+                <p>The Core 4 metrics establish a reliable, high-level indicator of software delivery performance. Rather than optimizing speed or stability independently, high-performing organizations use these metrics in tension to achieve both simultaneously:</p>
+                <ul class="bullet-list">
+                    <li><strong>Deployment Frequency (DF):</strong> The frequency of successful code releases to production. High performers deploy multiple times a day or on-demand.</li>
+                    <li><strong>Lead Time for Changes (LT):</strong> The duration required for a commit to traverse testing and deploy pipelines to production. High performers achieve under one hour.</li>
+                    <li><strong>Change Fail Rate (CFR):</strong> The percentage of deployments resulting in operational failures or requiring hotfixes/rollbacks. High performers maintain this under 15%.</li>
+                    <li><strong>Time to Restore Service (MTTR):</strong> The time taken to recover from a production outage or impairment. High performers restore services in under one hour.</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>The Anti-Gaming Design:</strong> Because speed indicators (DF, LT) are balanced by safety indicators (CFR, MTTR), developers cannot game velocity numbers (e.g. by cutting testing corners) without immediately worsening their stability metrics.
+                </div>
+            </div>
+
+            <!-- New Section: SPACE Framework -->
+            <div class="content-card">
+                <h2 class="card-title">The SPACE Framework Detailed</h2>
+                <p>The SPACE framework addresses the multi-dimensional nature of developer productivity, acknowledging that engineering output cannot be reduced to a single activity number. It provides five distinct lenses for metrics design:</p>
+                <ul class="bullet-list">
+                    <li><strong>S - Satisfaction & Well-being:</strong> Developer happiness, tool satisfaction, alignment, and retention.</li>
+                    <li><strong>P - Performance:</strong> The business impact of the developer's output, such as system reliability, customer acquisition, or code quality.</li>
+                    <li><strong>A - Activity:</strong> Count of actions completed, including commits, pull requests, documents authored, and reviews completed.</li>
+                    <li><strong>C - Communication & Collaboration:</strong> Speed of PR reviews, onboarding speed of new hires, and quality of documentation.</li>
+                    <li><strong>E - Efficiency & Flow:</strong> Uninterrupted time blocks for deep coding, build runtimes, and frequency of meeting interruptions.</li>
+                </ul>
+                <div class="highlight-box">
+                    <strong>The Anti-Gaming Design:</strong> SPACE demands that organizations measure productivity across at least **three distinct dimensions** (e.g. combining Activity with Satisfaction and Flow). This stops management from focusing purely on Activity (like commit counts), which developers can easily game by padding commits or outputting low-quality code.
+                </div>
+            </div>
+
             <div class="content-card">
                 <h2 class="card-title">Evolutionary Summary</h2>
                 <p>While <strong>Accelerate</strong> answers the question, <em>"What systemic capabilities make a high-performing software organization?"</em>, <strong>Frictionless</strong> shifts the lens to ask, <em>"What does it actually feel like to build software here, and how do we remove the daily, invisible barriers keeping developers from focusing on deep-work value?"</em></p>
