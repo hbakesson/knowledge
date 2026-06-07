@@ -475,7 +475,7 @@
         /* Stakeholder Grid Matrix */
         .stakeholder-matrix {
             display: grid;
-            grid-template-columns: 100px 1.2fr 1.2fr 1fr;
+            grid-template-columns: 120px 1.2fr 1.2fr 1fr;
             gap: 1px;
             background-color: var(--border-color);
             border: 1px solid var(--border-color);
@@ -501,6 +501,43 @@
 
         [data-theme="dark"] .matrix-cell.header {
             background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Comparison Table styles */
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 150px 1fr 1fr;
+            gap: 1px;
+            background-color: var(--border-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .comp-cell {
+            background-color: var(--card-bg);
+            padding: 1.2rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .comp-cell.header {
+            background-color: rgba(226, 109, 92, 0.08);
+            font-weight: 700;
+            color: var(--accent-coral);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comp-cell.row-label {
+            font-weight: 700;
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        [data-theme="dark"] .comp-cell.row-label {
+            background-color: rgba(255, 255, 255, 0.02);
         }
 
         /* Typography improvements */
@@ -542,6 +579,9 @@
             </li>
             <li class="nav-item" id="nav-game" onclick="switchTab('game')">
                 <button>🎮 Play the Game: Influence & Metrics</button>
+            </li>
+            <li class="nav-item" id="nav-compare" onclick="switchTab('compare')">
+                <button>⚖️ Accelerate vs. Frictionless</button>
             </li>
             <li class="nav-item" id="nav-tools" onclick="switchTab('tools')">
                 <button>🛠️ Interactive Tools Suite</button>
@@ -943,6 +983,59 @@
                         <li><strong>Discussion Question:</strong> "In our team's environment, what is the most heavily gamed metric today, and what business damage is that gaming causing?"</li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+        <!-- ==================== COMPARISON TAB ==================== -->
+        <section class="tab-panel" id="tab-compare">
+            <h1 class="tab-title">Accelerate vs. Frictionless</h1>
+            <p class="tab-lead">A comparative analysis of the two defining books on modern engineering productivity, co-authored by Dr. Nicole Forsgren.</p>
+
+            <div class="content-card">
+                <h2 class="card-title">The Shared DNA (Overlaps)</h2>
+                <p>Despite their different areas of focus, both books share a common core philosophy on how to lead and scale high-performing software organizations:</p>
+                <ul class="bullet-list">
+                    <li><strong>Capabilities over Maturity:</strong> Both books strongly reject static, lock-step "maturity models" in favor of dynamic capability models that constantly adjust to market conditions.</li>
+                    <li><strong>Direct Business Outcomes:</strong> Both prove that technology delivery capabilities directly predict organizational success, including profitability, market share, and productivity.</li>
+                    <li><strong>Lightweight Governance:</strong> Both show that external Change Advisory Boards (CABs) do not predict higher stability but do introduce massive delays, advocating instead for automated testing and peer code reviews.</li>
+                    <li><strong>Mixed Methods Analytics:</strong> Both books insist on combining qualitative data (developer sentiment surveys) with quantitative data (system-generated delivery metrics) to establish a true diagnosis.</li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">Structural & Framework Differences</h2>
+                <p>The transition from <em>Accelerate</em> to <em>Frictionless</em> represents a shift in focus from organizational delivery capability to individual developer experience:</p>
+                
+                <div class="comparison-table">
+                    <div class="comp-cell header">Dimension</div>
+                    <div class="comp-cell header">Accelerate (DevOps)</div>
+                    <div class="comp-cell header">Frictionless (DevEx)</div>
+
+                    <div class="comp-cell row-label">Primary Focus</div>
+                    <div class="comp-cell"><strong>Software Delivery Performance</strong> (system-level metrics and organizational DevOps delivery).</div>
+                    <div class="comp-cell"><strong>Developer Experience (DevEx)</strong> (the daily psychological and operational friction builders navigate).</div>
+
+                    <div class="comp-cell row-label">Core Framework</div>
+                    <div class="comp-cell"><strong>The 4 Key Metrics (DORA):</strong><br>1. Deployment Frequency (DF)<br>2. Lead Time for Changes (LT)<br>3. Mean Time to Recovery (MTTR)<br>4. Change Fail Rate (CFR)</div>
+                    <div class="comp-cell"><strong>The 3 Elements of DevEx:</strong><br>1. Feedback Loops (Latency & Little's Law)<br>2. Flow State (uninterrupted concentration)<br>3. Cognitive Load (extraneous vs germane load)</div>
+
+                    <div class="comp-cell row-label">Anti-Gaming Guardrails</div>
+                    <div class="comp-cell">Proves statistical correlation between engineering capabilities and business growth to justify DevOps investments.</div>
+                    <div class="comp-cell">Combats Goodhart's Law (metrics gaming) using the **SPACE Framework** and the **Developer Experience Index (DXI)**.</div>
+
+                    <div class="comp-cell row-label">Era & Technology</div>
+                    <div class="comp-cell"><strong>DevOps & Cloud Era:</strong> Focused on microservices, cloud deployments, and continuous deployment pipeline automation.</div>
+                    <div class="comp-cell"><strong>AI & Agentic Era:</strong> Analyzes the dual nature of AI coding assistants that accelerate generation but overload reviews and deployments.</div>
+
+                    <div class="comp-cell row-label">Format & Playbook</div>
+                    <div class="comp-cell">A scientific research study presenting statistical analysis, regression models, and organizational performance correlations.</div>
+                    <div class="comp-cell">A practical organizational playbook providing a **7-Step Roadmap** and **4 Sustainable Practices** (Golden Paths, support tiers).</div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">Evolutionary Summary</h2>
+                <p>While <strong>Accelerate</strong> answers the question, <em>"What systemic capabilities make a high-performing software organization?"</em>, <strong>Frictionless</strong> shifts the lens to ask, <em>"What does it actually feel like to build software here, and how do we remove the daily, invisible barriers keeping developers from focusing on deep-work value?"</em></p>
             </div>
         </section>
 
