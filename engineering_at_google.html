@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Engineering at Google - Interactive Playbook</title>
+    <title>Software Engineering at Google - Interactive Playbook & Textbook</title>
     
     <!-- Premium Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
             --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             --educator-bg: #F0F4F9;
             --educator-accent: #0B57D0;
-            --sidebar-width: 300px;
+            --sidebar-width: 320px;
             --code-bg: #F3F4F6;
         }
 
@@ -52,7 +52,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.65;
             transition: var(--transition-smooth);
             display: flex;
             min-height: 100vh;
@@ -79,7 +79,7 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 1px solid var(--border-color);
         }
@@ -116,15 +116,15 @@
         }
 
         .nav-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .nav-group-title {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-secondary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-weight: 700;
         }
 
@@ -132,7 +132,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
+            gap: 0.2rem;
         }
 
         .nav-item button {
@@ -140,10 +140,10 @@
             text-align: left;
             background: none;
             border: none;
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
+            padding: 0.4rem 0.6rem;
+            border-radius: 6px;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: var(--text-secondary);
             cursor: pointer;
@@ -166,10 +166,10 @@
 
         .sidebar-footer {
             border-top: 1px solid var(--border-color);
-            padding-top: 1rem;
+            padding-top: 0.75rem;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .btn {
@@ -177,10 +177,10 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            padding: 0.6rem 1rem;
-            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
             font-family: inherit;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             border: 1px solid var(--border-color);
@@ -218,7 +218,7 @@
             margin-left: var(--sidebar-width);
             flex-grow: 1;
             padding: 2.5rem 3.5rem;
-            max-width: 1200px;
+            max-width: 1250px;
         }
 
         .section-view {
@@ -231,25 +231,49 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         h1, h2, h3, h4 {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
         }
 
         h1 {
             font-family: 'Lora', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.25rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+            color: var(--accent-google-blue);
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            margin-top: 1.25rem;
+            font-weight: 600;
         }
 
         p {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             color: var(--text-secondary);
+        }
+
+        ul, ol {
+            margin-bottom: 1rem;
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.25rem;
         }
 
         /* Content Blocks */
@@ -257,16 +281,16 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 1.75rem;
-            margin-bottom: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 1.75rem;
             box-shadow: var(--shadow-subtle);
         }
 
         .badge {
             display: inline-block;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             margin-right: 0.5rem;
@@ -288,13 +312,30 @@
             background-color: var(--educator-bg);
             border-left: 4px solid var(--educator-accent);
             border-radius: 0 8px 8px 0;
-            padding: 1.25rem;
+            padding: 1.5rem;
             margin-top: 1.5rem;
             display: none;
         }
 
         body.educator-mode-active .educator-note {
             display: block;
+        }
+
+        .case-study {
+            border-left: 3px solid var(--accent-google-green);
+            background-color: rgba(52, 168, 83, 0.02);
+            padding: 1rem 1.5rem;
+            margin: 1.25rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .case-study-title {
+            font-weight: 700;
+            color: var(--accent-google-green);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* Grid elements */
@@ -309,6 +350,29 @@
             .grid-2 {
                 grid-template-columns: 1fr;
             }
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 0.1rem 0.3rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        pre code {
+            padding: 0;
+            background: none;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -416,6 +480,14 @@
                     <li><strong>Trade-offs:</strong> Every technical decision carries costs (compute, developer hours, maintenance). Google prioritizes making decisions based on data rather than developer emotion.</li>
                 </ul>
 
+                <div class="case-study">
+                    <div class="case-study-title">Case Study: Compiler Upgrades at Google Scale</div>
+                    <p>At Google's scale, manual compiler upgrades are impossible. If a compiler upgrade introduces a breaking change in a language feature, manually modifying tens of thousands of files across different teams would halt feature development for months. Google instead invested in building automated code transformation tools. Their infrastructure parses the entire monorepo into an Abstract Syntax Tree (AST), identifies pattern violations, automatically applies the upgrade refactorings across all repositories, and commits the changes globally.</p>
+                </div>
+
+                <h3>Shift-Left Philosophy</h3>
+                <p>The "Shift-Left" principle dictates that bugs, security vulnerabilities, and design flaws should be caught as early in the development lifecycle as possible. Finding a bug during local editing costs minutes; finding it during staging costs hours; finding it in production can cost millions of dollars and compromise user trust. Google incorporates static analysis, style linters, and unit tests directly into the developer's edit loop (inside the IDE and code review tool) to enforce quality immediately.</p>
+
                 <div class="educator-note">
                     <strong>🎓 Educator Discussion Prompt:</strong>
                     <p>Ask students: If you write a piece of code that runs in production for 10 years without modifications, did you write programming code or software engineering code? Discuss the role of maintenance, automated updates, and external API dependency shifts during those 10 years.</p>
@@ -440,6 +512,11 @@
                 <h3>Blameless Post-Mortems</h3>
                 <p>When an outage or mistake occurs, the focus must be on **fixing the system and process**, not assigning blame to individuals. If engineers fear being blamed, they will hide mistakes, leading to catastrophic systemic failures later.</p>
 
+                <div class="case-study">
+                    <div class="case-study-title">Case Study: Google's Outage Culture</div>
+                    <p>Google maintains a repository of all post-mortems. When a developer accidentally runs a script that causes a massive service outage, their name is omitted or kept neutral. Instead, the post-mortem documents: <em>Why did the script have production write permissions without an approval step? Why did the monitoring system take 15 minutes to alert? How can we modify the deployment tool to prevent this class of errors?</em> This fosters a culture where mistakes are treated as debugging input for organizational processes.</p>
+                </div>
+
                 <div class="educator-note">
                     <strong>🎓 Class Exercise:</strong>
                     <p>Conduct a mock "Blameless Post-Mortem" session. Present a scenario where an engineer accidentally drops a production database table. Guide the team to focus on why the system allowed a single developer to run a destructive query without guardrails rather than blaming the developer.</p>
@@ -453,11 +530,16 @@
             <div class="card">
                 <h2>Chapter 3: Knowledge Sharing</h2>
                 <p>An engineering organization must scale its collective knowledge to survive. Google fosters psychological safety so developers feel comfortable asking "stupid" questions. It uses several structures to scale knowledge:</p>
+                
+                <h3>Internal Q&A and Documentation</h3>
                 <ul>
-                    <li><strong>YAQS (Yet Another Q&A Service):</strong> An internal StackOverflow-like system where engineers can ask questions and vote on canonical answers.</li>
-                    <li><strong>Readability process:</strong> A standardized mentorship system where developers submit code reviews to "Readability Arbiters" to earn credentials in specific languages (Java, C++, Go, Python). This enforces consistency and idiomatic style across the entire monorepo.</li>
-                    <li><strong>Tech Talks & Office Hours:</strong> Informal channels where domain experts share updates and mentor other teams.</li>
+                    <li><strong>YAQS (Yet Another Q&A Service):</strong> An internal StackOverflow-like system where engineers can ask questions and vote on canonical answers. This reduces duplicate threads on mailing lists.</li>
+                    <li><strong>Google Go Links:</strong> A centralized shortcut redirect service (e.g., `go/readability`) that enables instant navigation to canonical documents.</li>
                 </ul>
+
+                <h3>The Readability Process</h3>
+                <p>The **Readability Process** is a standardized mentorship system. To submit code in a specific language (e.g. C++), the code must be approved by someone with a "Readability" credential in that language. Engineers submit code changes to "Readability Arbiters" who comment not just on functional correctness, but on style, APIs, idioms, and design consistency. This process ensures that C++ written by an ads engineer looks identical to C++ written by a search engineer, facilitating massive developer mobility.</p>
+
                 <div class="educator-note">
                     <strong>🎓 Discussion:</strong>
                     <p>Discuss the pros and cons of Google's Readability process. Does it slow down feature velocity? How does it impact code quality and long-term maintainability when engineers switch teams?</p>
@@ -470,7 +552,11 @@
             <h1>Part II: Culture — Engineering for Equity</h1>
             <div class="card">
                 <h2>Chapter 4: Engineering for Equity</h2>
-                <p>Google emphasizes that bias is the default in systems if diversity and inclusion are not actively designed. Software engineers must consciously build multicultural capacity, reject singular approaches (e.g. designing only for high-bandwidth fiber connections), and actively challenge established processes to ensure products work equitably for everyone.</p>
+                <p>Google emphasizes that bias is the default in systems if diversity and inclusion are not actively designed. Software engineers must consciously build multicultural capacity, reject singular approaches, and actively challenge established processes to ensure products work equitably for everyone.</p>
+
+                <h3>Algorithmic Bias and Inclusive Architecture</h3>
+                <p>Systems learn from the data provided to them. If dataset representation is skewed, ML models fail for marginalized demographics. Engineers must audit training datasets for representation, test accessibility tools (screen readers, high-contrast themes), and evaluate how latency budgets affect users on slow mobile networks in developing countries.</p>
+
                 <div class="educator-note">
                     <strong>🎓 Seminar Topic:</strong>
                     <p>How do design choices (like default camera exposure algorithms or voice recognition accents) reflect systemic biases? How can teams systematically audit their products for equitable outcomes?</p>
@@ -484,11 +570,23 @@
             <div class="card">
                 <h2>Chapters 5 & 6: How to Lead a Team & Leading at Scale</h2>
                 <p>Google distinguishes between Managers (who focus on people and career development) and Tech Leads (who focus on technical direction). Key leadership patterns include:</p>
-                <ul>
-                    <li><strong>Servant Leadership:</strong> Leaders exist to serve their team by removing roadblocks, mentoring, and protecting team energy.</li>
-                    <li><strong>Always Be Deciding:</strong> Avoid analysis paralysis. In times of uncertainty, outline the trade-offs, make a decision, and iterate.</li>
-                    <li><strong>Always Be Leaving:</strong> Design your team to be "self-driving". If a leader's presence is required for daily decisions, they have failed to scale the team.</li>
-                </ul>
+                
+                <h3>Servant Leadership</h3>
+                <p>Traditional command-and-control management fails in creative software engineering. Servant leaders focus on:
+                    <ul>
+                        <li>Removing organizational roadblocks and administrative friction.</li>
+                        <li>Fostering career goals and technical growth for individual contributors.</li>
+                        <li>Maintaining team health and psychological safety.</li>
+                    </ul>
+                </p>
+
+                <h3>Three Rules for Scaling Leadership</h3>
+                <ol>
+                    <li><strong>Always Be Deciding:</strong> Make decisions in conditions of ambiguity. Use data to evaluate trade-offs, commit to a path, and establish rapid feedback loops to course-correct.</li>
+                    <li><strong>Always Be Leaving:</strong> Build a "self-driving" team. Document processes, delegate responsibilities, and mentor junior engineers so they can make high-level decisions. A team that breaks down when the leader is away represents a leadership failure.</li>
+                    <li><strong>Always Be Scaling:</strong> Shift time allocation from urgent issues (firefighting) to important structural changes (process improvement, documentation, architecture refactorings).</li>
+                </ol>
+
                 <div class="educator-note">
                     <strong>🎓 Scenario Roleplay:</strong>
                     <p>Assign one student as a Tech Lead and another as a manager. Simulate resolving a conflict where a senior developer wants to rebuild a core service using a new language, but the business requires stabilizing the existing codebase.</p>
@@ -502,11 +600,35 @@
             <div class="card">
                 <h2>Chapter 7: Measuring Engineering Productivity</h2>
                 <p>Measuring developer productivity is notoriously difficult. Metrics like "lines of code" or "number of commits" are harmful counter-indicators. Google uses the **GSM (Goals, Signals, Metrics)** framework:</p>
-                <ul>
-                    <li><strong>Goal:</strong> The qualitative outcome you want to achieve (e.g., "Developers get fast feedback on code reviews").</li>
-                    <li><strong>Signal:</strong> The observable behavior indicating whether you are meeting the goal (e.g., "Review response times are low").</li>
-                    <li><strong>Metric:</strong> The quantitative data point you measure (e.g., "Median hours between PR submission and first review comment").</li>
-                </ul>
+                
+                <h3>The GSM Framework Mapped</h3>
+                <table style="width:100%; border-collapse:collapse; margin:1rem 0; border:1px solid var(--border-color);">
+                    <thead>
+                        <tr style="background-color:rgba(26, 115, 232, 0.05); text-align:left;">
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">GSM Component</th>
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Definition</th>
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Example Scenario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Goal</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">The qualitative outcome desired (independent of how it's measured).</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">"Ensure code reviews are completed quickly to prevent developer wait times."</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Signal</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">The observable behavior indicating if the goal is met.</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">"Developers wait less time for reviewer comments on their PRs."</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Metric</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">The quantitative data points tracked using telemetry or surveys.</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">"Median duration (hours) from PR submission to first review response."</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <div class="educator-note">
                     <strong>🎓 Team Activity:</strong>
                     <p>Have students define a GSM matrix for improving the quality of their university team projects. What goals matter, and how will they track signals without creating toxic metrics?</p>
@@ -515,21 +637,21 @@
         </section>
 
         <!-- Processes - Style Guides View -->
-        <section id="culture-productivity" class="section-view">
-            <!-- Handled above or in next tabs -->
-        </section>
-
         <section id="proc-styleguides" class="section-view">
             <h1>Part III: Processes — Style Guides & Rules</h1>
             <div class="card">
                 <h2>Chapter 8: Style Guides and Rules</h2>
                 <p>Google enforces strict, standardized style guides across all languages. These rules aim to ensure that **any engineer can read any file in the monorepo and understand it easily**.</p>
+                
                 <h3>Guiding Principles for Rules</h3>
                 <ul>
                     <li>Avoid rules that are purely aesthetic preferences. Rules must have tangible benefits (safety, readability, tooling compatibility).</li>
                     <li>Enforce consistency using automated formatters (like `clang-format` or `gofmt`) rather than arguing during code reviews.</li>
                     <li>Limit features that are prone to bugs or hard for novices to understand (e.g., C++ template metaprogramming or complex operator overloading).</li>
                 </ul>
+
+                <h3>Style Arbiters</h3>
+                <p>Style guides at Google are owned and updated by a small committee of experts called **Style Arbiters**. When a developer wants to change a style guide rule, they must propose it to the arbiters, proving with data that the change increases safety or improves code performance.</p>
             </div>
         </section>
 
@@ -539,17 +661,16 @@
             <div class="card">
                 <h2>Chapter 9: Code Review</h2>
                 <p>Every single line of code checked into Google's monorepo must be reviewed by at least one other engineer. Google's review system enforces three conditions before submission:</p>
+                
+                <h3>The Code Review Checklist</h3>
                 <ol>
-                    <li><strong>Owner approval:</strong> An owner of the directory (listed in a `OWNERS` file) must approve.</li>
-                    <li><strong>LGTM (Looks Good To Me):</strong> A technical reviewer must agree that the code is correct and clean.</li>
-                    <li><strong>Readability:</strong> The code must conform to language style guidelines, approved by someone with "readability" credentials.</li>
+                    <li><strong>Ownership:</strong> At least one reviewer must be listed in the `OWNERS` file for the directory containing the modified files.</li>
+                    <li><strong>LGTM (Looks Good To Me):</strong> A reviewer must check the code for technical correctness, logic errors, and test coverage.</li>
+                    <li><strong>Readability:</strong> Someone with readability credentials must confirm the code conforms to the style guides.</li>
                 </ol>
-                <h3>Best Practices</h3>
-                <ul>
-                    <li>Keep changes small (less than 200 lines). Small reviews are faster and catch significantly more bugs.</li>
-                    <li>Be polite and professional. Offer constructive alternatives, not just criticisms.</li>
-                    <li>Automate linting and testing checks before the reviewer sees the code.</li>
-                </ul>
+
+                <h3>Etiquette and PR Sizing</h3>
+                <p>Google strongly advocates for **small changes** (ideally less than 200 lines). Small PRs compile faster, are reviewed in minutes, and help reviewers spot subtle logic bugs. In code reviews, reviewers should remain respectful, critique the code (not the coder), and clearly distinguish between blocker comments and optional style suggestions (e.g. prepending optional comments with `Nit:`).</p>
             </div>
         </section>
 
@@ -559,10 +680,18 @@
             <div class="card">
                 <h2>Chapter 10: Documentation</h2>
                 <p>Google treats **documentation like code**. It is stored in version control alongside the source files, undergoes code reviews, and has clear ownership. The book covers:</p>
-                <ul>
-                    <li><strong>Design Docs:</strong> Written before coding major features to align the team and solicit architecture feedback.</li>
-                    <li><strong>Reference Docs & Tutorials:</strong> Tailored specifically to the reader's needs (internal developers, API consumers, operations).</li>
-                </ul>
+                
+                <h3>Documentation as Code</h3>
+                <p>Storing documentation in markdown files next to the source code (the "g3doc" system) has several benefits:
+                    <ul>
+                        <li>Documentation updates can be included in the same PR as the code modifications.</li>
+                        <li>It undergoes standard code reviews by owners.</li>
+                        <li>It scales naturally with the repository version control history.</li>
+                    </ul>
+                </p>
+
+                <h3>Design Documents</h3>
+                <p>Before writing major code features, Google engineers write **Design Docs**. These documents outline the problem statement, user requirements, proposed architecture, alternatives considered, security/privacy evaluations, and testing strategy. The design doc is shared with other teams to gather feedback early, preventing expensive refactoring later.</p>
             </div>
         </section>
 
@@ -573,15 +702,40 @@
                 <h2>Chapters 11-14: Automated Testing at Scale</h2>
                 <p>Google maintains a massive automated testing pipeline. They classify tests not by boundaries, but by **size** (Small, Medium, Large) and **scope** (Unit, Integration, End-to-End).</p>
                 
-                <h3>Small, Medium, and Large Tests</h3>
-                <ul>
-                    <li><strong>Small Tests (Unit):</strong> Must run in a single process, cannot access network or disk, and must be fast. They must be completely hermetic.</li>
-                    <li><strong>Medium Tests (Integration):</strong> Can access disk and database, but cannot access external networks.</li>
-                    <li><strong>Large Tests (End-to-End):</strong> Can access networks, databases, and cross multiple systems to validate user journeys.</li>
-                </ul>
+                <h3>The Test Size Matrix</h3>
+                <table style="width:100%; border-collapse:collapse; margin:1rem 0; border:1px solid var(--border-color);">
+                    <thead>
+                        <tr style="background-color:rgba(26, 115, 232, 0.05); text-align:left;">
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Test Size</th>
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Execution Speed</th>
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Allowed Activities</th>
+                            <th style="padding:0.75rem; border:1px solid var(--border-color);">Hermeticity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Small</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Under 100ms</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">No disk, no network, single process, no thread sleep.</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">100% Hermetic. Fast and predictable.</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Medium</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Under 1s</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Disk writes, local databases, multi-threading.</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Hermetic to the machine (no external network).</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);"><strong>Large</strong></td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Minutes</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">External databases, production network calls, complex servers.</td>
+                            <td style="padding:0.75rem; border:1px solid var(--border-color);">Low. Prone to external infrastructure flakiness.</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <h3>Test Doubles & Mocking</h3>
-                <p>Google recommends using **Real Implementations** where possible. Mocks should only be used when the real dependency is too slow, non-deterministic, or accesses external networks. Overusing mocks leads to fragile tests that pass even when the system is broken (mock drift).</p>
+                <h3>Fakes vs. Mocks</h3>
+                <p>Google suggests using **Real Implementations** where possible. When dependencies are slow or touch external systems, they recommend using **Fakes** (lightweight, working implementations of a service, e.g. an in-memory database) over **Mocks** (non-working objects that record interactions). Overusing mocks couples test code directly to the implementation details, making refactoring extremely difficult and leading to false confidence.</p>
             </div>
         </section>
 
@@ -591,6 +745,9 @@
             <div class="card">
                 <h2>Chapter 15: Deprecation</h2>
                 <p>Maintaining obsolete systems is a hidden tax on engineering organizations. However, deprecation is difficult. Google holds that **the author of a change is responsible for migrating downstream users**, not the downstream users themselves. If you want to deprecate an API, you must write the tool or manually rewrite the client code to migrate them off your system.</p>
+                
+                <h3>Trunk-Based Migration Strategy</h3>
+                <p>Because Google works on a monorepo, developers can run Large-Scale Changes (LSCs) that migrate thousands of usages of a deprecated API across the entire codebase in a single commit, rather than waiting for individual teams to schedule migrations in their backlogs.</p>
             </div>
         </section>
 
@@ -600,12 +757,15 @@
             <div class="card">
                 <h2>Chapters 16-25: Infrastructure</h2>
                 <p>Google uses a unified developer toolchain integrated with their monorepo. Key components include:</p>
-                <ul>
-                    <li><strong>Version Control (Piper):</strong> A custom, centralized version control system designed to scale to billions of files. Everyone works on the head (trunk-based development).</li>
-                    <li><strong>Code Search:</strong> A lightning-fast web search index for all code in Piper, allowing developers to search symbols, cross-references, and history instantly.</li>
-                    <li><strong>Critique:</strong> The web-based code review interface, highly integrated with Code Search and automated testing.</li>
-                    <li><strong>Bazel / Blaze:</strong> A hermetic, declarative build system that caches compilation artifacts globally, allowing incremental builds in seconds.</li>
-                </ul>
+                
+                <h3>Piper (Centralized VCS)</h3>
+                <p>Piper is Google's custom centralized version control system containing billions of files. Unlike git, Piper supports fine-grained file permissions and doesn't require cloning the entire history locally. Engineers work on the head of the repository (trunk-based development), which prevents merge debt and diamond dependency mismatch conflicts.</p>
+
+                <h3>Bazel / Blaze (Hermetic Build System)</h3>
+                <p>Blaze (open-sourced as Bazel) is a declarative build system that uses a custom language to define build targets and their precise dependency graphs. Because Blaze enforces **hermetic builds** (compilations cannot access the network or unannounced filesystem resources), build outputs are 100% deterministic. This allows Google to run a massive global build cache, serving pre-compiled binaries to developers instantly if the input files haven't changed.</p>
+
+                <h3>Tricorder (Static Analysis Platform)</h3>
+                <p>Tricorder is Google's static analysis platform. It integrates closely with Critique (the code review tool). When an engineer writes code, Tricorder runs hundreds of analyzers (lints, security scans, compiler warnings) in the background. It displays findings directly inside the code review UI, often offering a one-click "Fix" button that applies the suggested edit automatically.</p>
             </div>
         </section>
 
@@ -656,7 +816,6 @@
                 </div>
             </div>
         </section>
-
 
         <!-- Quiz Arena View -->
         <section id="quiz-arena" class="section-view">
