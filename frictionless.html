@@ -24,7 +24,7 @@
             --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             --educator-bg: #EAE6DF;
             --educator-accent: #3A6073;
-            --sidebar-width: 300px;
+            --sidebar-width: 320px;
             --success-color: #2D6A4F;
             --disaster-color: #A32626;
         }
@@ -534,6 +534,9 @@
             <li class="nav-item" id="nav-p5" onclick="switchTab('p5')">
                 <button>⚙️ Part V: 4 Sustainable Practices</button>
             </li>
+            <li class="nav-item" id="nav-game" onclick="switchTab('game')">
+                <button>🎮 Play the Game: Influence & Metrics</button>
+            </li>
             <li class="nav-item" id="nav-tools" onclick="switchTab('tools')">
                 <button>🛠️ Interactive Tools Suite</button>
             </li>
@@ -676,7 +679,7 @@
                     <li><strong>The Friction:</strong> Video call overhead ("Zoom fatigue"), fragmented meetings, and asynchronous delays across time zones disrupt flow state.</li>
                     <li><strong>The Opportunity:</strong> Flexible schedules allow developers to code during peak energy hours, and fewer physical office drop-ins preserve longer blocks of focus.</li>
                 </ul>
-                <p><strong>Practices to Protect Flow:</strong> Standardize developer tools (so they stay in their IDE), enforce "no-meeting Wednesdays", and implement asynchronous code reviews to minimize daily interruptions.</p>
+                <p><strong>Practices to Protect Flow:</strong> Enforce "no-meeting Wednesdays", limit Slack ping volumes, and implement asynchronous code reviews to minimize daily interruptions.</p>
             </div>
 
             <div class="content-card">
@@ -722,8 +725,8 @@
                     <p>Begin by mapping the developer workflow and identifying where friction points sit. You cannot resolve what you do not understand.</p>
                     <h3 class="card-subtitle">Key Actions</h3>
                     <ul class="bullet-list">
-                        <li><strong>Interview Developers:</strong> Gather qualitative data on daily workflow friction.</li>
-                        <li><strong>Workflow Mapping:</strong> Visualize wait states, handoffs, and approvals on a whiteboard.</li>
+                        <li><strong>Interview Developers:</strong> Gather qualitative data on daily workflow friction, focus times, and tool issues.</li>
+                        <li><strong>Workflow Mapping:</strong> Visualize wait states, handoffs, and approvals on a whiteboard using value-stream mapping techniques.</li>
                     </ul>
                 </div>
                 <div class="edu-note" id="stepEduNote">
@@ -810,6 +813,63 @@
                     <li><strong>C (Communication):</strong> How teams coordinate (PR discussions).</li>
                     <li><strong>E (Efficiency/Flow):</strong> Uninterrupted block time and wait states.</li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- ==================== GAME TAB ==================== -->
+        <section class="tab-panel" id="tab-game">
+            <h1 class="tab-title">Mastering the Game: Influence & Metrics</h1>
+            <p class="tab-lead">How to identify metrics gaming, implement counter-measures, and leverage organizational power plays.</p>
+
+            <div class="content-card">
+                <h2 class="card-title">1. The Psychology of Metrics Gaming</h2>
+                <p>When software metrics become connected to individual performance reviews or strategic goals, they trigger developer survival instincts. Understanding the gaming dynamics (Goodhart's Law & Campbell's Law) is essential to protect code quality:</p>
+                
+                <h3 class="card-subtitle">Common Metrics Gaming Anti-Patterns</h3>
+                <ul class="bullet-list">
+                    <li><strong>PR Frequency Gaming:</strong> Developers split logic changes into dozens of useless, single-line pull requests to artificially inflate their code contributions count.</li>
+                    <li><strong>Commit Velocity Gaming:</strong> Pushing dummy edits or commits to bypass code freeze indicators or make activity charts look healthy.</li>
+                    <li><strong>Cycle Time Optimization:</strong> Approving PRs without reading the code, or skipping unit testing steps, simply to meet cycle-time targets.</li>
+                    <li><strong>Risk-Avoidant Behavior:</strong> Developers refuse to take on complex refactoring tasks or difficult architecture migrations because they know it will temporarily tank their individual velocity metrics.</li>
+                </ul>
+
+                <h3 class="card-subtitle">Counter-Measures: How to Play the Defense</h3>
+                <p>To stop developers from gaming your DevEx system, you must design <strong>Balanced Metric Sets</strong>. Never measure velocity without measuring quality. If you track deployment frequency, you must track Change Fail Rate. If you track PR turnaround speed, you must track PR review comments depth. This structural tension prevents teams from optimizing one number at the expense of system health.</p>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">2. Organizational Power Plays (Influence Tactics)</h2>
+                <p>Implementing developer experience changes is inherently a political game. To drive adoption, top-tier operators utilize these high-influence methods:</p>
+                
+                <h3 class="card-subtitle">The Dave Anderson Method: Competitive Peer Scorecards</h3>
+                <p><strong>The Strategy:</strong> When Dave Anderson was a Director of Engineering, his team needed to reduce error rates across platform systems. Standard requests for teams to clean up their errors were ignored because teams prioritized feature roadmaps.</p>
+                <p><strong>The Play:</strong> Dave created a monthly executive newsletter containing a comparative scorecard. It listed every engineering team's error rates side-by-side, highlighted the names of the corresponding Directors/VPs, and was emailed directly to the entire leadership group, including the CEO. To avoid ranking last on an executive scorecard, leaders immediately mobilized their teams, and error rates plummeted without Dave writing a single line of code.</p>
+                
+                <h3 class="card-subtitle">The Block (Square) Playbook: Semantic Rebranding</h3>
+                <p><strong>The Strategy:</strong> When the DevEx team at Block compiled their comprehensive survey findings, they initially titled it the "State of Developer Experience Report". Realizing this sounded like an engineering-only concern, they rebranded the document to <strong>"State of Engineering Productivity"</strong> prior to sharing.</p>
+                <p><strong>The Play:</strong> By changing one word, they aligned the document with the CTO and CEO's articulated corporate priorities. The CTO read it immediately and made its recommendations a company-wide priority. Same data, different packaging.</p>
+
+                <h3 class="card-subtitle">Defending the J-Curve</h3>
+                <p>Expect new tools or architectures to cause a temporary performance dip. Prepare your executive sponsors in advance. Frame the dip as a natural transition cost (a J-Curve) so your initiative isn't cancelled before the long-term productivity gains emerge.</p>
+            </div>
+
+            <div class="content-card">
+                <h2 class="card-title">3. Advanced Analytics: Microsoft's Cohort Analysis</h2>
+                <p>To make business decisions like a top-tier operator, you must avoid simplistic averages. Microsoft principal researcher Brian Houck highlights how <strong>Cohort Analysis</strong> reveals hidden patterns:</p>
+                
+                <ul class="bullet-list">
+                    <li><strong>Monorepo Size Cohorts:</strong> Microsoft data showed that pull request cycle times in monorepos were twice as long as in smaller repositories. In aggregate data, this bottleneck was invisible; only cohort segmentation by repository size revealed the issue.</li>
+                    <li><strong>Language Cohorts:</strong> C++ developers consistently experienced longer build/test loops than C# developers. This insight allowed Microsoft to focus tooling investments on build compilers specifically for the C++ cohort, rather than dispersing resources globally.</li>
+                    <li><strong>Seasonal Cohorts:</strong> Visualizing coding active hours over a year revealed a recurring drop twice a year. Rather than indicating team slowness, cohort analysis traced this back to Daylight Savings shifts affecting team alignment across international offices.</li>
+                </ul>
+
+                <div class="edu-note">
+                    <h5>🎓 Educator Exercises: Gaming Scenarios</h5>
+                    <ul>
+                        <li><strong>Roleplay:</strong> Divide your engineering leads into two teams. Team A is tasked with "gaming" a newly introduced metric (e.g. PR turnaround under 4 hours). Team B must design a balanced metrics set to prevent Team A's gaming strategy.</li>
+                        <li><strong>Discussion Question:</strong> "In our team's environment, what is the most heavily gamed metric today, and what business damage is that gaming causing?"</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
