@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerate Playbook - Engineering Leader's Audit</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Modern Design System - Anthropic-inspired warm editorial palette */
+        :root {
+            --bg-color: #FBF9F6;
+            --card-bg: #FFFFFF;
+            --text-primary: #191919;
+            --text-secondary: #6B6A67;
+            --accent-color: #E26D5C;
+            --accent-hover: #D85D4B;
+            --border-color: #E6E4E0;
+            --progress-bg: #EAE8E3;
+            --card-shadow: 0 4px 20px rgba(27, 26, 24, 0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Layout Grid */
+        .app-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        aside {
+            background-color: #FAF7F2;
+            border-right: 1px solid var(--border-color);
+            padding: 2.5rem 1.5rem;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-logo h1 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+        }
+
+        .nav-links {
+            list-style: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+            padding-right: 0.5rem;
+        }
+
+        .nav-links::-webkit-scrollbar {
+            width: 4px;
+        }
+        .nav-links::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 2px;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.6rem 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-primary);
+            background-color: #EFECE6;
+        }
+
+        .sidebar-progress {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .progress-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-percent {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+        }
+
+        .progress-bar-container {
+            background-color: var(--progress-bg);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-color);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 4rem 5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 4rem;
+        }
+
+        header h2 {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 720px;
+        }
+
+        /* Chapter Card */
+        .chapter-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--card-shadow);
+            scroll-margin-top: 2rem;
+            transition: var(--transition);
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(27, 26, 24, 0.06);
+        }
+
+        .chapter-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .chapter-summary {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--border-color);
+            font-style: italic;
+        }
+
+        /* Interactive Checklist */
+        .checklist-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #FAF8F5;
+            cursor: pointer;
+        }
+
+        .checklist-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Stylized Checkboxes */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 32px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            user-select: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 2px;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: transparent;
+            border: 2px solid #C8C5C0;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            border-color: var(--accent-color);
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-container input:checked ~ .text-content {
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .text-content {
+            display: block;
+            transition: var(--transition);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .app-container {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: relative;
+                height: auto;
+                padding: 2rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                overflow-y: visible;
+                margin-bottom: 1.5rem;
+            }
+
+            .nav-links li {
+                margin-bottom: 0;
+            }
+
+            main {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation & Progress -->
+        <aside>
+            <div class="sidebar-logo">
+                <h1>Accelerate Playbook</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#ch1" class="active">1. Capabilities Model</a></li>
+                <li><a href="#ch2">2. Measuring Performance</a></li>
+                <li><a href="#ch3">3. Culture Types</a></li>
+                <li><a href="#ch4">4. Technical Practices</a></li>
+                <li><a href="#ch5">5. Loose Architecture</a></li>
+                <li><a href="#ch6">6. Shifting Infosec Left</a></li>
+                <li><a href="#ch7">7. Lean Management</a></li>
+                <li><a href="#ch8">8. Product Development</a></li>
+                <li><a href="#ch9">9. Preventing Burnout</a></li>
+                <li><a href="#ch10">10. Satisfaction & NPS</a></li>
+                <li><a href="#ch11">11. Leadership Traits</a></li>
+            </ul>
+            
+            <div class="sidebar-progress">
+                <div class="progress-title">Audit Progress</div>
+                <div class="progress-stats">
+                    <span class="progress-percent" id="progressPercent">0%</span>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);" id="progressFraction">0/26</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <header>
+                <h2>The Engineering Leader's Playbook</h2>
+                <p>An interactive capabilities audit for engineering managers, based on the research findings of <em>Accelerate: The Science of Lean Software and DevOps</em>. Use this tool to evaluate your organization, identify systemic gaps, and drive capability growth.</p>
+                <div class="source-reference" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-secondary);">
+                    Want to read the source material? Dive into <a href="file:///Users/hbakesson/Coding/sofia/accelerate.md" style="color: var(--accent-color); text-decoration: none; font-weight: 600;">accelerate.md</a>.
+                </div>
+            </header>
+
+            <!-- Chapter 1 -->
+            <section id="ch1" class="chapter-card">
+                <div class="chapter-meta">Chapter 1</div>
+                <h3 class="chapter-title">Focus on Capabilities, Not Maturity</h3>
+                <div class="chapter-summary">
+                    Maturity models focus on static, lock-step templates that prescribe the same path for all teams, aiming for a finished state. Capability models are dynamic, contextual, and outcome-oriented, allowing custom roadmaps for continuous improvement.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-1-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we treat our improvement lifecycle as an ongoing capability loop rather than a box-ticking exercise with a fixed finish line?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-1-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we avoiding technology vanity metrics (e.g., "we run Kubernetes") and focusing instead on outcome-based measurements?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 2 -->
+            <section id="ch2" class="chapter-card">
+                <div class="chapter-meta">Chapter 2</div>
+                <h3 class="chapter-title">Measuring Delivery Performance</h3>
+                <div class="chapter-summary">
+                    Software delivery performance is rigorously captured by four key metrics. Crucially, the best performers achieve speed and reliability simultaneously, proving there is no trade-off between the two.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-2-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we have clean baselines for Deployment Frequency, Change Lead Time, MTTR, and Change Failure Rate?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-2-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are these four metrics transparently visible to the entire team via automated operational dashboards?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 3 -->
+            <section id="ch3" class="chapter-card">
+                <div class="chapter-meta">Chapter 3</div>
+                <h3 class="chapter-title">Culture & Collaboration</h3>
+                <div class="chapter-summary">
+                    Sociologist Ron Westrum's typology classifies cultures into Pathological, Bureaucratic, and Generative. A Generative culture predicts higher performance and lower burnout. You can act your way into a generative culture by adopting technical and Lean practices.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-3-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does the team demonstrate Generative characteristics: high cooperation, training, shared risks, and welcoming novelty?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-3-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are team members secure and comfortable surfacing bugs and structural anomalies without fear of punishment?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-3-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are our post-mortems truly blameless, seeking system-level improvements rather than pointing fingers?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 4 -->
+            <section id="ch4" class="chapter-card">
+                <div class="chapter-meta">Chapter 4</div>
+                <h3 class="chapter-title">Continuous Integration & Delivery</h3>
+                <div class="chapter-summary">
+                    Technical practices predict continuous delivery. Version control of everything (code, configuration, environment setup), automated builds, automated test suites, and daily trunk merging are critical indicators of flow.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-4-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do developers merge their changes back to the main branch daily to prevent merge bottlenecks?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-4-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are all build pipelines and automated test suites fast, run on every commit, and highly trusted by developers?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-4-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Is our environment setup, configuration, and migration pipeline fully represented in version control?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-4-4">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we systematically audited the team's deployment pain and mapped out friction points to automate?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 5 -->
+            <section id="ch5" class="chapter-card">
+                <div class="chapter-meta">Chapter 5</div>
+                <h3 class="chapter-title">Loosely Coupled Architecture</h3>
+                <div class="chapter-summary">
+                    The specific technology stack matters less than its design. Loose architectural coupling enables teams to test, change, and deploy services independently, allowing developer productivity to scale linearly with team growth.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-5-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Can the team deploy their applications or components to production independently of other systems they depend on?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-5-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Can the team perform the majority of their automated testing in isolation, without blocking on shared integrated environments?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-5-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are codebase responsibilities organized so a single team owns cohesive, well-defined domains without overlapping edits?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 6 -->
+            <section id="ch6" class="chapter-card">
+                <div class="chapter-meta">Chapter 6</div>
+                <h3 class="chapter-title">Shifting Security Left</h3>
+                <div class="chapter-summary">
+                    Integrating security directly into the daily software lifecycle—rather than checking it manually at the end—speeds up delivery and increases overall stability.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-6-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are basic security validations, dependency scans, and static analysis integrated automatically into our CI/CD pipeline?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-6-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does the security team collaborate directly with development to design pre-approved secure components and libraries?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 7 -->
+            <section id="ch7" class="chapter-card">
+                <div class="chapter-meta">Chapter 7</div>
+                <h3 class="chapter-title">Lean Management Practices</h3>
+                <div class="chapter-summary">
+                    Lean management scales delivery by minimizing governance theater. External change approval boards (CABs) are negatively correlated with performance. Visualizing work, limiting WIP, and using monitoring systems proactively drive success.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-7-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we replaced external Change Advisory Board approvals with lightweight peer reviews (like pull request checks)?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-7-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we actively enforce Work-in-Progress (WIP) limits to prevent context-switching and task gridlock?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-7-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Is our operational telemetry used proactively to guide architectural roadmap priorities and system stability checks?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 8 -->
+            <section id="ch8" class="chapter-card">
+                <div class="chapter-meta">Chapter 8</div>
+                <h3 class="chapter-title">Lean Product Development</h3>
+                <div class="chapter-summary">
+                    Working in small batches enables short lead times and fast feedback. Product success requires slicing features, gathering user feedback, and empowering teams to run experiments independently.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-8-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are features sliced into small, incremental batches that can be fully completed and deployed in less than a week?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-8-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does the team have the authority to alter system requirements or test alternative user-flows without external approvals?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-8-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Is customer feedback regularly shared with the team and systematically used to adjust the backlog priorities?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 9 -->
+            <section id="ch9" class="chapter-card">
+                <div class="chapter-meta">Chapter 9</div>
+                <h3 class="chapter-title">Preventing Burnout</h3>
+                <div class="chapter-summary">
+                    Burnout is organizational exhaustion caused by stress. Managers must prevent it by fostering supportive environments, ensuring values alignment, and improving continuous delivery systems to reduce daily friction.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-9-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are developers showing warning signs of chronic overwork, cynicism, or exhaustion?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-9-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Have we systematically audited the six risk factors: workload, control, rewards, community, fairness, and value mismatches?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 10 -->
+            <section id="ch10" class="chapter-card">
+                <div class="chapter-meta">Chapter 10</div>
+                <h3 class="chapter-title">Satisfaction & Employee NPS</h3>
+                <div class="chapter-summary">
+                    Job satisfaction and employee loyalty (eNPS) directly affect organizational retention and performance. Satisfaction depends on giving developers effective tools and utilizing their skills.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-10-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Are we regularly auditing the quality of developer tooling, and removing barriers caused by slow hardware or network access?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-10-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do developers feel their daily work makes good use of their professional skills and expertise?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Chapter 11 -->
+            <section id="ch11" class="chapter-card">
+                <div class="chapter-meta">Chapter 11</div>
+                <h3 class="chapter-title">Transformational Leadership</h3>
+                <div class="chapter-summary">
+                    Effective leaders guide, support, and intellectually stimulate their teams. Leaders do not directly implement changes, but they enable the capabilities, resources, and trust needed to succeed.
+                </div>
+                <div class="checklist-title">Manager Investigations</div>
+                <ul class="checklist">
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-11-1">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Am I actively encouraging team members to challenge assumptions and propose novel solutions to legacy problems?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-11-2">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Do we systematically recognize and reward team contributions to operational stability, automation, and paying down debt?</span>
+                        </label>
+                    </li>
+                    <li class="checklist-item">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="audit-11-3">
+                            <span class="checkmark"></span>
+                            <span class="text-content">Does every developer understand how their daily tasks connect to the broader strategic vision of the company?</span>
+                        </label>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Interactive Progress Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.checklist-item input[type="checkbox"]');
+            const totalCount = checkboxes.length;
+            const progressPercentEl = document.getElementById('progressPercent');
+            const progressFractionEl = document.getElementById('progressFraction');
+            const progressBarEl = document.getElementById('progressBar');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('section');
+
+            // Load saved state from LocalStorage
+            checkboxes.forEach(checkbox => {
+                const checked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.checked = checked;
+                checkbox.addEventListener('change', () => {
+                    localStorage.setItem(checkbox.id, checkbox.checked);
+                    updateProgress();
+                });
+            });
+
+            function updateProgress() {
+                const checkedCount = document.querySelectorAll('.checklist-item input[type="checkbox"]:checked').length;
+                const percent = Math.round((checkedCount / totalCount) * 100);
+                
+                progressPercentEl.textContent = `${percent}%`;
+                progressFractionEl.textContent = `${checkedCount}/${totalCount}`;
+                progressBarEl.style.width = `${percent}%`;
+            }
+
+            updateProgress();
+
+            // Simple Scroll Spy & Active Nav Highlight
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
