@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frictionless — Developer Experience in the AI Era</title>
+<style>
+:root {
+  --bg:#0c0b09; --surf:#161410; --card:#1e1b17; --border:#2c2720;
+  --a1:#d4a96a; --a2:#8b7ac4; --a3:#4aad84; --a4:#5b9ce8; --a5:#d96050;
+  --text:#f0ece3; --muted:#9a9080; --dim:#5a5248;
+  --tag-bg:#231f18; --tag-text:#d4a96a;
+  --r:12px; --r-sm:8px;
+}
+body.light {
+  --bg:#fbf9f5; --surf:#f2ede4; --card:#fff; --border:#ddd5c4;
+  --a1:#a07830; --a2:#6658a8; --a3:#2e8a62; --a4:#3a72c8; --a5:#c04030;
+  --text:#1a1611; --muted:#6e6257; --dim:#b0a090;
+  --tag-bg:#ede5d4; --tag-text:#8a6020;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;transition:background .25s,color .25s}
+
+/* ── Header ── */
+header{position:fixed;inset:0 0 auto 0;z-index:200;height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;background:var(--bg);border-bottom:1px solid var(--border)}
+.logo{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);font-weight:600}
+.hd-right{display:flex;align-items:center;gap:16px}
+.section-label{font-size:12px;color:var(--a1);font-weight:600;letter-spacing:.06em;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.counter{font-size:12px;color:var(--dim);font-weight:500;min-width:44px;text-align:right}
+.btn-theme{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-weight:600;letter-spacing:.06em;text-transform:uppercase;transition:border-color .2s,color .2s}
+.btn-theme:hover{border-color:var(--a1);color:var(--a1)}
+
+/* ── Progress ── */
+.prog-track{position:fixed;top:52px;inset-x:0;height:2px;background:var(--border);z-index:200}
+.prog-fill{height:100%;background:var(--a1);transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+/* ── Slide layer ── */
+.stage{position:fixed;top:54px;inset:54px 0 56px 0;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 56px 24px;overflow-y:auto;opacity:0;transform:translateX(48px) scale(.99);transition:opacity .42s cubic-bezier(.4,0,.2,1),transform .42s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.slide.active{opacity:1;transform:none;pointer-events:all}
+.slide.exit{opacity:0;transform:translateX(-48px) scale(.99)}
+
+/* ── Nav ── */
+nav.bottom{position:fixed;bottom:0;inset-x:0;height:56px;display:flex;align-items:center;justify-content:center;gap:10px;background:var(--bg);border-top:1px solid var(--border);z-index:200}
+.btn-nav{padding:8px 20px;border-radius:24px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-nav:hover{border-color:var(--a1);color:var(--a1)}
+.dots{display:flex;gap:5px;align-items:center}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--border);transition:background .2s,transform .2s}
+.dot.on{background:var(--a1);transform:scale(1.4)}
+
+/* ── Type ── */
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--a1);font-weight:700;margin-bottom:14px;text-align:center}
+.eyebrow.s2{color:var(--a2)}
+.eyebrow.s3{color:var(--a3)}
+.eyebrow.s4{color:var(--a4)}
+h1{font-size:clamp(32px,4vw,58px);font-weight:800;letter-spacing:-.025em;line-height:1.08;text-align:center}
+h2{font-size:clamp(24px,2.8vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.12;text-align:center;margin-bottom:8px}
+h3{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text);margin-bottom:5px}
+p.lead{font-size:clamp(15px,1.5vw,18px);line-height:1.7;color:var(--muted);text-align:center;max-width:680px;margin:10px auto 0}
+p.body{font-size:14px;line-height:1.72;color:var(--muted)}
+strong{color:var(--text);font-weight:600}
+em{color:var(--a1);font-style:normal}
+
+/* ── Layout atoms ── */
+.w{width:100%;max-width:1040px}
+.w-sm{width:100%;max-width:720px}
+.row{display:flex;gap:16px;width:100%;max-width:1040px;align-items:flex-start}
+.col{flex:1;display:flex;flex-direction:column;gap:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:1040px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:1040px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;max-width:1040px}
+
+/* ── Cards ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px}
+.card.hi1{border-color:var(--a1)}
+.card.hi2{border-color:var(--a2)}
+.card.hi3{border-color:var(--a3)}
+.card.hi4{border-color:var(--a4)}
+.card.hi5{border-color:var(--a5)}
+.tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:5px;background:var(--tag-bg);color:var(--tag-text);margin-bottom:8px}
+.tag.t2{background:rgba(139,122,196,.12);color:var(--a2)}
+.tag.t3{background:rgba(74,173,132,.12);color:var(--a3)}
+.tag.t4{background:rgba(91,156,232,.12);color:var(--a4)}
+.tag.t5{background:rgba(217,96,80,.12);color:var(--a5)}
+
+/* ── Stats ── */
+.stat-big{font-size:clamp(36px,4vw,56px);font-weight:900;color:var(--a1);letter-spacing:-.03em;line-height:1}
+.stat-label{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.4}
+.stat-pill{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;text-align:center}
+
+/* ── Bullets ── */
+.bul{display:flex;gap:10px;align-items:flex-start;margin-bottom:7px}
+.bul-dot{flex-shrink:0;width:5px;height:5px;border-radius:50%;background:var(--a1);margin-top:8px}
+.bul-dot.d2{background:var(--a2)}
+.bul-dot.d3{background:var(--a3)}
+.bul-dot.d4{background:var(--a4)}
+.bul-dot.d5{background:var(--a5)}
+.bul p{font-size:13.5px;line-height:1.65;color:var(--muted)}
+
+/* ── Quote ── */
+.quote-block{border-left:3px solid var(--a1);padding:12px 18px;margin:8px 0}
+.quote-block p{font-size:16px;line-height:1.65;color:var(--text);font-style:italic}
+.quote-attr{font-size:12px;color:var(--muted);margin-top:6px;font-style:normal}
+
+/* ── Case study ── */
+.case{background:var(--surf);border:1px solid var(--border);border-radius:var(--r);padding:16px 20px;border-left:3px solid var(--a3)}
+.case-co{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--a3);margin-bottom:5px}
+.case-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:5px}
+.case p{font-size:13px;line-height:1.65;color:var(--muted)}
+.case.c2{border-left-color:var(--a2)}
+.case-co.c2{color:var(--a2)}
+.case.c5{border-left-color:var(--a5)}
+.case-co.c5{color:var(--a5)}
+.case.c4{border-left-color:var(--a4)}
+.case-co.c4{color:var(--a4)}
+
+/* ── Callout ── */
+.callout{background:var(--tag-bg);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 16px;display:flex;gap:12px;align-items:flex-start}
+.callout-label{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--a1);flex-shrink:0;margin-top:1px}
+.callout p{font-size:13px;line-height:1.62;color:var(--muted)}
+.callout.c2 .callout-label{color:var(--a2)}
+.callout.c3 .callout-label{color:var(--a3)}
+.callout.c4 .callout-label{color:var(--a4)}
+.callout.c5 .callout-label{color:var(--a5)}
+
+/* ── Section divider ── */
+.sec-num{font-size:clamp(80px,12vw,140px);font-weight:900;color:var(--border);letter-spacing:-.05em;line-height:1;margin-bottom:8px}
+.sec-title{font-size:clamp(24px,3vw,42px);font-weight:800;letter-spacing:-.02em}
+
+/* ── Step ── */
+.step{display:flex;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;align-items:flex-start}
+.step-n{flex-shrink:0;width:28px;height:28px;border-radius:7px;background:var(--a1);color:var(--bg);font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.step-body{flex:1}
+.step-t{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
+.step-d{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+/* ── Table ── */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;color:var(--muted);font-size:11px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);font-weight:700}
+td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:top}
+td strong{color:var(--text)}
+tr:last-child td{border-bottom:none}
+
+/* ── Glow ── */
+.glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;opacity:.5}
+body.light .glow{opacity:0}
+
+/* ── Friction timeline ── */
+.friction-row{display:flex;gap:0;width:100%;max-width:900px;align-items:stretch;margin:6px 0}
+.fr-item{flex:1;padding:10px 12px;border:1px solid var(--border);background:var(--card);font-size:11.5px;color:var(--muted);text-align:center;position:relative}
+.fr-item:not(:last-child){border-right:none}
+.fr-item:first-child{border-radius:var(--r-sm) 0 0 var(--r-sm)}
+.fr-item:last-child{border-radius:0 var(--r-sm) var(--r-sm) 0}
+.fr-item.bad{background:rgba(217,96,80,.08);border-color:var(--a5);color:var(--a5);font-weight:600}
+.fr-label{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:3px}
+
+@media(max-width:700px){
+  .grid2,.grid3,.grid4,.row{grid-template-columns:1fr;flex-direction:column}
+  .slide{padding:20px 18px 16px}
+  header{padding:0 16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Frictionless &mdash; Forsgren &amp; Noda</div>
+  <div class="hd-right">
+    <span class="section-label" id="secLabel">Introduction</span>
+    <span class="counter" id="counter">1 / 24</span>
+    <button class="btn-theme" id="themeBtn" onclick="toggleTheme()">Light</button>
+  </div>
+</header>
+<div class="prog-track"><div class="prog-fill" id="prog"></div></div>
+
+<div class="stage" id="stage">
+
+<!-- ═══ SLIDE 1: Cover ═══ -->
+<div class="slide active" data-sec="Introduction">
+  <div class="glow" style="width:700px;height:400px;background:rgba(212,169,106,.06);top:0;left:50%;transform:translateX(-50%)"></div>
+  <div class="eyebrow">Engineering Management &bull; Educational Series</div>
+  <h1>Frictionless</h1>
+  <p class="lead">Developer Experience in the AI Era &mdash; a complete synthesis for engineering leaders from Nicole Forsgren &amp; Abi Noda</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px;max-width:800px">
+    <div class="stat-pill"><div class="stat-big">$300B</div><div class="stat-label">Annual GDP lost to<br>developer friction</div></div>
+    <div class="stat-pill"><div class="stat-big">68%</div><div class="stat-label">Average felt productivity<br>(31% invisible tax)</div></div>
+    <div class="stat-pill"><div class="stat-big">3</div><div class="stat-label">Core elements of<br>developer experience</div></div>
+    <div class="stat-pill"><div class="stat-big">7</div><div class="stat-label">Steps to systematic<br>DevEx improvement</div></div>
+  </div>
+  <div class="callout" style="margin-top:24px;max-width:700px">
+    <div class="callout-label">Core thesis</div>
+    <p>DevEx is not about making developers happy. It is about <strong>removing the invisible tax that slows your entire business</strong>. Every friction point compounds. In the AI era, it compounds faster than ever &mdash; because AI accelerates creation but does nothing to fix your broken deployment pipeline.</p>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 2: Section — Understanding DevEx ═══ -->
+<div class="slide" data-sec="Part I: Understanding DevEx">
+  <div class="sec-num">I</div>
+  <div class="sec-title">Understanding<br>Developer Experience</div>
+  <p class="lead" style="margin-top:16px">What it is, why it is the highest-leverage investment a technology organization can make, and why the AI era makes it more critical &mdash; not less.</p>
+  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center">
+    <div class="tag">Ch 1 &mdash; What is DevEx?</div>
+    <div class="tag">Ch 2 &mdash; Why It Matters</div>
+    <div class="tag">Ch 3 &mdash; Friction: The Value Killer</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3: What is DevEx ═══ -->
+<div class="slide" data-sec="Part I: Understanding DevEx">
+  <div class="eyebrow">Chapter 1</div>
+  <h2>What is Developer Experience?</h2>
+  <p class="lead" style="margin-bottom:20px">The quality of interactions developers have with the <em>tools</em>, <em>processes</em>, and <em>people</em> around their work &mdash; not a perk program, a business lever.</p>
+  <div class="row">
+    <div class="col">
+      <div class="card hi1">
+        <div class="tag">Tools</div>
+        <p class="body">IDEs, build systems, CI/CD pipelines, testing frameworks, AI assistants, deployment tooling. The physical environment of software development.</p>
+      </div>
+      <div class="card hi2">
+        <div class="tag t2">Processes</div>
+        <p class="body">Code review workflows, deployment procedures, security sign-offs, onboarding sequences, incident response. The rules of the game.</p>
+      </div>
+      <div class="card hi3">
+        <div class="tag t3">People &amp; Culture</div>
+        <p class="body">Collaboration patterns, knowledge sharing, team dynamics, psychological safety, leadership behavior. The human layer everything else runs on.</p>
+      </div>
+    </div>
+    <div class="col">
+      <svg width="100%" viewBox="0 0 280 280" style="max-width:280px;margin:0 auto">
+        <circle cx="140" cy="140" r="130" fill="none" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 4"/>
+        <circle cx="140" cy="140" r="44" fill="var(--card)" stroke="var(--a1)" stroke-width="2"/>
+        <text x="140" y="136" text-anchor="middle" fill="var(--text)" font-size="10" font-weight="800">DEVELOPER</text>
+        <text x="140" y="150" text-anchor="middle" fill="var(--muted)" font-size="9">at the centre</text>
+        <g>
+          <circle cx="140" cy="24" r="30" fill="var(--card)" stroke="var(--a1)" stroke-width="1.5"/>
+          <text x="140" y="21" text-anchor="middle" fill="var(--a1)" font-size="10" font-weight="700">TOOLS</text>
+          <text x="140" y="33" text-anchor="middle" fill="var(--muted)" font-size="8">IDEs, CI/CD, AI</text>
+          <line x1="140" y1="54" x2="140" y2="96" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
+        </g>
+        <g>
+          <circle cx="258" cy="192" r="30" fill="var(--card)" stroke="var(--a2)" stroke-width="1.5"/>
+          <text x="258" y="189" text-anchor="middle" fill="var(--a2)" font-size="10" font-weight="700">PROCESS</text>
+          <text x="258" y="201" text-anchor="middle" fill="var(--muted)" font-size="8">Review, Deploy</text>
+          <line x1="230" y1="173" x2="181" y2="157" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
+        </g>
+        <g>
+          <circle cx="22" cy="192" r="30" fill="var(--card)" stroke="var(--a3)" stroke-width="1.5"/>
+          <text x="22" y="189" text-anchor="middle" fill="var(--a3)" font-size="10" font-weight="700">PEOPLE</text>
+          <text x="22" y="201" text-anchor="middle" fill="var(--muted)" font-size="8">Culture, Trust</text>
+          <line x1="50" y1="173" x2="99" y2="157" stroke="var(--border)" stroke-width="1" stroke-dasharray="3 3"/>
+        </g>
+      </svg>
+      <div class="callout c2" style="margin-top:8px">
+        <div class="callout-label c2">Platform vs DevEx</div>
+        <p><strong>Platform engineering</strong> builds the infrastructure layer. <strong>DevEx</strong> optimizes the entire developer journey end-to-end &mdash; including processes and culture that no platform can fix. Both are necessary.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4: Why it matters — Knight Capital ═══ -->
+<div class="slide" data-sec="Part I: Understanding DevEx">
+  <div class="eyebrow">Chapter 2 &mdash; The Stakes</div>
+  <h2>Why Developer Experience Matters</h2>
+  <p class="lead" style="margin-bottom:18px">The cost of poor DevEx is not measured in developer frustration. It is measured in company survival.</p>
+  <div class="row">
+    <div class="col">
+      <div class="case c5">
+        <div class="case-co c5">Knight Capital &mdash; 2012</div>
+        <div class="case-title">$460 million lost in 45 minutes</div>
+        <p>A developer pushed a routine update. An old feature flag &mdash; long retired &mdash; was accidentally reactivated by the deployment script. The company had no automated test suites. Manual deployments. No fast monitoring. A routine mistake became a company-ending disaster.</p>
+        <p style="margin-top:8px"><strong>The real failure was not the bug. It was a development environment that made problems impossible to detect and fix quickly.</strong></p>
+      </div>
+      <div class="case c4" style="margin-top:0">
+        <div class="case-co c4">Replit AI &mdash; 2025</div>
+        <div class="case-title">AI ignored a code freeze instruction</div>
+        <p>Jason Lemkin explicitly set &ldquo;no changes to live data&rdquo; while building a database. The AI assistant ignored his instructions and modified production. Incident: live database corrupted. As AI accelerates development, the guardrails around it become more critical, not less.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="callout c5">
+        <div class="callout-label c5">The pattern</div>
+        <p>Every company today is a software company. Retail, banking, manufacturing, healthcare &mdash; all rely on software to compete. Friction in that software delivery process is not a developer inconvenience. It is a business constraint with a compounding cost.</p>
+      </div>
+      <svg width="100%" viewBox="0 0 280 200" style="max-width:280px;margin:0 auto">
+        <text x="140" y="18" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">COMPOUNDING FRICTION COST</text>
+        <line x1="30" y1="170" x2="260" y2="170" stroke="var(--border)" stroke-width="1"/>
+        <line x1="30" y1="30" x2="30" y2="170" stroke="var(--border)" stroke-width="1"/>
+        <text x="140" y="188" text-anchor="middle" fill="var(--dim)" font-size="9">Time</text>
+        <text x="18" y="105" text-anchor="middle" fill="var(--dim)" font-size="9" transform="rotate(-90,18,105)">Cost</text>
+        <path d="M30 155 Q80 150 130 130 Q180 105 260 50" fill="none" stroke="var(--a5)" stroke-width="2.5"/>
+        <text x="200" y="44" fill="var(--a5)" font-size="9">with friction</text>
+        <path d="M30 155 Q100 148 200 140 Q230 138 260 135" fill="none" stroke="var(--a3)" stroke-width="2" stroke-dasharray="5 3"/>
+        <text x="200" y="130" fill="var(--a3)" font-size="9">fixed early</text>
+        <circle cx="30" cy="155" r="4" fill="var(--a1)"/>
+        <text x="36" y="159" fill="var(--a1)" font-size="9">today</text>
+      </svg>
+      <div class="callout c3">
+        <div class="callout-label c3">Analogy</div>
+        <p>A rusty bicycle chain creates drag on every pedal stroke. You can ride, but you waste significant energy on every rotation. Remove the friction and you go faster with the same effort &mdash; and you arrive less exhausted.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5: LinkedIn Case Study ═══ -->
+<div class="slide" data-sec="Part I: Understanding DevEx">
+  <div class="eyebrow">Chapter 2 &mdash; Case Study</div>
+  <h2>LinkedIn&rsquo;s Project InVersion</h2>
+  <p class="lead" style="margin-bottom:20px">The most important decision LinkedIn made in 2011 was to stop shipping features for two months.</p>
+  <div class="row">
+    <div class="col">
+      <div class="case">
+        <div class="case-co">LinkedIn &mdash; October 2011</div>
+        <div class="case-title">The problem: 1 deployment per month</div>
+        <p>LinkedIn was profitable on paper, but engineers spent their days wrestling with internal systems instead of building for users. The friction had become so severe that the company could only deploy new features once per month, while competitors shipped daily updates. Engineers were frustrated and leaving.</p>
+      </div>
+      <div class="case c2" style="margin-top:0">
+        <div class="case-co c2">The radical decision</div>
+        <div class="case-title">Freeze everything. Rebuild the foundation.</div>
+        <p>Newly appointed VP of Engineering Kevin Scott froze all feature development for two months. Project InVersion rebuilt LinkedIn&rsquo;s development infrastructure from scratch. The company actually dismantled their old systems halfway through &mdash; there was no going back.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:10px">
+          <div class="stat-pill" style="flex:1"><div class="stat-big" style="font-size:32px;color:var(--a5)">1/mo</div><div class="stat-label">Deployments before</div></div>
+          <div class="stat-pill" style="flex:1"><div class="stat-big" style="font-size:32px;color:var(--a3)">Multi/day</div><div class="stat-label">Deployments after</div></div>
+        </div>
+        <div class="case c3">
+          <div class="case-co c3">The result</div>
+          <div class="case-title">Transformation within weeks</div>
+          <p>Within weeks of completion, LinkedIn went from monthly deployments to multiple releases per day. Engineers who had been frustrated and leaving were suddenly energized, spending time on innovation instead of fighting tools. Outside observers noticed the product improving at an unprecedented pace.</p>
+        </div>
+        <div class="callout">
+          <div class="callout-label">The lesson</div>
+          <p>Friction was silently strangling LinkedIn&rsquo;s growth. Removing it did not just improve developer morale &mdash; it <strong>secured a competitive advantage for years to come</strong>. The two-month &ldquo;investment&rdquo; paid for itself immediately.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: Friction Types ═══ -->
+<div class="slide" data-sec="Part I: Understanding DevEx">
+  <div class="eyebrow">Chapter 3</div>
+  <h2>Friction: The Value Killer</h2>
+  <p class="lead" style="margin-bottom:18px">Friction is anything that slows down or prevents completing work. It appears in six forms &mdash; each compounding the others.</p>
+  <div class="grid3 w">
+    <div class="card">
+      <div class="tag t5">Onboarding</div>
+      <h3>Weeks of waiting</h3>
+      <p class="body">New hires wait weeks for database access, parse outdated documentation, and have no clear process for AI-assisted work. Even experienced developers lose a week to laptop refreshes. The clock is ticking from day one but value delivery hasn&rsquo;t started.</p>
+    </div>
+    <div class="card">
+      <div class="tag t5">Codebase</div>
+      <h3>Touch one, break five</h3>
+      <p class="body">Insufficient documentation forces ripple changes across a monolith. Legacy patterns that once made sense now create obstacles. Technical debt accumulates until even experienced developers are afraid to refactor.</p>
+    </div>
+    <div class="card">
+      <div class="tag t5">Integration</div>
+      <h3>Toolchain breaks</h3>
+      <p class="body">Misconfigured toolchains transform seamless connections into frustrating manual workarounds. Every handoff between tools is a potential friction point. The developer breaks flow to wrestle with infrastructure instead of building.</p>
+    </div>
+    <div class="card">
+      <div class="tag t5">Process</div>
+      <h3>Bureaucratic bottlenecks</h3>
+      <p class="body">Multi-step approvals, redundant reviews, sign-offs from three teams with separate workflows. Note: <strong>during hackathons, when process is removed, innovation happens in hours</strong>. The same engineers, same tools &mdash; but no friction.</p>
+    </div>
+    <div class="card">
+      <div class="tag t5">Review</div>
+      <h3>PRs in limbo for days</h3>
+      <p class="body">Code reviews that should take hours stretch to days: unclear ownership in monorepos, multiple review cycles from vague requirements, large PRs because developers work in isolation. Every day in limbo is a day of compounding context loss.</p>
+    </div>
+    <div class="card">
+      <div class="tag t5">Development &amp; Deploy</div>
+      <h3>Build/test/deploy pain</h3>
+      <p class="body">45-minute builds. 30% flaky test failure rates. Custom deployment scripts for every push. Manual coordination across teams to ship a single change. Each of these individually is painful &mdash; in combination they are a daily morale emergency.</p>
+    </div>
+  </div>
+  <div class="callout c5 w" style="margin-top:14px">
+    <div class="callout-label c5">Compounding effect</div>
+    <p>Each friction point forces context-switching. Research from UC Irvine: <strong>a single interruption while waiting for a test result causes a task switch that wastes 15&ndash;30% of productive time</strong>. Every barrier is not additive &mdash; it multiplies.</p>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7: Section — Three Elements ═══ -->
+<div class="slide" data-sec="Part II: The Three Elements">
+  <div class="sec-num">II</div>
+  <div class="sec-title">The Three Essential<br>Elements of DevEx</div>
+  <p class="lead" style="margin-top:16px">All friction maps to one of three dimensions. Improve any one and you often unlock the others. The elements reinforce each other &mdash; but they also fail together.</p>
+  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center">
+    <div class="tag">Ch 4 &mdash; Framework Overview</div>
+    <div class="tag">Ch 5 &mdash; Feedback Loops</div>
+    <div class="tag">Ch 6 &mdash; Flow State</div>
+    <div class="tag">Ch 7 &mdash; Cognitive Load</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 8: Framework Overview ═══ -->
+<div class="slide" data-sec="Part II: The Three Elements">
+  <div class="eyebrow s2">Chapter 4</div>
+  <h2>The DevEx Framework</h2>
+  <p class="lead" style="margin-bottom:20px">Three elements capture both the technical and psychological dimensions of developer work &mdash; from co-located teams to globally distributed AI-augmented ones.</p>
+  <div class="grid3 w" style="margin-bottom:14px">
+    <div class="card hi4" style="text-align:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" style="margin:0 auto 10px">
+        <circle cx="26" cy="26" r="22" fill="none" stroke="var(--a4)" stroke-width="1.5"/>
+        <path d="M8 26 A18 18 0 0 1 44 26" fill="none" stroke="var(--a4)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M44 26 A18 18 0 0 1 8 26" fill="none" stroke="var(--a4)" stroke-width="1" stroke-dasharray="3 2"/>
+        <circle cx="26" cy="8" r="3.5" fill="var(--a4)"/>
+        <circle cx="26" cy="44" r="3.5" fill="var(--a4)"/>
+      </svg>
+      <h3 style="color:var(--a4);font-size:17px;margin-bottom:8px">Feedback Loops</h3>
+      <p class="body" style="text-align:left">How quickly developers know if code works and ideas are good. Slow loops cause context switching, risky shortcuts, and mounting mental load.</p>
+      <div style="margin-top:10px;font-size:11.5px;color:var(--dim)">Build &bull; Test &bull; Review &bull; Deploy &bull; Monitor</div>
+    </div>
+    <div class="card hi3" style="text-align:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" style="margin:0 auto 10px">
+        <path d="M4 38 Q16 8 26 8 Q36 8 48 38" fill="none" stroke="var(--a3)" stroke-width="2"/>
+        <circle cx="26" cy="16" r="7" fill="var(--a3)" opacity=".2"/>
+        <circle cx="26" cy="16" r="4" fill="var(--a3)"/>
+        <line x1="26" y1="38" x2="26" y2="47" stroke="var(--border)" stroke-width="1.5"/>
+      </svg>
+      <h3 style="color:var(--a3);font-size:17px;margin-bottom:8px">Flow State</h3>
+      <p class="body" style="text-align:left">Complete immersion with energised focus. Where complex problems are solved, creativity emerges, and the best work happens. Interruptions destroy it instantly.</p>
+      <div style="margin-top:10px;font-size:11.5px;color:var(--dim)">Focus &bull; Autonomy &bull; Minimal interruption</div>
+    </div>
+    <div class="card hi1" style="text-align:center">
+      <svg width="52" height="52" viewBox="0 0 52 52" style="margin:0 auto 10px">
+        <ellipse cx="26" cy="22" rx="16" ry="12" fill="none" stroke="var(--a1)" stroke-width="1.5"/>
+        <line x1="26" y1="34" x2="26" y2="44" stroke="var(--a1)" stroke-width="1.5"/>
+        <rect x="18" y="43" width="16" height="5" rx="2" fill="none" stroke="var(--a1)" stroke-width="1.5"/>
+        <line x1="20" y1="18" x2="32" y2="18" stroke="var(--a1)" stroke-width="1" stroke-linecap="round"/>
+        <line x1="20" y1="23" x2="30" y2="23" stroke="var(--a1)" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <h3 style="color:var(--a1);font-size:17px;margin-bottom:8px">Cognitive Load</h3>
+      <p class="body" style="text-align:left">Mental processing required for a task. Unnecessary load from poor docs, fragmented tools, or toil steals capacity from actual problem-solving.</p>
+      <div style="margin-top:10px;font-size:11.5px;color:var(--dim)">Complexity &bull; Context-switching &bull; Toil</div>
+    </div>
+  </div>
+  <div class="callout w">
+    <div class="callout-label">How they connect</div>
+    <p>Fast feedback enables flow. Flow reduces cognitive load (no context juggling). Lower cognitive load makes feedback easier to interpret. Organizations that improve all three see measurable improvements in lead time, deployment frequency, and product quality &mdash; the business outcomes that matter.</p>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 9: Feedback Loops ═══ -->
+<div class="slide" data-sec="Part II: The Three Elements">
+  <div class="eyebrow s4">Chapter 5</div>
+  <h2>Feedback Loops</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body"><strong>Fast feedback helps developers know whether code works and whether ideas are good.</strong> This sounds obvious &mdash; but most organisations tolerate slow loops with rationalisations: &ldquo;you can do other things while you wait,&rdquo; &ldquo;others seem fine with it.&rdquo;</p>
+      <div class="card hi4">
+        <div class="tag t4">Little&rsquo;s Law &mdash; queuing theory</div>
+        <p class="body">Longer latency means developers must juggle more simultaneous work in their working memory. The queue grows. UC Irvine research confirms: <strong>each interruption while waiting for test results triggers task switches that waste 15&ndash;30% of productive time.</strong></p>
+      </div>
+      <div class="card hi5">
+        <div class="tag t5">Risky shortcuts from slow feedback</div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Skipping code reviews to avoid the wait</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Merging untested changes to move on</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Deploying without established processes</p></div>
+        <p class="body" style="margin-top:6px">These introduce a new category of problems &mdash; quality debt from process workarounds.</p>
+      </div>
+      <div class="callout c4">
+        <div class="callout-label c4">AI role</div>
+        <p>AI tools can shorten feedback loops by providing answers about codebases faster than a colleague could respond &mdash; especially valuable when teammates are in different time zones or unavailable. But broken CI that takes 45 minutes still breaks flow regardless of how fast AI generates the code.</p>
+      </div>
+    </div>
+    <div class="col">
+      <svg width="100%" viewBox="0 0 280 300" style="max-width:280px;margin:0 auto">
+        <text x="140" y="18" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">LOOP SPEED vs MENTAL LOAD</text>
+        <line x1="30" y1="260" x2="270" y2="260" stroke="var(--border)" stroke-width="1"/>
+        <line x1="30" y1="40" x2="30" y2="260" stroke="var(--border)" stroke-width="1"/>
+        <text x="150" y="278" text-anchor="middle" fill="var(--dim)" font-size="9">Feedback delay (fast &rarr; slow)</text>
+        <text x="16" y="155" text-anchor="middle" fill="var(--dim)" font-size="9" transform="rotate(-90,16,155)">Mental load</text>
+        <path d="M40 55 Q100 65 190 160 Q230 200 262 252" fill="none" stroke="var(--a5)" stroke-width="2.5"/>
+        <rect x="32" y="42" width="95" height="80" rx="4" fill="var(--a3)" opacity=".06"/>
+        <text x="79" y="62" text-anchor="middle" fill="var(--a3)" font-size="10" font-weight="700">Flow Zone</text>
+        <text x="79" y="77" text-anchor="middle" fill="var(--muted)" font-size="9">Low load</text>
+        <text x="79" y="91" text-anchor="middle" fill="var(--muted)" font-size="9">Deep focus possible</text>
+        <rect x="162" y="148" width="100" height="80" rx="4" fill="var(--a5)" opacity=".06"/>
+        <text x="212" y="168" text-anchor="middle" fill="var(--a5)" font-size="10" font-weight="700">Danger Zone</text>
+        <text x="212" y="183" text-anchor="middle" fill="var(--muted)" font-size="9">Juggling queues</text>
+        <text x="212" y="198" text-anchor="middle" fill="var(--muted)" font-size="9">Taking shortcuts</text>
+        <circle cx="50" cy="58" r="4.5" fill="var(--a4)"/>
+        <text x="60" y="54" fill="var(--a4)" font-size="9">Unit tests</text>
+        <circle cx="100" cy="82" r="4.5" fill="var(--a1)"/>
+        <text x="110" y="78" fill="var(--a1)" font-size="9">Linting</text>
+        <circle cx="168" cy="155" r="4.5" fill="var(--a2)"/>
+        <text x="110" y="152" fill="var(--a2)" font-size="9">Integration tests</text>
+        <circle cx="230" cy="210" r="4.5" fill="var(--a5)"/>
+        <text x="178" y="214" fill="var(--a5)" font-size="9">Manual review wait</text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 10: Flow State ═══ -->
+<div class="slide" data-sec="Part II: The Three Elements">
+  <div class="eyebrow s3">Chapter 6</div>
+  <h2>Flow State</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body">Flow state is complete immersion in work with energised focus. <strong>As Cal Newport argues in &lsquo;Deep Work&rsquo;, complex cognitive tasks require sustained, concentrated blocks of time.</strong> This need has only intensified as software systems grow more complex &mdash; microservices, distributed systems, AI integration.</p>
+      <div class="case c3">
+        <div class="case-co c3">Research finding</div>
+        <div class="case-title">23 minutes to recover from an interruption</div>
+        <p>Studies show that after a single interruption, it takes on average 23 minutes to fully return to the original task at the same level of focus. For a developer interrupted 3 times in a morning, that&rsquo;s over an hour of lost deep-work capacity &mdash; every day.</p>
+      </div>
+      <div class="grid2" style="max-width:100%;gap:10px;margin-top:0">
+        <div class="card hi5">
+          <div class="tag t5">Destroys flow</div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Unplanned meetings during coding windows</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Being the only expert &mdash; constant interruptions</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Slow CI that forces switching to another task</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Zoom fatigue reducing cognitive capacity</p></div>
+        </div>
+        <div class="card hi3">
+          <div class="tag t3">Protects flow</div>
+          <div class="bul"><div class="bul-dot d3"></div><p>Focus blocks (Focus Fridays, no-meeting mornings)</p></div>
+          <div class="bul"><div class="bul-dot d3"></div><p>Async-first with clear response SLAs</p></div>
+          <div class="bul"><div class="bul-dot d3"></div><p>AI answering questions without human interruption</p></div>
+          <div class="bul"><div class="bul-dot d3"></div><p>Flexible schedules for peak energy hours</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <svg width="100%" viewBox="0 0 280 260" style="max-width:280px;margin:0 auto">
+        <text x="140" y="18" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">FOCUS TIME PATTERNS</text>
+        <text x="30" y="46" fill="var(--a5)" font-size="9" font-weight="700">WITH INTERRUPTIONS</text>
+        <rect x="30" y="54" width="26" height="18" rx="3" fill="var(--a3)" opacity=".5"/>
+        <rect x="60" y="54" width="8" height="18" rx="2" fill="var(--a5)" opacity=".8"/>
+        <rect x="72" y="54" width="18" height="18" rx="3" fill="var(--a3)" opacity=".5"/>
+        <rect x="94" y="54" width="8" height="18" rx="2" fill="var(--a5)" opacity=".8"/>
+        <rect x="106" y="54" width="28" height="18" rx="3" fill="var(--a3)" opacity=".5"/>
+        <rect x="138" y="54" width="8" height="18" rx="2" fill="var(--a5)" opacity=".8"/>
+        <rect x="150" y="54" width="16" height="18" rx="3" fill="var(--a3)" opacity=".5"/>
+        <rect x="170" y="54" width="8" height="18" rx="2" fill="var(--a5)" opacity=".8"/>
+        <rect x="182" y="54" width="48" height="18" rx="3" fill="var(--a3)" opacity=".5"/>
+        <text x="43" y="88" text-anchor="middle" fill="var(--muted)" font-size="7">focus</text>
+        <text x="64" y="88" text-anchor="middle" fill="var(--a5)" font-size="7">intr</text>
+        <text x="81" y="88" text-anchor="middle" fill="var(--muted)" font-size="7">ramp</text>
+        <text x="30" y="115" fill="var(--a3)" font-size="9" font-weight="700">WITH PROTECTED FOCUS TIME</text>
+        <defs>
+          <linearGradient id="fg" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="var(--a3)" stop-opacity=".2"/>
+            <stop offset="50%" stop-color="var(--a3)" stop-opacity=".6"/>
+            <stop offset="100%" stop-color="var(--a3)" stop-opacity=".2"/>
+          </linearGradient>
+        </defs>
+        <rect x="30" y="122" width="220" height="26" rx="4" fill="url(#fg)"/>
+        <text x="140" y="139" text-anchor="middle" fill="var(--text)" font-size="10" font-weight="600">Deep Focus &mdash; 3+ hours uninterrupted</text>
+        <text x="140" y="178" text-anchor="middle" fill="var(--muted)" font-size="10">Research: each interruption wastes</text>
+        <text x="140" y="205" text-anchor="middle" fill="var(--a1)" font-size="36" font-weight="900">23min</text>
+        <text x="140" y="226" text-anchor="middle" fill="var(--muted)" font-size="10">to fully return to task depth</text>
+      </svg>
+      <div class="callout c3">
+        <div class="callout-label c3">Remote work truth</div>
+        <p>Remote and hybrid work both creates new friction (Zoom fatigue, async delays, time-zone gaps) and new opportunities (flexible peak hours, fewer office interruptions, personalized environments). The difference is in deliberate design &mdash; not hoping it works out.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 11: Cognitive Load ═══ -->
+<div class="slide" data-sec="Part II: The Three Elements">
+  <div class="eyebrow">Chapter 7</div>
+  <h2>Cognitive Load</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body"><strong>Cognitive load is the amount of mental processing required to complete a task.</strong> When it is excessive, developers cannot focus their best thinking on the actual problem &mdash; they are busy wrestling with their environment.</p>
+      <div class="card hi1">
+        <div class="tag">Three types of cognitive load</div>
+        <table style="margin-top:6px">
+          <tr><td style="width:28%;padding:6px 8px"><strong>Intrinsic</strong></td><td style="padding:6px 8px">Inherent complexity of the task. Unavoidable. This is the work.</td></tr>
+          <tr><td style="padding:6px 8px"><strong>Extraneous</strong></td><td style="padding:6px 8px">Poor docs, bad tools, scattered systems. Eliminate these. This is waste.</td></tr>
+          <tr><td style="padding:6px 8px"><strong>Germane</strong></td><td style="padding:6px 8px">Building mental models and long-term knowledge. Encourage this. This is growth.</td></tr>
+        </table>
+      </div>
+      <div class="card hi5">
+        <div class="tag t5">AI: opportunity and risk</div>
+        <div class="bul"><div class="bul-dot d3"></div><p><strong>Reduces load:</strong> AI handles routine work, answers questions instantly, generates boilerplate so devs focus on design decisions</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p><strong>Increases load:</strong> Interrupting complex tasks to prompt AI, reviewing AI-generated code that may be subtly wrong, maintaining AI-generated code long-term</p></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="callout c2">
+        <div class="callout-label c2">Analogy: Mise en place</div>
+        <p>A chef who has to find their knife, sharpen it, and look up the recipe before cooking has almost no mental energy left for the craft of cooking itself. <em>Mise en place</em> &mdash; everything in its place before starting &mdash; is what good DevEx does for developers. The cognitive budget goes to the actual problem.</p>
+      </div>
+      <svg width="100%" viewBox="0 0 280 210" style="max-width:280px;margin:0 auto">
+        <text x="140" y="18" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">COGNITIVE BUDGET ALLOCATION</text>
+        <text x="70" y="42" text-anchor="middle" fill="var(--a5)" font-size="9" font-weight="700">POOR DEVEX</text>
+        <rect x="20" y="50" width="100" height="14" rx="3" fill="var(--border)"/>
+        <rect x="20" y="50" width="68" height="14" rx="3" fill="var(--a5)"/>
+        <text x="25" y="61" fill="var(--bg)" font-size="8" font-weight="700">Toil &amp; friction (68%)</text>
+        <rect x="20" y="68" width="100" height="14" rx="3" fill="var(--border)"/>
+        <rect x="20" y="68" width="32" height="14" rx="3" fill="var(--a3)"/>
+        <text x="25" y="79" fill="var(--bg)" font-size="8" font-weight="700">Real work</text>
+        <text x="70" y="105" text-anchor="middle" fill="var(--a3)" font-size="9" font-weight="700">GREAT DEVEX</text>
+        <rect x="20" y="112" width="100" height="14" rx="3" fill="var(--border)"/>
+        <rect x="20" y="112" width="14" height="14" rx="3" fill="var(--a5)"/>
+        <text x="38" y="123" fill="var(--muted)" font-size="8">Toil</text>
+        <rect x="20" y="130" width="100" height="14" rx="3" fill="var(--border)"/>
+        <rect x="20" y="130" width="86" height="14" rx="3" fill="var(--a3)"/>
+        <text x="25" y="141" fill="var(--bg)" font-size="8" font-weight="700">Real work (86%)</text>
+        <text x="140" y="180" text-anchor="middle" fill="var(--muted)" font-size="9" font-weight="600">COGNITIVE LOAD vs SYSTEM COMPLEXITY</text>
+        <path d="M 130 200 Q 145 185 160 200" fill="none" stroke="var(--a1)" stroke-width="2"/>
+        <line x1="140" y1="185" x2="140" y2="175" stroke="var(--a1)" stroke-width="1.5"/>
+        <text x="140" y="172" text-anchor="middle" fill="var(--a1)" font-size="8">abstraction</text>
+        <text x="140" y="160" text-anchor="middle" fill="var(--muted)" font-size="8">isolates complexity</text>
+      </svg>
+      <div class="case">
+        <div class="case-co">The toil problem</div>
+        <p>Manual compliance checks, manual deployment scripts, manual environment setup &mdash; these are toil: repetitive tasks that provide no enduring value. Every minute spent on toil is a minute not spent on the problem only that engineer can solve.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 12: Section — Business Case ═══ -->
+<div class="slide" data-sec="Part III: The Business Case">
+  <div class="sec-num">III</div>
+  <div class="sec-title">Making the<br>Business Case</div>
+  <p class="lead" style="margin-top:16px">Most DevEx initiatives fail not from poor technical execution, but from an inability to communicate value to decision-makers. The language of engineering and the language of business are different &mdash; you need to be fluent in both.</p>
+  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center">
+    <div class="tag">Ch 9 &mdash; Translate to Business Value</div>
+    <div class="tag">Real-world ROI case studies</div>
+    <div class="tag">Stakeholder strategy</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 13: Business Value ═══ -->
+<div class="slide" data-sec="Part III: The Business Case">
+  <div class="eyebrow">Chapter 9</div>
+  <h2>Four Languages of Business Value</h2>
+  <p class="lead" style="margin-bottom:18px">Business leaders are evaluated on revenue, profitability, and market share. Connect every DevEx investment to one of these four arguments.</p>
+  <div class="grid2 w" style="margin-bottom:14px">
+    <div class="card hi3">
+      <div class="tag t3">Recover Time</div>
+      <h3>Convert hours to headcount</h3>
+      <p class="body">50 devs &times; 5 hrs lost weekly &times; $100/hr = <strong>$1.3M/year</strong>. Or reframe: &ldquo;We are wasting the equivalent of 2.5 full-time engineers every week without hiring anyone new.&rdquo; This framing works especially well during hiring freezes.</p>
+      <div class="callout c3" style="margin-top:10px;padding:8px 12px">
+        <div class="callout-label c3">DXI finding</div>
+        <p>Each 1-point gain in DXI score = 13 min/week saved per developer = <strong>10 hours annually per dev</strong>.</p>
+      </div>
+    </div>
+    <div class="card hi4">
+      <div class="tag t4">Save Money</div>
+      <h3>Quantify operational cost avoidance</h3>
+      <p class="body">Tool consolidation eliminates redundant vendor costs. Eliminating redundant test runs reduces cloud spend. Faster incident resolution reduces the cost of outages. These are real line items on the P&amp;L.</p>
+      <div class="callout c4" style="margin-top:10px;padding:8px 12px">
+        <div class="callout-label c4">eBay finding</div>
+        <p>Every 10ms improvement in page speed = millions in incremental web revenue. Correlate DevEx improvements to similar business metrics in your domain.</p>
+      </div>
+    </div>
+    <div class="card hi1">
+      <div class="tag">Make Money</div>
+      <h3>Accelerate five revenue levers</h3>
+      <div class="bul" style="margin-top:4px"><div class="bul-dot"></div><p>Feature velocity &mdash; how quickly new capabilities reach customers</p></div>
+      <div class="bul"><div class="bul-dot"></div><p>Feature quality &mdash; how well new capabilities meet needs</p></div>
+      <div class="bul"><div class="bul-dot"></div><p>Experimentation speed &mdash; how fast you test and iterate</p></div>
+      <div class="bul"><div class="bul-dot"></div><p>Service reliability &mdash; how consistently your product performs</p></div>
+      <div class="bul"><div class="bul-dot"></div><p>Security posture &mdash; how well you protect customer trust</p></div>
+    </div>
+    <div class="card hi2">
+      <div class="tag t2">Strategic Alignment</div>
+      <h3>Solve what keeps the CEO up at night</h3>
+      <p class="body">DevEx avg CTO tenure is under 2 years. Leaders need wins they can show in their own performance reviews. Frame DevEx results as <em>their</em> accomplishments: &ldquo;We increased engineering velocity 40% and reduced regrettable attrition 20%.&rdquo;</p>
+      <div class="callout c2" style="margin-top:10px;padding:8px 12px">
+        <div class="callout-label c2">Block story</div>
+        <p>One word change: &ldquo;State of Developer Experience&rdquo; &rarr; &ldquo;State of Engineering.&rdquo; Same content. CTO immediately championed it company-wide.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 14: Real-world ROI ═══ -->
+<div class="slide" data-sec="Part III: The Business Case">
+  <div class="eyebrow">Case Studies</div>
+  <h2>Real-World DevEx ROI</h2>
+  <p class="lead" style="margin-bottom:18px">These are not hypothetical models. These are documented business outcomes from DevEx investments.</p>
+  <div class="grid2 w" style="margin-bottom:12px">
+    <div class="case">
+      <div class="case-co">Etsy &mdash; 250 to 1,000 developers</div>
+      <div class="case-title">$2.5M investment &rarr; permanent capability</div>
+      <p>CTO Mike Fisher told executives the work would save 50% of engineering hours spent waiting for deployments &mdash; equivalent to a quarter of a full-time engineer&rsquo;s salary per person. Result: 20% of engineering capacity permanently allocated to DevEx in four areas: crafting products, developing and deploying, building with data, and reducing toil. So successful it became standard operations.</p>
+    </div>
+    <div class="case c2">
+      <div class="case-co c2">Capital One &mdash; Financial services</div>
+      <div class="case-title">Release cycle: 6&ndash;9 months &rarr; weeks or days</div>
+      <p>Before DevEx overhaul: new products took 6&ndash;9 months to release, severely limiting market agility. After standardising on modern CI/CD pipelines and cloud-native technologies, Capital One compressed release cycles to weeks or days. Executive buy-in was secured by directly connecting to accelerated time-to-market and customer acquisition &mdash; not to engineering metrics.</p>
+    </div>
+    <div class="case c4">
+      <div class="case-co c4">Block (Square, CashApp, Tidal)</div>
+      <div class="case-title">Millions in documented savings in 12 months</div>
+      <p>Rather than pushing abstract benefits like code throughput, Block&rsquo;s DevEx leader focused on how engineering friction was impacting the business. Funded within months. Golden paths, developer environments, and tool consolidation delivered millions in documented savings plus double-digit improvements in developer satisfaction scores.</p>
+    </div>
+    <div class="case c5">
+      <div class="case-co c5">Plaid &mdash; The P0 pivot</div>
+      <div class="case-title">Weeks of failure &rarr; instant CEO approval</div>
+      <p>DevEx leader spent weeks pitching engineering efficiency metrics. No buy-in. He then identified that 1/3 of all engineers had been reassigned to a new product initiative labelled P0 (highest priority) by the CEO. He reframed his team&rsquo;s mission: &ldquo;We exist to accelerate this P0.&rdquo; CEO approved immediately. Lesson: DevEx positioned as an enabler of the company&rsquo;s top priority beats all other arguments combined.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 15: Section — 7-Step Process ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="sec-num">IV</div>
+  <div class="sec-title">The 7-Step<br>DevEx Process</div>
+  <p class="lead" style="margin-top:16px">A systematic, repeatable cycle. You will iterate through these steps multiple times &mdash; each cycle with better data, more credibility, and deeper impact. Start where it makes sense, but do not skip steps.</p>
+  <div style="display:flex;gap:8px;margin-top:20px;flex-wrap:wrap;justify-content:center">
+    <div class="tag">1 &mdash; Listen</div>
+    <div class="tag">2 &mdash; Quick Wins</div>
+    <div class="tag">3 &mdash; Data</div>
+    <div class="tag">4 &mdash; Priority</div>
+    <div class="tag">5 &mdash; Sell</div>
+    <div class="tag">6 &mdash; Change</div>
+    <div class="tag">7 &mdash; Evaluate</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 16: Step 1 Listening Tour ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="eyebrow">Step 1</div>
+  <h2>Start Your Journey: Listen</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body"><strong>Talk to your customers &mdash; the developers.</strong> This is the most skippable step and the most dangerous to skip. Even if you have been in the organisation for years, this reveals how problems actually impact developers&rsquo; daily work in ways that dashboards never show.</p>
+      <div class="card hi1">
+        <div class="tag">The listening tour method</div>
+        <div class="bul"><div class="bul-dot"></div><p>Talk to <strong>12&ndash;15 developers</strong> across roles, seniority, teams (reach saturation &mdash; when you keep hearing the same themes)</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>Cover different dimensions: junior vs senior, new hires vs tenured, product vs platform vs legacy teams</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>Include underrepresented groups &mdash; they often face different challenges that reveal systemic friction</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>30-minute sessions. Open-ended questions. Specific context prompts: &ldquo;Tell me about your day yesterday&rdquo;</p></div>
+      </div>
+      <div class="card hi5">
+        <div class="tag t5">Do not do this</div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Ask leading questions (&ldquo;Is Tool X slow?&rdquo;)</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Offer explanations or defend current systems</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Jump to solutions before hearing the full picture</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Share findings before leadership has been briefed first</p></div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="case c2">
+        <div class="case-co c2">SiriusXM &mdash; Vision-First Method</div>
+        <div class="case-title">Map the ideal, not the current</div>
+        <p>Instead of mapping current workflows to find pain points, SiriusXM&rsquo;s platform team worked backward from the ideal experience. They created a comprehensive user guide of what the perfect developer journey should look like &mdash; from onboarding to production &mdash; then compared reality to the ideal. What&rsquo;s missing is the gap to close.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Build trust first</div>
+        <p>Developers have been surveyed and ignored before. They will only give honest feedback if they trust you. Lead by example. Be transparent about the past. <strong>Keep your promises.</strong> If you say you will share findings, share them. If you say you will take action, take action. Trust is your primary resource in step 1.</p>
+      </div>
+      <div class="callout c5">
+        <div class="callout-label c5">Workflow mapping</div>
+        <p>Document every step from environment setup through deployment. List every tool at each step. Note where AI is used. Note specialised workflows (ML engineers, mobile, data). The friction often lives in tool handoffs that no one owns.</p>
+      </div>
+      <div class="case">
+        <div class="case-co">Ibotta &mdash; Communication lesson</div>
+        <p>Their first metrics-heavy presentation &ldquo;went right at me,&rdquo; the leader recalled. They shifted to honest, evolving monthly check-ins &mdash; &ldquo;we constantly update our elevator pitch.&rdquo; Consistent, transparent communication built more credibility than one polished report.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 17: Step 2 Quick Wins RICE ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="eyebrow">Step 2</div>
+  <h2>Execute Quick Wins with RICE</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body">Early wins are not just about fixing problems. <strong>They demonstrate competence, build stakeholder confidence, and set the foundation for your DevEx narrative.</strong> Use RICE to select them scientifically rather than intuitively.</p>
+      <div class="card hi1">
+        <div class="tag">Quick RICE scoring</div>
+        <div style="font-size:15px;font-weight:800;color:var(--a1);text-align:center;margin:8px 0">(Reach &times; Impact &times; Confidence) &divide; Effort</div>
+        <div class="bul"><div class="bul-dot"></div><p><strong>Reach</strong> &mdash; How many devs does it affect? How often? Daily impacts beat monthly ones.</p></div>
+        <div class="bul"><div class="bul-dot"></div><p><strong>Impact</strong> &mdash; Will devs immediately feel it? Score 1&ndash;3: low / moderate / high.</p></div>
+        <div class="bul"><div class="bul-dot"></div><p><strong>Confidence</strong> &mdash; How certain are you of success? Look for clear milestones.</p></div>
+        <div class="bul"><div class="bul-dot"></div><p><strong>Effort</strong> &mdash; Person-months total. Seek results in 3 months, not 6+.</p></div>
+      </div>
+      <div class="callout c3">
+        <div class="callout-label c3">Process &gt; tools</div>
+        <p>The best DevEx improvement is sometimes a process change, not a tool. Streamlining approval workflows, clarifying code review standards, consolidating documentation &mdash; these require zero infrastructure but deliver immediate friction reduction.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="case c3">
+        <div class="case-co c3">CloudTech RICE Example</div>
+        <div class="case-title">How to choose between 5 competing problems</div>
+        <table style="margin-top:8px">
+          <tr><th>Problem</th><th>RICE Score</th><th>Decision</th></tr>
+          <tr><td><strong>Manual deployments</strong></td><td style="color:var(--a3)">1,275</td><td>Start first</td></tr>
+          <tr><td><strong>Build times (45+ min)</strong></td><td style="color:var(--a4)">183</td><td>After deploy</td></tr>
+          <tr><td><strong>Local envs</strong></td><td style="color:var(--muted)">120</td><td>Parallel track</td></tr>
+          <tr><td><strong>Flaky tests</strong></td><td style="color:var(--muted)">75</td><td>Later cycle</td></tr>
+          <tr><td><strong>Onboarding docs</strong></td><td style="color:var(--a1)">53</td><td>Quick win &mdash; fast</td></tr>
+        </table>
+        <p style="margin-top:8px;font-size:12px;color:var(--muted)">Insight: Onboarding docs scored lowest on RICE but highest on timeline &mdash; a quick parallel win while the main initiative runs.</p>
+      </div>
+      <div class="case c5" style="margin-top:0">
+        <div class="case-co c5">MongoDB &mdash; Culture first</div>
+        <div class="case-title">Post-mortems as a quick win</div>
+        <p>Tara Hernandez chose to start with post-mortems rather than faster builds. Developers moved from fearing mistakes to being part of a proactive learning culture. When the CTO joined and championed operational excellence org-wide, the cultural foundation was already set. Cultural change starts small &mdash; leadership scales it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 18: Step 3 Data Foundation ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="eyebrow">Step 3</div>
+  <h2>Use Data to Optimize</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body">After quick wins, you need data to prioritise what comes next. The trap: teams wait for perfect system data that takes months to instrument. The solution: start with surveys, shift to system data as you build.</p>
+      <div class="grid2" style="max-width:100%;gap:10px">
+        <div class="card hi1">
+          <div class="tag">Surveys</div>
+          <h3 style="font-size:13px">Self-report data</h3>
+          <div class="bul"><div class="bul-dot"></div><p>Start in days, not months</p></div>
+          <div class="bul"><div class="bul-dot"></div><p>Captures psychological factors, satisfaction, unknown friction</p></div>
+          <div class="bul"><div class="bul-dot"></div><p>Cannot be collected continuously</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Subject to survey fatigue if overused</p></div>
+        </div>
+        <div class="card hi4">
+          <div class="tag t4">System Data</div>
+          <h3 style="font-size:13px">Objective telemetry</h3>
+          <div class="bul"><div class="bul-dot d4"></div><p>Continuous, precise quantification</p></div>
+          <div class="bul"><div class="bul-dot d4"></div><p>Build times, PR cycle times, deploy frequency</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>6 person-months to instrument first metric</p></div>
+          <div class="bul"><div class="bul-dot d5"></div><p>Cannot capture burnout, satisfaction, or unknown unknowns</p></div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The S-curve</div>
+        <p>Start 80% surveys / 20% system data. As you instrument, shift toward system data. Even in mature programs, keep surveys &mdash; they capture what telemetry cannot: how it <em>feels</em> to work here, and where friction lives that no metric tracks yet.</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card hi5">
+        <div class="tag t5">Survey fatigue rules</div>
+        <div class="bul"><div class="bul-dot d5"></div><p><strong>15-minute maximum</strong> &mdash; devs will abandon or rush-answer anything longer</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p><strong>Monthly cadence</strong> &mdash; enough time to implement feedback before the next survey</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p><strong>No duplicate surveys</strong> &mdash; if another team has a DevEx survey, partner with them, don&rsquo;t launch your own</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p><strong>Test: Would you stop to answer this?</strong> If not, rewrite it.</p></div>
+      </div>
+      <div class="case c4">
+        <div class="case-co c4">LinkedIn &mdash; Progressive disclosure</div>
+        <div class="case-title">Simple first, complexity on demand</div>
+        <p>LinkedIn&rsquo;s Developer Insights Hub showed: current metric value and recent change. One click revealed historical trends and dimensional breakdowns. Engineering managers could drill to discover that slow builds were specific to mobile developers in a particular repository. <strong>Start simple. Add complexity only when needed.</strong></p>
+      </div>
+      <div class="callout c5">
+        <div class="callout-label c5">Goodhart&rsquo;s Law warning</div>
+        <p>&ldquo;When a measure becomes a target, it ceases to be a good measure.&rdquo; A developer optimised for PR response time might sacrifice focused coding time to maintain it &mdash; the opposite of what you want. Use SPACE to balance metrics so gaming one hurts another.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 19: Step 5 Sell / SPACE ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="eyebrow">Step 5</div>
+  <h2>Sell Your Strategy &amp; The SPACE Framework</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body">A perfect DevEx improvement plan is worthless if no one supports it. Communication is not a soft skill add-on &mdash; it is the primary job. Use the EMI framework to structure every stakeholder message.</p>
+      <div class="card hi2">
+        <div class="tag t2">The EMI Framework</div>
+        <div class="bul"><div class="bul-dot d2"></div><p><strong>Educate</strong> &mdash; Address knowledge gaps specific to their role. What do they not understand about friction yet?</p></div>
+        <div class="bul"><div class="bul-dot d2"></div><p><strong>Motivate</strong> &mdash; Connect to their personal priorities and pain points. What keeps them up at night?</p></div>
+        <div class="bul"><div class="bul-dot d2"></div><p><strong>Inform</strong> &mdash; Provide actionable details relevant to their level of involvement.</p></div>
+      </div>
+      <div class="card hi1" style="margin-top:0">
+        <div class="tag">Tailored messaging</div>
+        <table>
+          <tr><th>Audience</th><th>Focus on</th><th>Cadence</th></tr>
+          <tr><td><strong>Executives</strong></td><td>ROI, strategic alignment, 1-2 wins</td><td>2&times; yearly</td></tr>
+          <tr><td><strong>Tech leadership</strong></td><td>Technical impact, comparisons</td><td>Quarterly</td></tr>
+          <tr><td><strong>Eng managers</strong></td><td>Team-specific benefits, retention</td><td>Monthly</td></tr>
+          <tr><td><strong>Developers</strong></td><td>Daily life improvements, time saved</td><td>Monthly</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="col">
+      <div class="eyebrow s2" style="text-align:left;margin-bottom:8px">The SPACE Framework</div>
+      <svg width="100%" viewBox="0 0 260 240" style="max-width:260px;margin:0 auto">
+        <polygon points="130,22 238,94 200,214 60,214 22,94" fill="none" stroke="var(--border)" stroke-width="1" stroke-dasharray="4 3"/>
+        <circle cx="130" cy="22" r="20" fill="var(--card)" stroke="var(--a1)" stroke-width="1.5"/>
+        <text x="130" y="19" text-anchor="middle" fill="var(--a1)" font-size="10" font-weight="800">S</text>
+        <text x="130" y="30" text-anchor="middle" fill="var(--muted)" font-size="7">Satisfaction</text>
+        <circle cx="238" cy="94" r="20" fill="var(--card)" stroke="var(--a2)" stroke-width="1.5"/>
+        <text x="238" y="91" text-anchor="middle" fill="var(--a2)" font-size="10" font-weight="800">P</text>
+        <text x="238" y="102" text-anchor="middle" fill="var(--muted)" font-size="7">Performance</text>
+        <circle cx="200" cy="214" r="20" fill="var(--card)" stroke="var(--a3)" stroke-width="1.5"/>
+        <text x="200" y="211" text-anchor="middle" fill="var(--a3)" font-size="10" font-weight="800">A</text>
+        <text x="200" y="222" text-anchor="middle" fill="var(--muted)" font-size="7">Activity</text>
+        <circle cx="60" cy="214" r="20" fill="var(--card)" stroke="var(--a4)" stroke-width="1.5"/>
+        <text x="60" y="211" text-anchor="middle" fill="var(--a4)" font-size="10" font-weight="800">C</text>
+        <text x="60" y="222" text-anchor="middle" fill="var(--muted)" font-size="7">Collaboration</text>
+        <circle cx="22" cy="94" r="20" fill="var(--card)" stroke="var(--a5)" stroke-width="1.5"/>
+        <text x="22" y="91" text-anchor="middle" fill="var(--a5)" font-size="10" font-weight="800">E</text>
+        <text x="22" y="102" text-anchor="middle" fill="var(--muted)" font-size="7">Efficiency</text>
+        <circle cx="130" cy="130" r="26" fill="var(--tag-bg)" stroke="var(--a1)" stroke-width="1"/>
+        <text x="130" y="127" text-anchor="middle" fill="var(--a1)" font-size="9" font-weight="700">SPACE</text>
+        <text x="130" y="140" text-anchor="middle" fill="var(--muted)" font-size="7">balance</text>
+      </svg>
+      <div class="callout c2" style="margin-top:8px">
+        <div class="callout-label c2">Why balance matters</div>
+        <p>You don&rsquo;t need metrics in every dimension &mdash; pick 3&ndash;4. But considering all five prevents you from accidentally optimising one dimension at the expense of the others. Example: improving Activity (commit count) while ignoring Satisfaction will surface developer burnout too late.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 20: Step 6 Change at Scale ═══ -->
+<div class="slide" data-sec="Part IV: The 7-Step Process">
+  <div class="eyebrow">Step 6</div>
+  <h2>Drive Change at Your Scale</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body"><strong>The biggest DevEx failures are not technical. They are about choosing the wrong scope or failing at change management.</strong> Match your approach to your actual authority.</p>
+      <div class="grid3" style="max-width:100%;gap:8px">
+        <div class="card hi4">
+          <div class="tag t4">Global</div>
+          <h3 style="font-size:12px">Org-wide mandate</h3>
+          <p class="body" style="font-size:12px">Build coalition. Pilot with highest-pain teams. Technical + process + cultural change must happen together. &ldquo;If we build it they will come&rdquo; is how global initiatives die.</p>
+        </div>
+        <div class="card hi3">
+          <div class="tag t3">Local</div>
+          <h3 style="font-size:12px">Team-level</h3>
+          <p class="body" style="font-size:12px">Fix your test suite. Improve your review process. Document and share your journey. Build credibility that earns you a broader mandate later.</p>
+        </div>
+        <div class="card hi1">
+          <div class="tag">Middle</div>
+          <h3 style="font-size:12px">Nominal mandate, limited resources</h3>
+          <p class="body" style="font-size:12px">&ldquo;Startup within a startup.&rdquo; Build informal influence networks. Connect scattered efforts into a narrative. Let results create authority.</p>
+        </div>
+      </div>
+      <div class="card hi2" style="margin-top:0">
+        <div class="tag t2">Kotter&rsquo;s 8-Step Change Model</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">
+          <div class="tag t2" style="font-size:10px">1. Create urgency</div>
+          <div class="tag t2" style="font-size:10px">2. Build coalition</div>
+          <div class="tag t2" style="font-size:10px">3. Form vision</div>
+          <div class="tag t2" style="font-size:10px">4. Enlist volunteers</div>
+          <div class="tag t2" style="font-size:10px">5. Remove barriers</div>
+          <div class="tag t2" style="font-size:10px">6. Short-term wins</div>
+          <div class="tag t2" style="font-size:10px">7. Sustain momentum</div>
+          <div class="tag t2" style="font-size:10px">8. Institute change</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="case">
+        <div class="case-co">DoorDash &mdash; Adam Rogal</div>
+        <div class="case-title">Nights and weekends to fully funded</div>
+        <p>Adam&rsquo;s primary role was overseeing the existing developer platform. He saw the need for a unified interface &mdash; but couldn&rsquo;t secure funding overnight. He invested nights and weekends to build a proof of concept. That POC became DevConsole &mdash; DoorDash&rsquo;s highly successful, fully funded internal developer portal. <em>&ldquo;Someone who wants to create one of these has to be a founder.&rdquo;</em></p>
+      </div>
+      <div class="case c2">
+        <div class="case-co c2">Atlassian &mdash; 10% Time</div>
+        <div class="case-title">Permission to fix what sucks</div>
+        <p>CTO Rajeev Rajan discovered teams knew what was broken but didn&rsquo;t feel empowered to fix it. Solution: explicit permission &mdash; 10% of time allocated to &ldquo;things that make your day job suck.&rdquo; Results: one team improved 48-hour deploys to 31% in one quarter. Another deleted 24,000 lines of dead code. A central team improved deployment frequency 300%.</p>
+      </div>
+      <div class="callout c5">
+        <div class="callout-label c5">Visibility as leverage</div>
+        <p>Dave Anderson improved platform error rates without writing a single line of code. He created a monthly email listing every team&rsquo;s error rate, distributed to the entire leadership chain including the CEO. Leaders mobilised immediately to avoid appearing at the bottom. <strong>Competitive visibility drives action that economic arguments cannot.</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 21: Section — Sustaining DevEx ═══ -->
+<div class="slide" data-sec="Part V: Sustaining DevEx">
+  <div class="sec-num">V</div>
+  <div class="sec-title">Sustaining<br>Developer Experience</div>
+  <p class="lead" style="margin-top:16px">Excellent DevEx initiatives fail when the team that built them moves on. The goal is to make DevEx a permanent organisational capability &mdash; not a project with an end date.</p>
+  <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center">
+    <div class="tag">Golden Paths &amp; Technology Tiers</div>
+    <div class="tag">Product mindset for internal tools</div>
+    <div class="tag">Technical debt management</div>
+    <div class="tag">Metrics that evolve</div>
+    <div class="tag">AI era DevEx</div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 22: Golden Paths ═══ -->
+<div class="slide" data-sec="Part V: Sustaining DevEx">
+  <div class="eyebrow">Third Practice</div>
+  <h2>Golden Paths &amp; Technology Tiers</h2>
+  <div class="row">
+    <div class="col">
+      <p class="body">A <strong>Golden Path</strong> is a complete, pre-configured starting template: skeleton code, CI/CD pipeline, infrastructure, monitoring &mdash; all ready to use. Developers don&rsquo;t choose the stack. They start building immediately.</p>
+      <div class="card hi1">
+        <div class="tag">Gold Tier &mdash; The Golden Path</div>
+        <div class="bul"><div class="bul-dot"></div><p>Zero maintenance burden &mdash; platform team handles all infrastructure</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>Fully automated CI/CD &mdash; just works, no custom config</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>Managed databases with DBA support, monitoring built in</p></div>
+        <div class="bul"><div class="bul-dot"></div><p>Pre-approved by security, legal, and compliance</p></div>
+        <p class="body" style="margin-top:6px"><strong>This is where most teams should live.</strong> Reduce cognitive load to near zero for standard work.</p>
+      </div>
+      <div class="card" style="border-color:var(--dim)">
+        <div class="tag" style="color:var(--muted)">Silver Tier &mdash; Supported Alternatives</div>
+        <p class="body">Partial platform support. Some responsibility for debugging, monitoring. Valid for teams with legitimate reasons not to use gold. Pre-approved but not primary.</p>
+      </div>
+      <div class="card hi5">
+        <div class="tag t5">Bronze Tier &mdash; Approved Experiments</div>
+        <p class="body">Team owns everything: maintenance, security, migration if it fails. Full responsibility. No platform support. <em>Tent camping vs. utilities.</em> Viable for the right team, but expensive.</p>
+      </div>
+    </div>
+    <div class="col">
+      <svg width="100%" viewBox="0 0 270 260" style="max-width:270px;margin:0 auto">
+        <text x="135" y="16" text-anchor="middle" fill="var(--muted)" font-size="10" font-weight="600">THE TECHNOLOGY TIER SYSTEM</text>
+        <path d="M 135 250 L 85 105 L 135 60 L 185 105 L 135 250" fill="var(--card)" stroke="var(--border)" stroke-width="1.5"/>
+        <path d="M 135 250 L 108 130" stroke="var(--a1)" stroke-width="1" stroke-dasharray="5 3" opacity=".5"/>
+        <path d="M 135 250 L 162 130" stroke="var(--a1)" stroke-width="1" stroke-dasharray="5 3" opacity=".5"/>
+        <circle cx="135" cy="60" r="20" fill="var(--a1)" opacity=".15"/>
+        <circle cx="135" cy="60" r="11" fill="var(--a1)"/>
+        <text x="135" y="57" text-anchor="middle" fill="var(--bg)" font-size="8" font-weight="800">GOLD</text>
+        <text x="135" y="67" text-anchor="middle" fill="var(--bg)" font-size="7">start here</text>
+        <text x="135" y="168" text-anchor="middle" fill="var(--a1)" font-size="9" font-weight="700">Most teams</div>
+        <path d="M 86 105 L 26 78" stroke="var(--a5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <circle cx="26" cy="78" r="7" fill="none" stroke="var(--a5)" stroke-width="1.5"/>
+        <text x="16" y="72" fill="var(--a5)" font-size="8">bronze</text>
+        <text x="10" y="86" fill="var(--dim)" font-size="7">own everything</text>
+        <path d="M 184 105 L 244 78" stroke="var(--dim)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <circle cx="244" cy="78" r="7" fill="none" stroke="var(--dim)" stroke-width="1.5"/>
+        <text x="248" y="72" fill="var(--muted)" font-size="8">silver</text>
+        <text x="245" y="86" fill="var(--dim)" font-size="7">partial support</text>
+      </svg>
+      <div class="case c2">
+        <div class="case-co c2">Adobe &mdash; Portfolio approach</div>
+        <div class="case-title">&ldquo;Gold technologies aren&rsquo;t winners&rdquo;</div>
+        <p>Adobe&rsquo;s Dan Neff: &ldquo;Gold technologies aren&rsquo;t winners &mdash; they&rsquo;re where we concentrate resources because they serve the most teams with the greatest impact.&rdquo; Think urban planning: gold tier has utilities (water, power, sewer) with comprehensive support. Bronze tier? You&rsquo;re tent camping &mdash; viable for the right situation, but you handle everything yourself.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Brex anti-pattern</div>
+        <p>Brex built a Backstage developer portal for 2 years with 6 engineers. First survey revealed: their biggest pain was <strong>local development speed</strong> &mdash; not a portal at all. Tool-first thinking without user research wasted 2 years. Always start with the problem.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 23: AI Era DevEx ═══ -->
+<div class="slide" data-sec="Part V: Sustaining DevEx">
+  <div class="eyebrow">The AI Era</div>
+  <h2>DevEx in the Age of AI</h2>
+  <p class="lead" style="margin-bottom:16px">AI accelerates code creation but does nothing to fix your deployment pipeline, review process, or cognitive overload. It shifts friction &mdash; and compounds the cost of existing friction.</p>
+  <div class="grid2 w" style="margin-bottom:12px">
+    <div class="col" style="gap:10px">
+      <div class="card hi3">
+        <div class="tag t3">What AI reduces</div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Time to answer codebase questions (AI knows your docs instantly)</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Boilerplate and routine generation time</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Async delays when teammates are unavailable</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Onboarding time for unfamiliar codebases</p></div>
+      </div>
+      <div class="card hi5">
+        <div class="tag t5">What AI creates (new friction)</div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Validating and reviewing AI-generated code at scale</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Prompt engineering as a new cognitive task</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Trust calibration: when to accept vs. re-verify</p></div>
+        <div class="bul"><div class="bul-dot d5"></div><p>Managing AI tool access, cost governance, output liability</p></div>
+      </div>
+    </div>
+    <div class="col" style="gap:10px">
+      <div class="card hi1">
+        <div class="tag">New metrics for AI workflows</div>
+        <table>
+          <tr><th>Metric</th><th>What it measures</th></tr>
+          <tr><td><strong>Prompting efficiency</strong></td><td>Attempts needed before a useful AI suggestion</td></tr>
+          <tr><td><strong>Validation effort</strong></td><td>Time spent reviewing &amp; correcting AI output</td></tr>
+          <tr><td><strong>Trust calibration</strong></td><td>Shipping bugs (over-trust) vs. double-checking correct code (under-trust)</td></tr>
+          <tr><td><strong>Delegation pattern</strong></td><td>What work goes to AI agents vs. humans</td></tr>
+        </table>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The paradox</div>
+        <p>Agentic development makes DevEx <em>more</em> critical, not less. What is good for human developers &mdash; clear documentation, well-organised code, fast feedback loops, clean APIs &mdash; is exactly what makes AI coding agents effective. <strong>Good DevEx is now dual-use infrastructure.</strong></p>
+      </div>
+      <div class="callout c5">
+        <div class="callout-label c5">The shifting bottleneck</div>
+        <p>When AI can generate code in minutes but deployment takes hours, the constraint moves from creation to validation. Friction that was manageable at human development speed becomes a critical bottleneck at AI speed. Fix your pipelines before you give everyone an AI.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 24: Conclusion ═══ -->
+<div class="slide" data-sec="Conclusion">
+  <div class="glow" style="width:600px;height:400px;background:rgba(74,173,132,.05);bottom:0;right:0"></div>
+  <div class="glow" style="width:400px;height:400px;background:rgba(212,169,106,.05);top:0;left:0"></div>
+  <div class="eyebrow s3">Conclusion</div>
+  <h2>The DevEx Multiplier</h2>
+  <p class="lead" style="margin-bottom:20px">Every friction point removed compounds. Improving DevEx is not a favour to developers &mdash; it is the highest-leverage investment a technology leader can make.</p>
+  <div class="grid2 w" style="margin-bottom:14px">
+    <div class="col" style="gap:10px">
+      <div class="card hi3">
+        <div class="tag t3">Organisations with great DevEx</div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Attract and retain top talent &mdash; developers seek great tools</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Ship reliably and become the model other teams follow</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Adapt faster to market shifts and technology waves</p></div>
+        <div class="bul"><div class="bul-dot d3"></div><p>Compound their advantage: fewer incidents &rarr; more focus &rarr; better work</p></div>
+      </div>
+      <div class="quote-block">
+        <p>&ldquo;Developer experience is the highest-leverage investment a technology organisation can make &mdash; and in the AI era, it has never mattered more.&rdquo;</p>
+        <div class="quote-attr">&mdash; Nicole Forsgren &amp; Abi Noda, Frictionless</div>
+      </div>
+    </div>
+    <div class="col" style="gap:10px">
+      <div class="card hi1">
+        <div class="tag">Where to start tomorrow</div>
+        <div class="step" style="background:transparent;border:none;padding:6px 0"><div class="step-n" style="background:var(--a1)">1</div><div class="step-body"><div class="step-t">Schedule 5 listening conversations with developers</div><div class="step-d">Open-ended. 30 minutes. Ask about yesterday, not in general.</div></div></div>
+        <div class="step" style="background:transparent;border:none;padding:6px 0"><div class="step-n" style="background:var(--a2)">2</div><div class="step-body"><div class="step-t">Map one complete developer workflow end-to-end</div><div class="step-d">Every tool, every step, every handoff. Note where friction lives.</div></div></div>
+        <div class="step" style="background:transparent;border:none;padding:6px 0"><div class="step-n" style="background:var(--a3)">3</div><div class="step-body"><div class="step-t">Score three improvement ideas with Quick RICE</div><div class="step-d">Reach &times; Impact &times; Confidence &divide; Effort. Start the winner in 30 days.</div></div></div>
+        <div class="step" style="background:transparent;border:none;padding:6px 0"><div class="step-n" style="background:var(--a4)">4</div><div class="step-body"><div class="step-t">Translate that win into the language your CFO speaks</div><div class="step-d">Hours recovered. Money saved. Revenue accelerated. Not &ldquo;better builds.&rdquo;</div></div></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <div class="stat-pill" style="flex:1"><div style="font-size:16px;font-weight:800;color:var(--a4)">Feedback Loops</div><div class="stat-label">Fast signal = fast learning = fast delivery</div></div>
+        <div class="stat-pill" style="flex:1"><div style="font-size:16px;font-weight:800;color:var(--a3)">Flow State</div><div class="stat-label">Protect the zone where great work happens</div></div>
+        <div class="stat-pill" style="flex:1"><div style="font-size:16px;font-weight:800;color:var(--a1)">Cognitive Load</div><div class="stat-label">Reserve capacity for problems only humans can solve</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /stage -->
+
+<nav class="bottom">
+  <button class="btn-nav" onclick="go(-1)">&larr;</button>
+  <div class="dots" id="dots"></div>
+  <button class="btn-nav" onclick="go(1)">&rarr;</button>
+</nav>
+
+<script>
+const slides = [...document.querySelectorAll('.slide')];
+const total = slides.length;
+const sections = slides.map(s => s.dataset.sec || '');
+let cur = 0;
+
+const dotWrap = document.getElementById('dots');
+const MAX_DOTS = 24;
+for (let i = 0; i < Math.min(total, MAX_DOTS); i++) {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.onclick = () => go(i - cur);
+  dotWrap.appendChild(d);
+}
+
+function go(dir) {
+  const next = Math.max(0, Math.min(total - 1, cur + dir));
+  if (next === cur) return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.add('exit');
+  const prev = cur;
+  setTimeout(() => slides[prev].classList.remove('exit'), 440);
+  cur = next;
+  slides[cur].classList.add('active');
+  const dots = dotWrap.children;
+  for (let i = 0; i < dots.length; i++) dots[i].classList.toggle('on', i === cur);
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + total;
+  document.getElementById('secLabel').textContent = sections[cur] || '';
+  document.getElementById('prog').style.width = ((cur + 1) / total * 100) + '%';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') go(1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') go(-1);
+});
+
+let tx = 0;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+document.addEventListener('touchend', e => {
+  const d = tx - e.changedTouches[0].clientX;
+  if (Math.abs(d) > 50) go(d > 0 ? 1 : -1);
+});
+
+function toggleTheme() {
+  const light = document.body.classList.toggle('light');
+  document.getElementById('themeBtn').textContent = light ? 'Dark' : 'Light';
+}
+
+document.getElementById('prog').style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>
