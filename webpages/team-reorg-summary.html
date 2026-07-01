@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Forming & Reorganizing Engineering Teams — Summary</title>
+<style>
+  :root {
+    --accent: #2b6cb0;
+    --bg: #fafafa;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #1a202c;
+    --muted: #4a5568;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0 0 4rem 0;
+    line-height: 1.6;
+  }
+  header {
+    background: var(--accent);
+    color: white;
+    padding: 2.5rem 2rem 2rem 2rem;
+  }
+  header h1 { margin: 0 0 .5rem 0; font-size: 1.8rem; }
+  header p { margin: 0; opacity: .9; font-size: .95rem; }
+  nav {
+    max-width: 900px;
+    margin: -1.5rem auto 2rem auto;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  nav h2 { font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .5rem 0; }
+  nav ol { margin: 0; padding-left: 1.2rem; }
+  nav li { margin-bottom: .25rem; }
+  nav a { color: var(--accent); text-decoration: none; }
+  nav a:hover { text-decoration: underline; }
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  section.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  }
+  section.card h2 {
+    margin-top: 0;
+    color: var(--accent);
+    font-size: 1.25rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: .5rem;
+  }
+  section.card h3 { font-size: 1.02rem; margin-bottom: .25rem; }
+  ul { padding-left: 1.3rem; }
+  li { margin-bottom: .6rem; }
+  .src {
+    font-size: .82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  blockquote {
+    border-left: 3px solid var(--accent);
+    margin: .5rem 0;
+    padding: .3rem 1rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+  #references {
+    background: #edf2f7;
+  }
+  #references table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    font-size: .92rem;
+  }
+  #references th, #references td {
+    text-align: left;
+    padding: .5rem .6rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  #references th { color: var(--muted); font-weight: 600; }
+  #references code { background: #e2e8f0; padding: .1rem .35rem; border-radius: 4px; font-size: .85rem; }
+  footer {
+    max-width: 900px;
+    margin: 2rem auto 0 auto;
+    padding: 0 1.5rem;
+    font-size: .82rem;
+    color: var(--muted);
+  }
+  .tag {
+    display: inline-block;
+    background: #ebf4ff;
+    color: var(--accent);
+    font-size: .72rem;
+    font-weight: 600;
+    padding: .15rem .5rem;
+    border-radius: 999px;
+    margin-left: .4rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Forming &amp; Reorganizing Engineering Teams</h1>
+  <p>A working summary compiled from the book notes in <code>hbakesson/knowledge/books</code>, covering how to stand up, staff, and reorganize engineering teams.</p>
+</header>
+
+<nav>
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#forming">Aspects to consider when forming a new team</a></li>
+    <li><a href="#established">Forming a team from well-established groups</a></li>
+    <li><a href="#positive">Positive aspects for the org of forming new teams</a></li>
+    <li><a href="#why">Why "start with why" matters when reorging</a></li>
+    <li><a href="#involve">Involving current teams &amp; team members in a reorg</a></li>
+    <li><a href="#when">When reorg is actually the right move</a></li>
+    <li><a href="#references">References — books used</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section class="card" id="forming">
+  <h2>1. Aspects to consider when forming a new team</h2>
+  <ul>
+    <li><strong>Size: 5–9 people, ceiling ~15.</strong> Grounded in Dunbar's number — trust and decision quality degrade past this range. Amazon's "two-pizza team" is the practical version.</li>
+    <li><strong>Team is the unit of delivery</strong>, not the individual — work should be assigned to teams, mixing generalists with a few specialists.</li>
+    <li><strong>Design for cognitive load</strong> — a team's domain should fit inside what it can actually hold in its head.</li>
+    <li><strong>Pick the right team type:</strong> stream-aligned (majority), platform, enabling, complicated-subsystem.</li>
+    <li><strong>Conway's Law is not optional</strong> — team boundaries become system architecture boundaries; design them together.</li>
+    <li><strong>Stability over ad-hoc project staffing</strong> — long-lived teams aligned to a stream build trust and context.</li>
+    <li><strong>Humility, respect, trust</strong> — Google's "three pillars"; most team dysfunction traces back to a deficit in one of these.</li>
+    <li><strong>Leaders should trust and get out of the way</strong> — direction and unblocking, not control.</li>
+  </ul>
+  <p class="src">Sources: <em>Team Topologies</em> (team size, cognitive load, team types, Conway's Law, stability) · <em>Software Engineering at Google</em> (three pillars, leadership trust)</p>
+</section>
+
+<section class="card" id="established">
+  <h2>2. Forming a team from well-established, long-tenured groups</h2>
+  <ul>
+    <li><strong>Brooks's Law and re-"storming"</strong> — mixing people from different established teams can reduce capacity at first, not add it; expect a real dip before things gel.</li>
+    <li><strong>You're breaking existing cohesion, not just building new cohesion.</strong> <blockquote>"Disbanding high-performing teams is worse than vandalism: it is corporate psychopathy." — Allan Kelly, quoted in <em>Team Topologies</em></blockquote></li>
+    <li><strong>Tacit/tribal knowledge doesn't move automatically</strong> — plan deliberate knowledge-transfer time.</li>
+    <li><strong>Existing habits and norms will collide</strong> — decide new team norms deliberately rather than letting them be fought out.</li>
+    <li><strong>Team ownership and continuity of care</strong> — avoid splitting ownership of the same system across teams.</li>
+    <li><strong>Use a "fracture plane"</strong> to cut system boundaries cleanly (business domain, compliance, data ownership) so the new team gets something it can own end-to-end.</li>
+    <li><strong>Reorg motive matters</strong> — reorgs for management convenience or headcount optics actively damage delivery capability, and people can tell.</li>
+    <li><strong>Rebuild trust deliberately</strong> — trust doesn't transfer automatically between people from different source teams.</li>
+    <li><strong>Team size discipline still applies</strong> — resist merging everyone into one oversized team to avoid political pain.</li>
+    <li><strong>Stability going forward</strong> — treat the new team as long-lived once formed.</li>
+  </ul>
+  <p class="src">Source: <em>Team Topologies</em> (Brooks's Law, Tuckman/storming, fracture planes, reorg motive, team ownership)</p>
+</section>
+
+<section class="card" id="positive">
+  <h2>3. Positive aspects for the org of forming new teams</h2>
+  <ul>
+    <li><strong>Shape architecture deliberately</strong> via the reverse Conway maneuver — form teams around the target architecture instead of getting it by accident.</li>
+    <li><strong>Relieves overloaded teams</strong> — restores cognitive-load headroom (OutSystems Engineering Productivity example).</li>
+    <li><strong>Restores intrinsic motivation</strong> — autonomy, mastery, purpose (Dan Pink), which sprawling teams erode.</li>
+    <li><strong>Breaks down functional silos</strong> and empowers teams closer to the work.</li>
+    <li><strong>Enables independent, parallel flow of work</strong> across the org.</li>
+    <li><strong>Lets deep expertise scale</strong> without becoming a bottleneck (platform / complicated-subsystem teams).</li>
+    <li><strong>Creates a home for capability-building</strong> without permanently loading down delivery teams (enabling teams with an expiration date).</li>
+    <li><strong>Gives people new challenges and growth</strong> without leaving the org.</li>
+    <li><strong>Injects fresh thinking</strong> into domains that have ossified inside long-established groups.</li>
+    <li><strong>Improves accountability and ownership clarity</strong> — a crisp charter beats sprawling shared ownership.</li>
+  </ul>
+  <p class="src">Sources: <em>Team Topologies</em> (reverse Conway, cognitive load, silos, ownership) · <em>Accelerate</em> (architectural decoupling research, quoted within <em>Team Topologies</em>)</p>
+</section>
+
+<section class="card" id="why">
+  <h2>4. Why "start with why" matters when reorging</h2>
+  <ul>
+    <li><strong>Purpose is a core intrinsic motivator</strong> — a reorg without a stated why creates a purpose vacuum that anxiety and rumor fill instead.</li>
+    <li><strong>People can tell a real "why" from a fake one</strong> — reorgs driven by management convenience or headcount, not a genuine flow/architecture problem, are named as actively destructive, and the deception erodes trust.</li>
+    <li><strong>Mandates without buy-in fail.</strong> <blockquote>"Trying to fix engineering issues by mandating them from above is doomed to failure — you really need buy-in from the folks working at the coalface." — <em>Team Topologies</em> case study</blockquote></li>
+    <li><strong>Clarity of purpose reduces friction cost</strong> of new team structures and interactions.</li>
+    <li><strong>The why has to be the architecture/flow problem</strong>, not the org chart — otherwise Conway's Law pulls the structure back to old habits.</li>
+    <li><strong>You're asking people to pay a real cost</strong> (productivity dip, broken trust) — they need to understand why it's worth it.</li>
+  </ul>
+  <p class="src">Sources: <em>Team Topologies</em> (Dan Pink's purpose, reorg motive, team charter case study, Conway's Law) · <em>Accelerate</em> (burnout &amp; sense-of-purpose findings)</p>
+</section>
+
+<section class="card" id="involve">
+  <h2>5. Involving current teams &amp; team members in a reorg</h2>
+  <p>Yes — the material treats this as essential, not optional:</p>
+  <ul>
+    <li><strong>Ask teams directly about their own cognitive load</strong> — a concrete, non-judgmental question that should drive where new boundaries get drawn.</li>
+    <li><strong>Run an open workshop before mandating anything</strong> — publish a team charter and invite representatives from every affected team.</li>
+    <li><strong>Staff the new team partly from people who know the problem</strong> — carry over developers from the existing teams, don't impose entirely from outside.</li>
+    <li><strong>Broadcast the work, don't gatekeep it</strong> — ongoing visibility (demos, mob sessions, showcases) sustains buy-in beyond the kickoff.</li>
+    <li><strong>Let teams weigh in on how interactions will actually work</strong> — collaboration vs. service vs. facilitation should be a live conversation, not a decree.</li>
+    <li><strong>Both directions are needed</strong> — bottom-up enthusiasm alone stalls without leadership backing; top-down mandate alone fails without frontline buy-in.</li>
+    <li><strong>Watch for false involvement:</strong> ad-hoc reactive team creation and repeated shuffling of team members without real input are named anti-patterns, not genuine participation.</li>
+  </ul>
+  <p class="src">Source: <em>Team Topologies</em> (cognitive-load check-ins, team charter case study, anti-patterns of ad hoc design and shuffling)</p>
+</section>
+
+<section class="card" id="when">
+  <h2>6. When reorg is actually the right move</h2>
+  <p>The trap to name first: reorgs driven by "management convenience or reducing headcount" are explicitly called out as one of the most destructive patterns in software orgs. Legitimate circumstances instead:</p>
+  <ul>
+    <li><strong>A team's cognitive load has measurably exceeded capacity</strong> (via direct team check-in, not a hunch).</li>
+    <li><strong>Architecture and team structure have drifted apart</strong> (Conway's Law mismatch) — the reverse Conway maneuver.</li>
+    <li><strong>A collaboration mode has outlived its purpose</strong> — ongoing collaboration without a live discovery/capability-building reason is expensive and can mask deficiencies.</li>
+    <li><strong>Interaction friction reveals a boundary problem</strong> — e.g. a team burning hours to consume something that should be a clean "service."</li>
+    <li><strong>The organization has grown past a Dunbar threshold</strong> (~9, ~15, ~50, ~150).</li>
+    <li><strong>A capability gap needs closing</strong>, via a team with an explicit mission <em>and expiration date</em> — not a permanent new silo.</li>
+    <li><strong>Discovery is turning into steady-state delivery</strong> (or vice versa) — team interaction mode should evolve with the phase.</li>
+  </ul>
+  <p><strong>The test:</strong> <blockquote>"Given our skills, constraints, cultural and engineering maturity, desired software architecture, and business goals, which team topology will help us deliver results faster and safer?" — <em>Team Topologies</em></blockquote> If that can't be answered concretely, the reorg isn't justified yet.</p>
+  <p class="src">Source: <em>Team Topologies</em> (organizational sensing, team interaction modes, Dunbar's number, reverse Conway maneuver)</p>
+</section>
+
+<section class="card" id="references">
+  <h2>References — books used from <code>hbakesson/knowledge/books</code></h2>
+  <table>
+    <tr><th>Book</th><th>File</th><th>Used for</th></tr>
+    <tr>
+      <td><strong>Team Topologies</strong><br>Matthew Skelton &amp; Manuel Pais</td>
+      <td><code>books/teams_top.md</code></td>
+      <td>Primary source across all sections — team size &amp; Dunbar's number, the four fundamental team types, Conway's Law &amp; the reverse Conway maneuver, cognitive load, fracture planes, team interaction modes, reorg anti-patterns, organizational sensing.</td>
+    </tr>
+    <tr>
+      <td><strong>Software Engineering at Google</strong><br>Winters, Manshreck &amp; Wright</td>
+      <td><code>books/engineering_at_google.md</code></td>
+      <td>"Three pillars" of social interaction (humility, respect, trust), positive leadership patterns, "How to Work Well on Teams" / "How to Lead a Team" chapters.</td>
+    </tr>
+    <tr>
+      <td><strong>Accelerate</strong><br>Forsgren, Humble &amp; Kim</td>
+      <td><code>books/accelerate.md</code></td>
+      <td>Cited directly within Team Topologies re: architectural decoupling and team autonomy; separately referenced for research on burnout and sense of purpose.</td>
+    </tr>
+  </table>
+  <p style="margin-top:1rem;">Other files present in the repository but not drawn on for these specific answers: <code>accelerate_vs_frictionless.md</code>, <code>clean_code.md</code>, <code>devops_handbook.md</code>, <code>frictionless.md</code>, <code>sw_arch_fundamentals.md</code>, <code>thinking_fast_slow.md</code>, <code>Engineering at Google.pdf</code>.</p>
+</section>
+
+</main>
+
+<footer>
+  Compiled from <a href="https://github.com/hbakesson/knowledge/tree/main/books">github.com/hbakesson/knowledge/tree/main/books</a>. Generated as a working reference, not a verbatim reproduction of the source books.
+</footer>
+
+</body>
+</html>
