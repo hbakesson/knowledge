@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Director — Leadership Framework & Interview Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --page: #F9F8F6;
+    --surface: #FFFFFF;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.14);
+    --text-primary: #1A1916;
+    --text-secondary: #5C5B57;
+    --text-muted: #9C9B96;
+    --accent: #1B6FE8;
+    --accent-bg: #EEF4FF;
+    --accent-text: #1452B8;
+    --success-bg: #EDFAF3;
+    --success-text: #166534;
+    --danger-bg: #FEF2F2;
+    --danger-text: #991B1B;
+    --warning-bg: #FFFBEB;
+    --warning-text: #92400E;
+    --pro-bg: #F5F3FF;
+    --pro-text: #5B21B6;
+    --nav-w: 220px;
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-voice: 'Lora', Georgia, serif;
+    --radius: 8px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--page);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    gap: 48px;
+  }
+
+  /* ── Nav ── */
+  nav {
+    width: var(--nav-w);
+    flex-shrink: 0;
+    padding: 48px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .nav-logo-mark {
+    width: 28px;
+    height: 28px;
+    background: var(--text-primary);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-logo-mark svg { display: block; }
+
+  .nav-logo-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .nav-section {
+    margin-bottom: 24px;
+  }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    padding-left: 10px;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 5px 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: background 0.12s, color 0.12s;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover { background: var(--border); color: var(--text-primary); }
+
+  .nav-item.active {
+    color: var(--accent);
+    background: var(--accent-bg);
+    border-left-color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* ── Main content ── */
+  main {
+    flex: 1;
+    min-width: 0;
+    padding: 48px 0 80px;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border-strong);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .hero-title {
+    font-family: var(--font-voice);
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    line-height: 1.6;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 52px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: var(--font-voice);
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-strong);
+  }
+
+  /* ── Cards ── */
+  .card-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .col-2 { grid-template-columns: 1fr 1fr; }
+  .col-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .card.c-success { background: var(--success-bg); border-color: rgba(22,101,52,0.15); }
+  .card.c-danger  { background: var(--danger-bg);  border-color: rgba(153,27,27,0.15); }
+  .card.c-warning { background: var(--warning-bg); border-color: rgba(146,64,14,0.12); }
+  .card.c-accent  { background: var(--accent-bg);  border-color: rgba(27,111,232,0.18); }
+  .card.c-pro     { background: var(--pro-bg);     border-color: rgba(91,33,182,0.15); }
+
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .tag-yes     { background: rgba(22,101,52,0.12);  color: var(--success-text); }
+  .tag-no      { background: rgba(153,27,27,0.1);   color: var(--danger-text); }
+  .tag-warn    { background: rgba(146,64,14,0.1);   color: var(--warning-text); }
+  .tag-exec    { background: rgba(91,33,182,0.1);   color: var(--pro-text); }
+  .tag-change  { background: rgba(146,64,14,0.1);   color: var(--warning-text); }
+
+  .card-title { font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 4px; }
+  .card-body  { font-size: 12.5px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ── Priority list ── */
+  .priority-list { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 10px; overflow: hidden; }
+  .priority-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  .priority-item:last-child { border-bottom: none; }
+  .priority-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .priority-label { font-size: 13px; font-weight: 500; flex: 1; }
+  .priority-note  { font-size: 12px; color: var(--text-muted); }
+
+  /* ── STAR ── */
+  .star-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+
+  .star-card {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .star-letter {
+    font-family: var(--font-voice);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .star-word { font-size: 12px; font-weight: 600; color: var(--text-primary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .star-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ── Interview accordion ── */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .qa-item {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .qa-trigger {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    font-family: var(--font-sans);
+  }
+
+  .qa-trigger:hover { background: var(--page); }
+
+  .qa-q {
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  .qa-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-strategy { background: var(--pro-bg);     color: var(--pro-text); }
+  .badge-people   { background: var(--success-bg); color: var(--success-text); }
+  .badge-exec     { background: var(--accent-bg);  color: var(--accent-text); }
+  .badge-change   { background: var(--warning-bg); color: var(--warning-text); }
+  .badge-hard     { background: var(--danger-bg);  color: var(--danger-text); }
+
+  .qa-chevron {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+    margin-left: 4px;
+  }
+
+  .qa-item.open .qa-chevron { transform: rotate(180deg); }
+
+  .qa-answer {
+    display: none;
+    padding: 0 18px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .qa-item.open .qa-answer { display: block; }
+
+  .answer-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 12px 0 6px;
+  }
+
+  .answer-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .answer-tip {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: var(--accent-bg);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 12px;
+    color: var(--accent-text);
+    line-height: 1.6;
+  }
+
+  /* ── Callout ── */
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .callout strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ── Filter tabs ── */
+  .filter-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tab {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.12s;
+    font-family: var(--font-sans);
+  }
+
+  .filter-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── Responsive ── */
+  @media (max-width: 780px) {
+    nav { display: none; }
+    .col-2, .col-3 { grid-template-columns: 1fr; }
+    .star-grid { grid-template-columns: 1fr 1fr; }
+    .hero-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar nav ── -->
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M8 2L10.5 6.5H13.5L11 9.5L12 13.5L8 11L4 13.5L5 9.5L2.5 6.5H5.5L8 2Z" fill="white"/>
+        </svg>
+      </div>
+      <span class="nav-logo-text">Leadership OS</span>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Framework</div>
+      <a class="nav-item" href="#yes-no">Saying yes & no</a>
+      <a class="nav-item" href="#priorities">Competing priorities</a>
+      <a class="nav-item" href="#star">STAR model</a>
+      <a class="nav-item" href="#change">Driving change</a>
+      <a class="nav-item" href="#execution">Execution</a>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-section-label">Interview prep</div>
+      <a class="nav-item" href="#interview">Questions & answers</a>
+      <a class="nav-item" href="#questions-to-ask">Questions to ask the VP</a>
+    </div>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-eyebrow">Engineering Director — VP Interview</div>
+      <h1 class="hero-title">Leadership framework<br><em>& interview preparation</em></h1>
+      <p class="hero-sub">A practical reference covering decision-making, prioritisation, change leadership, and execution — with real-world Q&A prep for your VP conversation.</p>
+    </div>
+
+    <!-- Section: Yes/No -->
+    <div class="section" id="yes-no">
+      <div class="section-header">
+        <h2 class="section-title">Saying yes & no</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="card-grid col-3" style="margin-bottom:10px">
+        <div class="card c-success">
+          <span class="tag tag-yes">Say yes</span>
+          <div class="card-title">Aligns with strategy</div>
+          <div class="card-body">The request moves the team or org toward a stated goal. Clear call — commit and resource it properly.</div>
+        </div>
+        <div class="card c-success">
+          <span class="tag tag-yes">Say yes</span>
+          <div class="card-title">You own it</div>
+          <div class="card-body">It's in your remit, resources exist, and the cost of inaction is higher than the cost of doing it.</div>
+        </div>
+        <div class="card c-success">
+          <span class="tag tag-yes">Say yes</span>
+          <div class="card-title">Reversible decision</div>
+          <div class="card-body">Low cost to undo. Bias toward action — learn fast, correct course. Don't over-deliberate.</div>
+        </div>
+      </div>
+
+      <div class="card-grid col-3">
+        <div class="card c-danger">
+          <span class="tag tag-no">Say no</span>
+          <div class="card-title">Competes with P0</div>
+          <div class="card-body">Every yes is a no to something else. Guard the top priority ruthlessly, even when the ask is reasonable.</div>
+        </div>
+        <div class="card c-danger">
+          <span class="tag tag-no">Say no</span>
+          <div class="card-title">Wrong owner</div>
+          <div class="card-body">It's important but belongs to another team. Redirect clearly — don't absorb work that isn't yours to own.</div>
+        </div>
+        <div class="card c-danger">
+          <span class="tag tag-no">Say no</span>
+          <div class="card-title">Irreversible & unclear</div>
+          <div class="card-body">High stakes, low signal. Slow down, gather data, and decide when you have enough information.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Real world:</strong> When a stakeholder asks you to take on a new initiative mid-quarter, ask: "Which of our current P0s does this replace?" That question alone surfaces the real trade-off and puts the decision back where it belongs.
+      </div>
+    </div>
+
+    <!-- Section: Priorities -->
+    <div class="section" id="priorities">
+      <div class="section-header">
+        <h2 class="section-title">Competing priorities</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="priority-list">
+        <div class="priority-item">
+          <div class="priority-num">1</div>
+          <div class="priority-label">Customer impact</div>
+          <div class="priority-note">External beats internal, always</div>
+        </div>
+        <div class="priority-item">
+          <div class="priority-num">2</div>
+          <div class="priority-label">Strategic alignment</div>
+          <div class="priority-note">Tied to an OKR? Move it up the list</div>
+        </div>
+        <div class="priority-item">
+          <div class="priority-num">3</div>
+          <div class="priority-label">Time sensitivity</div>
+          <div class="priority-note">Deadline vs. urgency — not the same thing</div>
+        </div>
+        <div class="priority-item">
+          <div class="priority-num">4</div>
+          <div class="priority-label">Effort vs. return</div>
+          <div class="priority-note">Quick win, or long game? Both are valid</div>
+        </div>
+        <div class="priority-item">
+          <div class="priority-num">5</div>
+          <div class="priority-label">Cost of waiting</div>
+          <div class="priority-note">What breaks if we delay by one sprint?</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>When everything is urgent:</strong> Ask each stakeholder to rank their requests against each other, not against your list. People reprioritise quickly when they're ranking their own asks.
+      </div>
+    </div>
+
+    <!-- Section: STAR -->
+    <div class="section" id="star">
+      <div class="section-header">
+        <h2 class="section-title">STAR model</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="star-grid">
+        <div class="star-card">
+          <div class="star-letter">S</div>
+          <div class="star-word">Situation</div>
+          <div class="star-desc">What was the context? Set the scene in two sentences. Don't over-explain.</div>
+        </div>
+        <div class="star-card">
+          <div class="star-letter">T</div>
+          <div class="star-word">Task</div>
+          <div class="star-desc">What was your specific responsibility? Make your role clear — not "we", but what you owned.</div>
+        </div>
+        <div class="star-card">
+          <div class="star-letter">A</div>
+          <div class="star-word">Action</div>
+          <div class="star-desc">What did you do? This is where most time should go. Be specific on how, not just what.</div>
+        </div>
+        <div class="star-card">
+          <div class="star-letter">R</div>
+          <div class="star-word">Result</div>
+          <div class="star-desc">What was the measurable outcome? Numbers, timelines, team impact. Include what you'd do differently.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Use STAR upward too.</strong> When communicating a decision to a VP, structure it as: here's the situation, here's what I was tasked with, here's what I did and why, here's the result so far. It builds trust and makes you easy to report on.
+      </div>
+    </div>
+
+    <!-- Section: Change -->
+    <div class="section" id="change">
+      <div class="section-header">
+        <h2 class="section-title">Driving change</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="card-grid col-2">
+        <div class="card c-warning">
+          <span class="tag tag-warn">Mindset</span>
+          <div class="card-title">Start with the why</div>
+          <div class="card-body">People resist change they don't understand. Lead with the problem, not the solution. Let them feel the pain first.</div>
+        </div>
+        <div class="card c-warning">
+          <span class="tag tag-warn">Tactic</span>
+          <div class="card-title">Find early adopters</div>
+          <div class="card-body">One visible win from a trusted peer beats ten slide decks from leadership. Find your champion on the team.</div>
+        </div>
+        <div class="card c-warning">
+          <span class="tag tag-warn">Tactic</span>
+          <div class="card-title">Reduce friction in the new way</div>
+          <div class="card-body">Make the desired behaviour the path of least resistance. Default it in. Remove the steps that slow adoption.</div>
+        </div>
+        <div class="card c-warning">
+          <span class="tag tag-warn">Pitfall</span>
+          <div class="card-title">Don't announce — embed</div>
+          <div class="card-body">Change that lives in a kickoff meeting dies in a kickoff meeting. Embed it in rituals, retros, and reviews.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Execution -->
+    <div class="section" id="execution">
+      <div class="section-header">
+        <h2 class="section-title">Execution — key initiatives</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="card-grid col-3">
+        <div class="card c-accent">
+          <span class="tag tag-exec">Focus</span>
+          <div class="card-title">Three priorities max</div>
+          <div class="card-body">If everything is a key initiative, nothing is. Pick three, protect them, and be explicit about what didn't make the list.</div>
+        </div>
+        <div class="card c-accent">
+          <span class="tag tag-exec">Cadence</span>
+          <div class="card-title">Weekly check-in rhythm</div>
+          <div class="card-body">Short, structured. Status → blockers → decisions needed. Not a report to leadership — a conversation with the team.</div>
+        </div>
+        <div class="card c-accent">
+          <span class="tag tag-exec">Clarity</span>
+          <div class="card-title">Owner + deadline + done</div>
+          <div class="card-body">Every initiative needs all three. Missing any one and it will drift. "Definition of done" is the most skipped step.</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Key initiative anti-pattern:</strong> A list of eight "priorities" with no single owner and no agreed definition of done. Ask your team to name the one thing they're accountable for this quarter. If they can't, that's the first thing to fix.
+      </div>
+    </div>
+
+    <!-- Section: Interview -->
+    <div class="section" id="interview">
+      <div class="section-header">
+        <h2 class="section-title">Interview Q&A — VP round</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All questions</button>
+        <button class="filter-tab" data-filter="strategy">Strategy</button>
+        <button class="filter-tab" data-filter="people">People</button>
+        <button class="filter-tab" data-filter="exec">Execution</button>
+        <button class="filter-tab" data-filter="change">Change</button>
+        <button class="filter-tab" data-filter="hard">Hard questions</button>
+      </div>
+
+      <div class="qa-list" id="qa-list">
+
+        <div class="qa-item" data-category="strategy">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you align your engineering team's work with broader business strategy?</span>
+            <span class="qa-badge badge-strategy">Strategy</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Start by describing how you connect OKRs to engineering roadmap decisions. Explain your process for translating a business goal into a technical priority — ideally with a concrete example. Mention how you communicate this downward to the team and upward to leadership.</div>
+            <div class="answer-tip"><strong>Strong signal:</strong> "I start every quarter by asking which three customer outcomes matter most to the business, then work backwards to what the team needs to ship to enable them. I also make explicit what we're not doing and why."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="people">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">Tell me about a time you had to manage a high performer who was also difficult to work with.</span>
+            <span class="qa-badge badge-people">People</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Use STAR. Be honest that the person was valuable and that the situation required nuance. Show that you separated impact from behaviour, had a direct 1:1 conversation about the specific behaviour, and gave clear expectations with a timeline. Describe the outcome — whether they changed, or what happened next if they didn't.</div>
+            <div class="answer-tip"><strong>What VPs listen for:</strong> That you didn't avoid the conversation, that you were direct but fair, and that you protected the team from the collateral damage. Avoiding conflict is a red flag at director level.</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="exec">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you handle a situation where your team is behind on a key initiative?</span>
+            <span class="qa-badge badge-exec">Execution</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Describe a structured approach: first diagnose whether it's a scope, capacity, or clarity problem — they require different interventions. Then explain how you communicate the delay upward early (bad news doesn't age well), what you do to reset scope or timeline, and how you prevent the same pattern from repeating.</div>
+            <div class="answer-tip"><strong>Strong signal:</strong> "I'd rather tell a VP we're three weeks late in week two than in week ten. Early transparency gives us options; late disclosure just gives us apologies."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="strategy">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you make decisions when you have incomplete information?</span>
+            <span class="qa-badge badge-strategy">Strategy</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Show that you distinguish between reversible and irreversible decisions — reversible ones you make quickly with the data you have; irreversible ones you slow down on. Describe how you identify the minimum viable signal needed to proceed, and how you time-box the decision process so analysis doesn't become paralysis.</div>
+            <div class="answer-tip"><strong>Frame to use:</strong> "Most decisions at director level are two-way doors — I can walk back through if I'm wrong. For those, I'd rather make a call and learn than wait for certainty that won't come."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="people">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you develop the people on your team, particularly future leaders?</span>
+            <span class="qa-badge badge-people">People</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Talk about how you identify potential early, give stretch assignments deliberately, and create space to fail safely. Mention how you give feedback — regularly, specifically, and in both directions. If you can name someone you've developed who has moved into a leadership role, that's the strongest signal you can give.</div>
+            <div class="answer-tip"><strong>What separates directors from senior engineers:</strong> "My job is to make myself unnecessary for the day-to-day. If the team can't operate without me for two weeks, I haven't built the right structure."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="change">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">Tell me about a time you drove a significant change that was met with resistance.</span>
+            <span class="qa-badge badge-change">Change</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Use STAR. Be honest about the resistance — don't minimise it. Show that you diagnosed where it was coming from (fear, loss of ownership, genuine disagreement), adapted your approach, and built enough coalition to move forward. Describe what you'd do differently.</div>
+            <div class="answer-tip"><strong>What VPs look for:</strong> That you treated resistance as signal, not noise. Leaders who steamroll resistance tend to generate silent sabotage. Leaders who listen tend to build better solutions.</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="exec">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you handle competing demands from different stakeholders?</span>
+            <span class="qa-badge badge-exec">Execution</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Describe your prioritisation framework (customer impact, strategic alignment, effort vs. return). Explain how you bring visibility to the trade-offs rather than absorbing them quietly. Show that you escalate decisions about priority when needed, rather than trying to satisfy everyone by doing everything slowly.</div>
+            <div class="answer-tip"><strong>Powerful line:</strong> "I try to make the trade-off visible to the stakeholders themselves. When they see their request next to the P0 it would displace, the conversation changes quickly."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="hard">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">What's the biggest mistake you've made as a leader, and what did you learn?</span>
+            <span class="qa-badge badge-hard">Hard question</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Pick something real, significant enough to be credible, but not so catastrophic it defines you. Show three things: what happened, what you did to fix it, and what changed in how you lead as a result. The learning matters more than the mistake itself.</div>
+            <div class="answer-tip"><strong>What kills credibility:</strong> A "mistake" that is secretly a humble-brag ("I worked too hard") or something so minor it signals you haven't really been tested. VPs want leaders who've felt real failure and grown from it.</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="hard">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you know when to push back on your VP versus when to align and execute?</span>
+            <span class="qa-badge badge-hard">Hard question</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Show that you distinguish between disagreeing with the what (push back with data, once, clearly) vs. disagreeing with the how (more room to adapt and own it). Describe how you voice disagreement constructively — privately before publicly, with specific reasoning and an alternative, not just objection. And describe how you commit fully once a decision is made.</div>
+            <div class="answer-tip"><strong>The principle:</strong> "Disagree and commit. I'll push back once, clearly and with evidence. If the decision goes the other way, I execute it as if it were my own idea — because the team deserves a leader who's all in, not one who hedges."</div>
+          </div>
+        </div>
+
+        <div class="qa-item" data-category="people">
+          <button class="qa-trigger" onclick="toggleQA(this)">
+            <span class="qa-q">How do you keep a team motivated through a long, difficult project with uncertain outcomes?</span>
+            <span class="qa-badge badge-people">People</span>
+            <svg class="qa-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="qa-answer">
+            <div class="answer-label">Your answer framework</div>
+            <div class="answer-text">Talk about creating short-term wins within a long arc, being honest about uncertainty rather than papering over it, and connecting daily work to a mission that matters. Mention how you monitor energy levels — not just velocity — and what you do when you see the team burning out.</div>
+            <div class="answer-tip"><strong>Honest framing:</strong> "I don't try to pretend everything is fine when it isn't. The team can tell. What I can do is remind them why the hard work matters, celebrate the real milestones, and remove the obstacles that make it feel pointless."</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section: Questions to ask VP -->
+    <div class="section" id="questions-to-ask">
+      <div class="section-header">
+        <h2 class="section-title">Questions to ask the VP</h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="card-grid col-2">
+        <div class="card">
+          <div class="card-title">On the role itself</div>
+          <div class="card-body">"What does success look like for this role in the first six months — and how will you know?"</div>
+        </div>
+        <div class="card">
+          <div class="card-title">On the team</div>
+          <div class="card-body">"What's the thing the team is best at today, and what's the thing you most want to change?"</div>
+        </div>
+        <div class="card">
+          <div class="card-title">On leadership style</div>
+          <div class="card-body">"How do you prefer to receive bad news — and what's the best way to escalate a decision that needs your input?"</div>
+        </div>
+        <div class="card">
+          <div class="card-title">On strategy</div>
+          <div class="card-body">"Which of the engineering org's current priorities do you feel most uncertain about, and why?"</div>
+        </div>
+        <div class="card">
+          <div class="card-title">On culture</div>
+          <div class="card-body">"What kind of leader has thrived here, and what kind hasn't?"</div>
+        </div>
+        <div class="card">
+          <div class="card-title">On growth</div>
+          <div class="card-body">"What's the biggest opportunity you see for this team in the next year that isn't yet on the roadmap?"</div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>One rule:</strong> Don't ask questions you could have answered by reading the company website. Good questions signal you've already been thinking like someone in the role.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function toggleQA(btn) {
+    const item = btn.closest('.qa-item');
+    item.classList.toggle('open');
+  }
+
+  // Filter tabs
+  const tabs = document.querySelectorAll('.filter-tab');
+  const qaItems = document.querySelectorAll('.qa-item');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const filter = tab.dataset.filter;
+      qaItems.forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Active nav on scroll
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
