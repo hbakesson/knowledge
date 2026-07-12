@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interview Prep: Director of Continuous Improvement</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; font-size: 15px; line-height: 1.6; }
+
+  header { background: #1a1a2e; color: #fff; padding: 28px 32px; }
+  header h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  header p { color: #aaa; font-size: 13px; }
+
+  nav { background: #16213e; display: flex; gap: 0; overflow-x: auto; }
+  nav a { color: #ccc; text-decoration: none; padding: 12px 20px; font-size: 13px; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; }
+  nav a:hover, nav a.active { color: #fff; border-bottom-color: #e94560; background: rgba(255,255,255,0.05); }
+
+  main { max-width: 960px; margin: 0 auto; padding: 32px 20px; }
+
+  section { display: none; }
+  section.active { display: block; }
+
+  h2 { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: #1a1a2e; }
+  h3 { font-size: 16px; font-weight: 600; margin-bottom: 10px; color: #1a1a2e; }
+  h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #333; }
+
+  .card { background: #fff; border-radius: 8px; padding: 22px; margin-bottom: 18px; border: 1px solid #e8e8e8; }
+  .card-accent { border-left: 4px solid #e94560; }
+  .card-blue { border-left: 4px solid #0077cc; }
+  .card-green { border-left: 4px solid #27ae60; }
+  .card-orange { border-left: 4px solid #e67e22; }
+
+  .tag { display: inline-block; background: #eef2ff; color: #3a5cc5; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; margin-right: 6px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tag-red { background: #ffeef0; color: #c0392b; }
+  .tag-green { background: #eafaf1; color: #1e8449; }
+  .tag-orange { background: #fef9e7; color: #9a6c00; }
+
+  p { margin-bottom: 10px; color: #333; }
+  ul { margin-left: 20px; margin-bottom: 10px; }
+  ul li { margin-bottom: 5px; color: #333; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr; } }
+
+  .star-block { background: #f9f9f9; border-radius: 6px; padding: 16px; margin-top: 12px; }
+  .star-row { display: grid; grid-template-columns: 80px 1fr; gap: 10px; margin-bottom: 10px; align-items: start; }
+  .star-label { font-weight: 700; font-size: 13px; color: #e94560; }
+  textarea { width: 100%; border: 1px solid #ddd; border-radius: 4px; padding: 8px; font-size: 13px; font-family: inherit; resize: vertical; min-height: 56px; color: #333; background: #fff; }
+  textarea:focus { outline: none; border-color: #0077cc; }
+
+  .q-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; cursor: pointer; }
+  .q-body { margin-top: 12px; border-top: 1px solid #eee; padding-top: 12px; display: none; }
+  .q-body.open { display: block; }
+  .toggle-btn { font-size: 11px; color: #0077cc; white-space: nowrap; cursor: pointer; background: none; border: none; padding: 0; font-family: inherit; }
+
+  .framework-row { display: flex; gap: 10px; margin-bottom: 8px; }
+  .framework-key { font-weight: 700; min-width: 80px; color: #1a1a2e; }
+  .framework-val { color: #444; }
+
+  .highlight { background: #fffbea; border: 1px solid #f0e68c; border-radius: 6px; padding: 14px; margin-bottom: 14px; }
+  .highlight strong { color: #7d6008; }
+
+  .signal-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+  .signal-table th { background: #1a1a2e; color: #fff; text-align: left; padding: 8px 12px; font-weight: 600; }
+  .signal-table td { padding: 8px 12px; border-bottom: 1px solid #eee; vertical-align: top; }
+  .signal-table tr:nth-child(even) td { background: #f9f9f9; }
+
+  .progress-hint { font-size: 12px; color: #888; margin-top: 4px; }
+
+  .checklist label { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; cursor: pointer; font-size: 14px; }
+  .checklist input[type=checkbox] { margin-top: 3px; flex-shrink: 0; }
+  .checklist input:checked + span { text-decoration: line-through; color: #999; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Director of Continuous Improvement — Interview Prep</h1>
+  <p>King TSO &nbsp;·&nbsp; Interview focus: Insights · Diagnosis · Technical understanding · Stakeholder influence</p>
+</header>
+
+<nav>
+  <a href="#" class="active" onclick="show('role', this)">Role Brief</a>
+  <a href="#" onclick="show('insights', this)">Data &amp; Insights</a>
+  <a href="#" onclick="show('diagnosis', this)">Diagnosis</a>
+  <a href="#" onclick="show('technical', this)">Technical Credibility</a>
+  <a href="#" onclick="show('influence', this)">Stakeholder Influence</a>
+  <a href="#" onclick="show('questions', this)">Interview Questions</a>
+  <a href="#" onclick="show('checklist', this)">Checklist</a>
+</nav>
+
+<main>
+
+<!-- ROLE BRIEF -->
+<section id="role" class="active">
+  <h2>What this role actually is</h2>
+
+  <div class="highlight">
+    <strong>One-line summary:</strong> You are TSO's programme delivery arm. You find where the CTO org is constrained, design programmes to fix it, and drive outcomes through influence rather than authority.
+  </div>
+
+  <div class="card card-accent">
+    <h3>The first programme: Project Bloom</h3>
+    <p>Embed EM accountability for Core4 improvement (Speed, Effectiveness, Quality, Impact) across the CTO org. Must reach outcome validation by December 2026. This is already underway — you inherit and own it.</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card card-blue">
+      <h3>What they are really hiring for</h3>
+      <ul>
+        <li>Someone who can read DX/org data and turn it into a programme brief — not just a report</li>
+        <li>Credibility with senior engineers and EMs; cannot rely on title</li>
+        <li>Generative, not facilitative — you identify the problem AND build the solution</li>
+        <li>Clear writer: executive summaries AND engineering depth</li>
+      </ul>
+    </div>
+    <div class="card card-green">
+      <h3>Key relationships to name-check</h3>
+      <ul>
+        <li><strong>Colin Cashin</strong> — Bloom initiative owner (primary partner)</li>
+        <li><strong>Peter Antman</strong> — Head of DX (data partner)</li>
+        <li><strong>Head of Technology Strategy and Operations</strong> — your manager</li>
+        <li><strong>Director, PMO</strong> — OB3 reporting interface</li>
+        <li>CTO org EMs and craft leads — your audience with no formal authority</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Frameworks the role uses — know these fluently</h3>
+    <div class="framework-row"><span class="framework-key">DX Core4</span><span class="framework-val">Speed, Effectiveness, Quality, Impact — the four dimensions Bloom tracks. Know what each measures.</span></div>
+    <div class="framework-row"><span class="framework-key">DORA</span><span class="framework-val">Deployment Frequency, Lead Time for Change, Change Failure Rate, Time to Restore. Engineering velocity metrics.</span></div>
+    <div class="framework-row"><span class="framework-key">SPACE</span><span class="framework-val">Satisfaction, Performance, Activity, Communication, Efficiency. Broader developer experience framework from GitHub/Microsoft research.</span></div>
+    <div class="framework-row"><span class="framework-key">OB3</span><span class="framework-val">King's internal OKR/reporting framework. The PMO reports into it; you need to interface with it without duplicating work.</span></div>
+  </div>
+
+  <div class="card card-orange">
+    <h3>What makes you a strong fit — your angle</h3>
+    <p>You have led a C++ SDK team shipping to 5 platforms. You know what organisational friction looks like from inside an engineering team: unclear ownership, slow feedback loops, tool debt, cross-team coordination costs. You have been the EM the CTO org is trying to hold accountable. That lived experience is your credibility.</p>
+    <p>Prepare to anchor every answer in that experience. The panel will test whether you can talk to EMs as a peer — not as a process consultant.</p>
+  </div>
+</section>
+
+<!-- DATA & INSIGHTS -->
+<section id="insights">
+  <h2>Using data for org insights</h2>
+
+  <div class="highlight">
+    <strong>What they want to see:</strong> You move from signal to diagnosis to programme — not from data to dashboard. The question is always "what does this tell us about where the org is stuck?"
+  </div>
+
+  <div class="card card-blue">
+    <h3>The signal-to-programme model (build this narrative)</h3>
+    <p>The role description says: "build a repeatable model for moving from DX signal to programme brief." Have a clear mental model you can describe in 60 seconds.</p>
+    <ol style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:6px;"><strong>Collect signals</strong> — DX survey results, DORA metrics, incident patterns, EM sentiment, retro themes</li>
+      <li style="margin-bottom:6px;"><strong>Cluster and weight</strong> — which signals are consistent across teams? Which are outliers? What is the delta from last quarter?</li>
+      <li style="margin-bottom:6px;"><strong>Diagnose the constraint type</strong> — is it structure, individual behaviour, group dynamics, goal clarity, or tooling? (Use the job description's own language here)</li>
+      <li style="margin-bottom:6px;"><strong>Scope the programme response</strong> — what change, owned by whom, by when, measured how?</li>
+      <li style="margin-bottom:6px;"><strong>Validate</strong> — run the programme, track leading indicators, close the loop</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>Constraint type diagnosis table</h3>
+    <table class="signal-table">
+      <thead>
+        <tr><th>Constraint type</th><th>What it looks like in data</th><th>Programme response</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Goal clarity</strong></td>
+          <td>Teams report high effort, low impact. OKR scores don't match eng output. DX: "I don't know what success looks like."</td>
+          <td>EM workshops, goal-setting templates, Core4 anchoring</td>
+        </tr>
+        <tr>
+          <td><strong>Structure</strong></td>
+          <td>High coordination cost, slow decisions, many handoffs. Deployment frequency low despite individual productivity being high.</td>
+          <td>Team topology review, ownership model change</td>
+        </tr>
+        <tr>
+          <td><strong>Individual behaviour</strong></td>
+          <td>High variance across EMs. Some teams thriving, others stuck on same constraint for multiple quarters.</td>
+          <td>EM coaching, peer learning cohorts, Bloom-style accountability</td>
+        </tr>
+        <tr>
+          <td><strong>Group dynamics</strong></td>
+          <td>Escalations increase, retros surface same issues repeatedly, inter-team friction in post-mortems.</td>
+          <td>Facilitated retrospectives, working agreements, escalation path design</td>
+        </tr>
+        <tr>
+          <td><strong>Tooling</strong></td>
+          <td>Long build times, high toil in DX survey, manual steps in critical paths. DORA lead time high despite small PRs.</td>
+          <td>DX investment brief, prioritise with Platform/DevEx teams</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-green">
+    <h3>Talking points from your own experience</h3>
+    <p>Prepare one concrete example for each:</p>
+    <ul>
+      <li>A time you used data (build times, test pass rates, crash rates, survey data) to identify a team-level problem</li>
+      <li>A time the data was misleading and you had to go deeper to find the real constraint</li>
+      <li>A time you changed a practice or process based on metrics — and measured whether it worked</li>
+    </ul>
+  </div>
+</section>
+
+<!-- DIAGNOSIS -->
+<section id="diagnosis">
+  <h2>Diagnosis: finding the real constraint</h2>
+
+  <div class="highlight">
+    <strong>Key idea:</strong> The job description distinguishes organisational friction from technical debt as a binding constraint. Interviewers will probe whether you can make that call — and whether you have made it before.
+  </div>
+
+  <div class="card card-accent">
+    <h3>The core diagnostic question</h3>
+    <p>"Is the team slow/ineffective because of <strong>technical debt</strong> (the code is hard to change), or because of <strong>organisational friction</strong> (the way people work together is the bottleneck)?"</p>
+    <p>Both are real. The role's job is the second. But you need credibility to make that diagnosis — which means understanding the first.</p>
+  </div>
+
+  <div class="card">
+    <h3>Diagnostic signals — organisational friction vs. technical constraint</h3>
+    <table class="signal-table">
+      <thead>
+        <tr><th>Signal</th><th>Points to org friction</th><th>Points to technical constraint</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Deploy frequency is low</td>
+          <td>Process gates, review bottlenecks, unclear ownership</td>
+          <td>Long build/test cycle, fragile release pipeline</td>
+        </tr>
+        <tr>
+          <td>High incident rate</td>
+          <td>No shared definition of done, QA not integrated, unclear accountability</td>
+          <td>Architectural instability, missing test coverage</td>
+        </tr>
+        <tr>
+          <td>DX score low on "I can do my best work"</td>
+          <td>Context switching, meeting load, unclear priorities</td>
+          <td>Slow tooling, poor local dev experience</td>
+        </tr>
+        <tr>
+          <td>Core4 Impact score low</td>
+          <td>Work not connected to player/business outcome, misaligned roadmap</td>
+          <td>Technical platform doesn't support needed features</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Diagnosis method to describe in interview</h3>
+    <ol style="margin-left:20px; margin-top:8px;">
+      <li style="margin-bottom:6px;">Start with the metric that is worst. Ask: is this consistent across teams, or one outlier?</li>
+      <li style="margin-bottom:6px;">Talk to 3–4 EMs. Not to validate the metric — to understand their mental model of why.</li>
+      <li style="margin-bottom:6px;">Look for the gap between what people say in retros vs. what the data shows. That gap is often the real constraint.</li>
+      <li style="margin-bottom:6px;">Ask: if we gave this team 20% more engineers, would this number improve? If yes, it is capacity. If no, it is process or org.</li>
+      <li style="margin-bottom:6px;">Form a hypothesis. Test it cheaply before running a full programme.</li>
+    </ol>
+  </div>
+
+  <div class="card card-green">
+    <h3>Your SDK team context</h3>
+    <p>You have shipped to 5 platforms from a single C++ codebase. You know what cross-team friction costs: broken platform assumptions, misaligned release schedules, unclear API contracts, game teams blocked by SDK decisions. That is first-hand diagnosis experience.</p>
+    <p>Prepare to describe a specific case where you identified the constraint was organisational (not technical) and what you did about it.</p>
+  </div>
+</section>
+
+<!-- TECHNICAL -->
+<section id="technical">
+  <h2>Technical credibility</h2>
+
+  <div class="highlight">
+    <strong>What they need:</strong> "Sufficient technical credibility to be taken seriously in engineering conversations." You don't need to code — you need to ask the right questions and not be fooled by surface explanations.
+  </div>
+
+  <div class="card card-accent">
+    <h3>What technical credibility looks like in this role</h3>
+    <ul>
+      <li>You can read a DORA dashboard and ask the right follow-up question (e.g. "what is your average PR size?" when lead time is high)</li>
+      <li>You know the difference between build time, test time, and review time — and which is the bottleneck</li>
+      <li>You can hold a conversation about platform boundaries, SDK versioning, and why a "simple fix" takes three weeks</li>
+      <li>You don't accept "it's complicated" — you ask for the specific complication</li>
+      <li>You have shipped software. Engineers will respect that history.</li>
+    </ul>
+  </div>
+
+  <div class="card card-blue">
+    <h3>DX Core4 — know this cold</h3>
+    <table class="signal-table">
+      <thead>
+        <tr><th>Dimension</th><th>What it measures</th><th>Common engineering signal</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Speed</strong></td><td>How fast work flows from idea to production</td><td>Lead time, deploy frequency, PR cycle time</td></tr>
+        <tr><td><strong>Effectiveness</strong></td><td>How well engineers can do their best work</td><td>DX survey, meeting load, interruptions, tool quality</td></tr>
+        <tr><td><strong>Quality</strong></td><td>Stability and reliability of what is shipped</td><td>Change failure rate, incident rate, MTTR</td></tr>
+        <tr><td><strong>Impact</strong></td><td>Whether work connects to business/player outcomes</td><td>OKR alignment, feature usage, game metrics</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card card-green">
+    <h3>Talking points from your C++ SDK background</h3>
+    <ul>
+      <li>Multi-platform SDK delivery: the challenge of one codebase, five runtimes, different release cadences per platform</li>
+      <li>Build system complexity: incremental builds, CI times, cross-compilation — you know what "slow feedback loop" actually costs a developer's day</li>
+      <li>API surface management: backward compatibility, versioning, game team integration — you understand the cost of breaking changes</li>
+      <li>Testing strategy across platforms: unit, integration, device farms — and what happens when test coverage gaps cause production incidents</li>
+      <li>Developer experience as a product: you have been both the SDK owner and the internal customer of other platform teams</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>What to avoid</h3>
+    <ul>
+      <li>Do not go deep into implementation details — this role is about the system, not the code</li>
+      <li>Do not claim expertise you don't have; senior engineers will probe it</li>
+      <li>Do not frame technical conversations as "I will rely on the engineers to explain it" — that signals you are not a peer</li>
+    </ul>
+  </div>
+</section>
+
+<!-- STAKEHOLDER INFLUENCE -->
+<section id="influence">
+  <h2>Building influence without authority</h2>
+
+  <div class="highlight">
+    <strong>This is the hardest part of the role.</strong> You drive outcomes with senior EMs and craft leads who have no reporting line to you. The job description says: "drives outcomes through commitment and credibility."
+  </div>
+
+  <div class="card card-accent">
+    <h3>The influence model — three levers</h3>
+    <div class="grid2">
+      <div>
+        <h4>1. Credibility</h4>
+        <p>You know what you are talking about. You have done the work. Engineers and EMs take you seriously in a technical conversation. You do not need to be told the answer — you come with a diagnosis.</p>
+      </div>
+      <div>
+        <h4>2. Evidence</h4>
+        <p>You use data to name the problem specifically. "Your lead time is 3x the org median and has been for two quarters" is harder to dismiss than "I think there might be a flow problem."</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:12px;">
+      <div>
+        <h4>3. Connection to what they care about</h4>
+        <p>EMs care about their team's output and their own credibility with leadership. Frame the programme in terms of what it does for them and their team — not for TSO's reporting.</p>
+      </div>
+      <div>
+        <h4>4. Honest feedback loops</h4>
+        <p>The job description explicitly names this. People engage when they trust you will hear bad news and not punish them for it. Build that reputation early.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Influencing senior leadership (CTO org)</h3>
+    <ul>
+      <li><strong>Lead with the headline:</strong> what is the problem, how big is it, what does fixing it unlock</li>
+      <li><strong>Quantify the cost of inaction:</strong> if this constraint stays, what does it cost over 6 months?</li>
+      <li><strong>Give them a decision, not a discussion:</strong> bring options with a recommendation, not an open question</li>
+      <li><strong>Track and report progress visibly:</strong> monthly check-in with a one-pager. No surprises.</li>
+      <li><strong>Name the risks early:</strong> senior leaders trust people who flag problems before they escalate</li>
+    </ul>
+  </div>
+
+  <div class="card card-green">
+    <h3>Influencing EMs and craft leads (no formal authority)</h3>
+    <ul>
+      <li>Start with listening, not prescribing — they know their team, you know the org pattern</li>
+      <li>Show the data specific to their team, then the org comparison — most EMs respond to peer comparison</li>
+      <li>Make it easy to participate: lightweight asks, clear what is expected, visible when they act</li>
+      <li>Give them the win: when a team improves, make sure their EM is visible as the driver of that improvement</li>
+      <li>Distinguish resistance from disagreement — resistance is about trust, disagreement is about the approach. Treat them differently.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Prepare a story for each of these</h3>
+    <ul>
+      <li>A time you changed someone's mind (senior) with data and argument, not authority</li>
+      <li>A time someone resisted and you got them on board — what was the real barrier?</li>
+      <li>A time you had to escalate because influence wasn't enough — and how you handled it</li>
+      <li>A time you had to be honest with a leader about something they didn't want to hear</li>
+    </ul>
+  </div>
+</section>
+
+<!-- INTERVIEW QUESTIONS -->
+<section id="questions">
+  <h2>Interview questions and STAR prep</h2>
+
+  <p style="margin-bottom:18px;">Click "Expand" to open each question and fill in your answer. The STAR boxes save in your browser session.</p>
+
+  <!-- Q1 -->
+  <div class="card" id="q1">
+    <div class="q-header" onclick="toggleQ('q1body')">
+      <div>
+        <span class="tag">Insights</span>
+        <h3 style="margin-top:6px;">Tell me about a time you used data to identify an organisational problem. How did you turn that insight into action?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q1body">
+      <p class="progress-hint">What they probe: can you go from metric to diagnosis to intervention — not just from metric to report.</p>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="The context: what team, what metric, what time period..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What was your role? What decision or change needed to happen?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="What data did you use? How did you diagnose the root cause? What did you design or change?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What changed? What did you measure to know it worked?"></textarea></div>
+      </div>
+      <div class="highlight" style="margin-top:12px;">
+        <strong>Tip:</strong> Name the specific metric (e.g. "our build-to-test cycle was 45 minutes on average"). Generic answers like "we looked at velocity" are weak here.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" id="q2">
+    <div class="q-header" onclick="toggleQ('q2body')">
+      <div>
+        <span class="tag">Diagnosis</span>
+        <h3 style="margin-top:6px;">How do you tell the difference between a technical problem and an organisational one? Give an example where you got that diagnosis right — or wrong.</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q2body">
+      <p class="progress-hint">What they probe: your diagnostic rigour. A wrong-diagnosis example is actually stronger — shows self-awareness and learning.</p>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="Describe the problem as it appeared on the surface..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What was your job? Find the root cause? Recommend a solution?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="How did you investigate? What questions did you ask? What data did you pull?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What was the real constraint? What was the outcome of the fix?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" id="q3">
+    <div class="q-header" onclick="toggleQ('q3body')">
+      <div>
+        <span class="tag">Influence</span>
+        <h3 style="margin-top:6px;">Describe a time you drove a significant change without formal authority. What was your approach and what did you learn?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q3body">
+      <p class="progress-hint">What they probe: your influence toolkit. They want to see evidence of credibility-based and evidence-based influence, not just persistence.</p>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="Who needed to change? Why did you have no formal authority over them?"></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What was the outcome you needed to drive?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="How did you build the case? Who did you engage first? How did you handle resistance?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="Did the change happen? What was the measurable outcome?"></textarea></div>
+      </div>
+      <div class="highlight" style="margin-top:12px;">
+        <strong>Tip:</strong> Name the specific stakeholder level (e.g. "a VP who was skeptical"). Vague seniority reads as inflated.
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" id="q4">
+    <div class="q-header" onclick="toggleQ('q4body')">
+      <div>
+        <span class="tag">Influence</span>
+        <span class="tag-orange">Leadership</span>
+        <h3 style="margin-top:6px;">How have you built relationships with senior leaders in a new organisation? What did you do in the first 90 days to establish credibility?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q4body">
+      <p class="progress-hint">What they probe: your intentionality about trust-building. This is a new function — they need confidence you can land quickly.</p>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="New role, new org, or new stakeholder group..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What did you need to establish and by when?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="Specific meetings, deliverables, moments where you demonstrated value early..."></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="How did you know you had earned credibility? What opened up that hadn't before?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" id="q5">
+    <div class="q-header" onclick="toggleQ('q5body')">
+      <div>
+        <span class="tag">Programme design</span>
+        <h3 style="margin-top:6px;">Walk me through how you would design a programme from scratch. What does good look like from brief to outcome?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q5body">
+      <p class="progress-hint">What they probe: your programme management rigour. This is a core competency for the role.</p>
+      <div class="highlight">
+        <strong>Key elements to cover:</strong> diagnosis phase → success metrics defined upfront → accountability model → milestones → risk tracking → escalation path → outcome validation → retrospective. Don't just list phases — explain the choices.
+      </div>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="A real programme you designed — or describe how you would approach Bloom specifically..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What problem were you solving? How did you scope it?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="Step by step: how did you go from brief to running programme? Who was involved? What artefacts did you produce?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What did success look like? How did you validate it?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="card" id="q6">
+    <div class="q-header" onclick="toggleQ('q6body')">
+      <div>
+        <span class="tag">Technical</span>
+        <h3 style="margin-top:6px;">You are reviewing DX survey results and see that "I can do my best work" scores are low across three engineering teams. How do you investigate and what do you do next?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q6body">
+      <p class="progress-hint">What they probe: your signal-to-diagnosis-to-action loop. They want to see you go deeper than "run a workshop."</p>
+      <div class="highlight">
+        <strong>Strong answer covers:</strong> what other signals you cross-reference (DORA, incident rate, meeting load, PR review time), how you talk to EMs without leading the conversation, how you distinguish a team-level problem from an org-level one, and how you decide whether this warrants a programme or a lighter intervention.
+      </div>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="You can describe this as a hypothetical or anchor to a real experience..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What question are you trying to answer first?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="Step through your investigation. Be specific about methods and conversations."></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What does a good outcome look like at this stage?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="card" id="q7">
+    <div class="q-header" onclick="toggleQ('q7body')">
+      <div>
+        <span class="tag">Influence</span>
+        <span class="tag-red">Hard</span>
+        <h3 style="margin-top:6px;">Tell me about a time you had to deliver news to senior leadership that they did not want to hear. How did you handle it?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q7body">
+      <p class="progress-hint">What they probe: honesty and courage. This role must surface what is not working. If you only report good news, you are useless to them.</p>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="What was the news? Why was it unwelcome?"></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What was your responsibility in that moment?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="How did you prepare? How did you frame it? What happened in the room?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What came of it? How did it affect the relationship?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="card" id="q8">
+    <div class="q-header" onclick="toggleQ('q8body')">
+      <div>
+        <span class="tag tag-orange">Bloom-specific</span>
+        <h3 style="margin-top:6px;">Project Bloom is already underway. How would you approach inheriting an in-flight programme and making it your own without disrupting momentum?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q8body">
+      <p class="progress-hint">What they probe: your onboarding judgement. Moving too fast breaks trust; moving too slow signals you are not generative.</p>
+      <div class="highlight">
+        <strong>Key points to make:</strong> first 30 days is listening and understanding the current state and commitments. Identify what is working and what is not before touching anything. Build relationships with Colin Cashin and Peter Antman before proposing changes. Clarify success metrics upfront — what does "outcome validation by December 2026" actually mean in measurable terms?
+      </div>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="Describe a real example of inheriting in-flight work — or frame your Bloom approach directly..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What did you need to achieve and how quickly?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="What did you do first? What did you deliberately not do?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What was the outcome?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="card" id="q9">
+    <div class="q-header" onclick="toggleQ('q9body')">
+      <div>
+        <span class="tag">Role fit</span>
+        <h3 style="margin-top:6px;">This is a senior individual contributor role, not a management role. How do you think about your impact when you don't have a team reporting to you?</h3>
+      </div>
+      <button class="toggle-btn">Expand</button>
+    </div>
+    <div class="q-body" id="q9body">
+      <p class="progress-hint">What they probe: whether you are comfortable with IC impact at senior level. Some EMs struggle without a team.</p>
+      <div class="highlight">
+        <strong>Key angle:</strong> your leverage is the programme and the insight, not headcount. A well-designed programme run through the org's EMs is more scalable than anything one manager's team can build. Frame that as a feature, not a limitation.
+      </div>
+      <div class="star-block">
+        <div class="star-row"><span class="star-label">Situation</span><textarea placeholder="Describe a time your impact was through influence rather than through your team..."></textarea></div>
+        <div class="star-row"><span class="star-label">Task</span><textarea placeholder="What were you trying to achieve?"></textarea></div>
+        <div class="star-row"><span class="star-label">Action</span><textarea placeholder="What did you do personally, not via your team?"></textarea></div>
+        <div class="star-row"><span class="star-label">Result</span><textarea placeholder="What was the outcome? How did you measure your own contribution?"></textarea></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Questions to ask them -->
+  <div class="card card-blue" style="margin-top:28px;">
+    <h3>Questions to ask the panel</h3>
+    <ul>
+      <li>What does success for this role look like at 6 months? What would make you say "this was the right hire"?</li>
+      <li>How mature is the DX data infrastructure today? Can I query it directly, or does it come through Peter Antman's team?</li>
+      <li>Where is Project Bloom right now — what milestones have been hit and what is the next one?</li>
+      <li>When you say EMs are accountable for Core4 improvement — what does accountability actually mean in practice? Is it in their performance review?</li>
+      <li>What has TSO tried before in continuous improvement that didn't work? What should I avoid?</li>
+      <li>How does this role relate to the Director, PMO day to day? Where are the natural tensions?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <h2>Pre-interview checklist</h2>
+
+  <div class="card card-accent">
+    <h3>Know cold</h3>
+    <div class="checklist">
+      <label><input type="checkbox"><span>DX Core4: Speed, Effectiveness, Quality, Impact — one concrete example per dimension</span></label>
+      <label><input type="checkbox"><span>DORA four metrics: names, definitions, what moves each one</span></label>
+      <label><input type="checkbox"><span>Project Bloom: what it is, who owns it (Colin Cashin), what "outcome validation by December 2026" means</span></label>
+      <label><input type="checkbox"><span>Your signal-to-programme model: practise explaining it in 60 seconds</span></label>
+      <label><input type="checkbox"><span>Constraint type taxonomy: structure / individual behaviour / group dynamics / goal clarity / tooling</span></label>
+    </div>
+  </div>
+
+  <div class="card card-blue">
+    <h3>Stories prepared (STAR format)</h3>
+    <div class="checklist">
+      <label><input type="checkbox"><span>Data to diagnosis to action — one strong example</span></label>
+      <label><input type="checkbox"><span>Organisational vs. technical constraint diagnosis — with a real case</span></label>
+      <label><input type="checkbox"><span>Influence without authority — senior stakeholder, specific outcome</span></label>
+      <label><input type="checkbox"><span>Delivering bad news to leadership</span></label>
+      <label><input type="checkbox"><span>Inheriting or joining an in-flight initiative</span></label>
+      <label><input type="checkbox"><span>Building credibility quickly in a new environment</span></label>
+      <label><input type="checkbox"><span>IC impact (no team reporting to you)</span></label>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h3>Positioning</h3>
+    <div class="checklist">
+      <label><input type="checkbox"><span>Can articulate why your EM + SDK background makes you credible with the engineering audience</span></label>
+      <label><input type="checkbox"><span>Can explain why you want this specific role, not just a director role</span></label>
+      <label><input type="checkbox"><span>Have named the key people (Colin Cashin, Peter Antman) and know their roles</span></label>
+      <label><input type="checkbox"><span>Have prepared 5–6 questions to ask the panel</span></label>
+      <label><input type="checkbox"><span>Have practised keeping answers to 2–3 minutes (STAR discipline)</span></label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Day-of reminders</h3>
+    <div class="checklist">
+      <label><input type="checkbox"><span>Start every STAR answer with the business context, not the personal action</span></label>
+      <label><input type="checkbox"><span>Use numbers where possible — not "improved significantly" but "went from X to Y"</span></label>
+      <label><input type="checkbox"><span>Name the stakeholders specifically (title, not just "a senior leader")</span></label>
+      <label><input type="checkbox"><span>When you don't have a perfect example, say so and use the closest analogue — do not fabricate</span></label>
+      <label><input type="checkbox"><span>Close every STAR with the result AND what you learned</span></label>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+function show(id, link) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  link.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function toggleQ(id) {
+  const body = document.getElementById(id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open');
+  const btn = body.previousElementSibling.querySelector('.toggle-btn');
+  btn.textContent = isOpen ? 'Expand' : 'Collapse';
+}
+</script>
+
+</body>
+</html>
